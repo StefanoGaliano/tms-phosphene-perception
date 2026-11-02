@@ -45,6 +45,21 @@ search snippets. Anything not checked that way is marked **unverified**.
 - **Task coverage (from the S3 file listing, all 36 subjects):** 32 subjects have all three
   tasks (`nocue`, `noninformative`, `informative`); 4 have two: 2 x `informative`+`nocue`,
   1 x `informative`+`noninformative`, 1 x `nocue`+`noninformative` (sub-01).
+- **`task-noninformative` uses other codes, undocumented:** sub-01 has 1 and 2 (200 each:
+  probably the cue left/right), 101-104 and 111-114 (45 each: the Gabors, probably valid/invalid
+  cue x side x orientation), 98 and 99 (20 each: probably catch), plus 121/122, 124/125, 128. Its
+  `events.json` is a copy of the no-cue one (lists 11-32), so these meanings must be inferred
+  (counts, timing relative to the cue, the `gabor_contrast` column) and checked before use.
+- **Hit rates (seen / Gabor trials, from all `events.tsv` of `nocue` and `informative`,
+  2026-11-02):** median 0.49 (nocue) and 0.46 (informative), maximum 0.55; false alarms on catch
+  trials median 0.05 / 0.025. Pooled per subject: 0.20-0.53, median 0.47. This is by design: the
+  paper's staircase (PEST + up-down) ends calibration when seen responses are 30-70 % and then
+  keeps contrast near threshold. No subject reaches a 70 % hit rate.
+- **Paper facts (Melcón et al. 2024, open access, CC BY-NC 4.0, `../papers_to_work/`):** the
+  yes/no alternatives' screen position "varied randomly in each trial", answered with the left or
+  right thumb on a numerical keyboard; the position is not in the events (only 124/125). The
+  paper analyses prestimulus alpha only (no post-stimulus ERPs), so VAN/P3b windows need another
+  source. EEG analysed in 29, 28, 31 participants per task (ocular-artifact exclusion > 45 %).
 - **To check before use:** `participants.tsv` lists `sub-001`, `sub-002`, ... with ages 60, 67
   and session columns, which does not match the `sub-01` folders or a young-adult sample: it may
   belong to another dataset. The `sample` column of `events.tsv` holds non-numeric characters

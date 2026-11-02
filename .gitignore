@@ -1,0 +1,12 @@
+# Data and derivatives are never committed (ds006171 is ~73 GB)
+sourcedata/
+runs/
+*.fif
+*.bdf
+# Python
+__pycache__/
+*.egg-info/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

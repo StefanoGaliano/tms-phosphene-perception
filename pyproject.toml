@@ -47,8 +47,8 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 # real-data tests: pytest -m real (skipped by default; need sourcedata/ds006171)
-addopts = "-ra --strict-markers -m \"not real\""
+addopts = "-ra --strict-markers -m \"not real and not slow\""
 markers = [
     "real: needs downloaded ds006171 data in sourcedata/",
-    "slow: slow tests",
+    "slow: synthetic end-to-end through eegunify (minutes): pytest -m slow",
 ]

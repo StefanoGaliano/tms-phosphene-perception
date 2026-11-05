@@ -69,6 +69,33 @@ Why it fits: identical (near-threshold) stimuli with a seen/unseen report on eve
 catch trials for false alarms, a photodiode for exact onsets, 128 channels for topographies and
 source analysis, a format eegunify already reads (BDF, BioSemi Status masking).
 
+#### Step 3 checks on the full download (2026-11-05, all 104 BDFs, read from the files)
+
+- **Complete:** 104 BDFs, 72,823,531,520 bytes, equal to the S3 listing (`results/phase1/inventory.tsv`).
+- **Channel names:** the BDFs use BioSemi positional names (`A1..D32`, `EXG1..EXG8`). The 10-05
+  names exist only in `channels.tsv`, which is identical in all 104 recordings and lists the
+  channels in the BDF order (`A1`=Cz ... `D32`=P9, `EXG1-4`=VEOG1, VEOG2, HEOG1, HEOG2,
+  `EXG5-8`=EXG1-4). eegunify's automatic BioSemi mapping covers only 64-channel caps, so the
+  template carries an explicit `channels.rename` generated from `channels.tsv`.
+- **272-channel files:** 9 recordings (sub-02 informative/nocue, sub-04 all three, sub-05 all
+  three, sub-11 informative) also carry unused slots `E1..H32`. Their `F1..F32` would collide
+  with the renamed 10-05 `F` names, so the template renames them to `unused_*` and drops them.
+- **Sampling rate:** 4 recordings are at **2048 Hz**, not the 1024 Hz of `_eeg.json`
+  (sub-35 informative/noninformative, sub-36 informative/nocue). Resampling to 256 Hz absorbs it;
+  any sample arithmetic in `sv-stage` must use each file's own rate.
+- **Status vs `events.tsv`:** the code sequences are identical in 103 of 104 files. In
+  sub-23 nocue, Status has one extra code `6`, 1 ms before a `22` (a trigger-bit transition):
+  `sv-stage` must drop codes outside the known set. Onsets agree within 0.5 ms up to 1000 s, then
+  differ by up to 5.0 ms: `events.tsv` writes onsets with 6 significant digits (`1000.13`), i.e.
+  10 ms precision after 1000 s. So Status is the timing source (D2), and the D2 cross-check
+  tolerance must be 5 ms (not 2 samples).
+- **EOG order:** not settled from the data. Correlations of each EOG electrode with Fpz (blinks)
+  and F7/F8 (saccades), on 8 subjects' nocue recordings, had inconsistent signs across subjects.
+  The paper says only "above and below one eye, lateral to both eyes". Decision: keep
+  VEOG1-VEOG2 and HEOG1-HEOG2 as recorded. eegunify's HEOG step rule uses |step| and its ICA EOG
+  match uses |z|, so no rejection depends on the sign; signed EOG plots are not read as
+  up/down or left/right.
+
 ### Eklund & Wiens 2018 — second dataset candidate (verified 2026-11-05)
 
 - **Data:** figshare doi:10.17045/sthlmuni.5418967, CC BY 4.0. Raw BioSemi `.bdf` in 4 zips

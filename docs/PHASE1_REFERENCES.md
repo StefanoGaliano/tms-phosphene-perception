@@ -107,3 +107,19 @@ the contralateral form can be compared with the Step 10 targets above.
 **Decision:** the primary measure is contra(seen_m) minus contra(unseen_m) at O1/O2 in 180-280 ms,
 the same as Eklund. The double difference is secondary. Computed in `analysis/lateral.py` from
 the eegunify `lateralized` parent waves.
+
+## 7. Subject exclusion rules for Step 10 (fixed 2026-11-05, before the group effects were seen)
+
+Applied per subject, from behaviour and QA only (never from the ERP effects):
+
+1. **Behaviour (user decision 2):** pooled hit rate (seen / Gabor trials, all tasks the subject
+   has) within 30-70 % **and** pooled catch false-alarm rate <= 20 %.
+2. **Artifacts (the dataset paper's rule, §1):** Melcón et al. excluded participants with
+   > 45 % of trials with ocular artifacts. Proxy here: > 45 % of a task's epochs rejected
+   (all rules: HEOG step on F7-F8 and peak-to-peak) excludes that subject x task.
+3. **Trial count (blueprint):** < 30 epochs in seen_m or unseen_m after rejection excludes that
+   subject x task (eegunify's EPOCHS_MIN_TRIALS check already fails such recordings).
+4. A subject enters the **pooled** scope with whichever of its tasks pass 2-3; the lateral
+   (contralateral and double-difference) measures use nocue + informative only (decision 6).
+
+Exclusions are listed in `results/phase1/summary.md` with the rule that removed them.

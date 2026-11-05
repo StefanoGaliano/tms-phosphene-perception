@@ -79,8 +79,13 @@ not give the onset of any component. Use the windowed measures for that.
 - **Hit / FA rates by task (mean):** hit rate 0.47-0.49; FA rate 0.07-0.08. The staircase works.
 - **Orientation check:** accuracy is 0.85-0.90 on seen trials and 0.51-0.52 on unseen trials, close
   to chance. Unseen reports therefore mean little orientation information.
-- **FA vs CR wave: not possible.** Only 3 of 104 recordings reach the 10 false alarms the wave
-  needs, so this control is reported as not done.
+- **FA vs CR wave: per task not possible, pooled exploratory and null.** Only 3 of 104
+  recordings reach the 10 false alarms the wave needs. Pooled across each subject's tasks, 9
+  included subjects keep >= 10 FA and >= 10 CR epochs (rule `MIN_FA` in `report.py`). FA minus
+  CR: VAN window +0.66 µV (t = 1.07, p = 0.32, d_z +0.36 [-0.32, 1.26]); LP window -0.30 µV
+  (p = 0.76). No awareness-like signature on "seen" reports without a stimulus, but N = 9 gives
+  little power, so this is not evidence of absence (`group.tsv`, form `fa_minus_cr`; per-task
+  rows with N = 1 carry no test).
 - **eegunify reproduction:** our t and d_z equal eegunify's group stage to below 1e-6 in 6 of 6
   rows (N = 33, eegunify's own subject set).
 
@@ -92,10 +97,22 @@ not give the onset of any component. Use the windowed measures for that.
 - `figures/subjects_pooled.png`: per-subject effects. The double difference is negative in most
   subjects, and the LP is positive in all 34.
 - `figures/topo_pooled.png`: topographies in the VAN and LP windows.
-- Only pooled figures are written. Per-task figures are not generated yet.
+- The same three figures per task: `waves_<task>.png`, `subjects_<task>.png`, `topo_<task>.png`
+  (noninformative has no lateral panel, decision 6).
+
+## Rerun stability (Step 11)
+
+A full `sv-analyze` rerun (2026-11-05) reproduces every one of the 440 per-subject rows exactly
+(max |change| 0.0 µV).
 
 ## Open
 
-- The FA vs CR control has too few false alarms (above).
-- Per-task figures are not written yet.
-- The LP size difference from Eklund is not explained yet (above).
+- The LP size difference from Eklund is not explained. The report-on-every-trial hypothesis
+  cannot be tested inside ds006171 (every trial has a report). Other differences that could
+  contribute, untested: Eklund's aware/unaware classes required a correct localization and
+  "aware" pooled weak and clear ratings, while ds006171 has a yes/no report; 128-channel versus
+  64-channel + nose average reference; P3/P4 mapped to CPP3/CPP4 (`PHASE1_REFERENCES.md` §4).
+  The LP is not a primary measure and has the expected direction.
+- The FA vs CR control has low power (N = 9, above).
+- Robustness check to run later: saccade-rejection version B (ICA only, no HEOG step rule;
+  decision 5), skipped for the v1.0 freeze.

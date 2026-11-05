@@ -35,3 +35,17 @@ def test_ds006171_sub23_status_glitch() -> None:
         pytest.skip("sub-23 not downloaded")
     tr, _, dropped, _ = stage_trials(bdf, "nocue")
     assert dropped == [6] and len(tr) == 400
+
+
+def test_ds006171_epochs_metadata_join_real() -> None:
+    import mne
+
+    from start_vision.trials import attach_metadata, staged_events
+
+    f = (Path(__file__).parents[1] / "runs/nocue/derivatives/eegunify-epochs/sub-03/eeg"
+         / "sub-03_task-nocue_desc-stimraw_epo.fif")
+    if not f.exists():
+        pytest.skip("runs/nocue sub-03 not built")
+    ep = mne.read_epochs(f, preload=False, verbose="error")
+    m = attach_metadata(ep, staged_events(ROOT.parent / "staged" / "ds006171", "03", "nocue"))
+    assert len(m.metadata) == len(ep) == 308

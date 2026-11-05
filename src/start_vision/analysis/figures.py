@@ -68,15 +68,19 @@ def _roi(ev: mne.Evoked, chans: tuple[str, ...]) -> np.ndarray:
 
 def waves(per_subject: dict[str, dict[str, mne.Evoked]], scope: str, out: Path) -> Path:
     """Grand-average seen/unseen and the difference with a 95 % CI, one column per measure."""
+    panels = [
+        v for v in PANELS.values() if any(v[0] in e and v[1] in e for e in per_subject.values())
+    ]
     fig, axes = plt.subplots(
         2,
-        len(PANELS),
-        figsize=(4.6 * len(PANELS), 6.2),
+        len(panels),
+        figsize=(4.6 * len(panels), 6.2),
+        squeeze=False,
         sharex=True,
         gridspec_kw={"height_ratios": [1.4, 1]},
         facecolor=SURFACE,
     )
-    for j, (sw, uw, chans, win, title) in enumerate(PANELS.values()):
+    for j, (sw, uw, chans, win, title) in enumerate(panels):
         subs = [s for s, e in per_subject.items() if sw in e and uw in e]
         if not subs:
             axes[0, j].set_visible(False)

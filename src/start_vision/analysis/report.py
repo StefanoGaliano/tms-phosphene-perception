@@ -55,7 +55,17 @@ def subject_measures(evs: dict[str, mne.Evoked]) -> list[dict[str, Any]]:
         s, u = evs["seen_lat"], evs["unseen_lat"]
         a, b = lateral.window_mean(s), lateral.window_mean(u)
         add("van", "double_difference", s, u, a - b, a, b)
+    # FA vs CR (report without stimulus): exploratory; only with >= MIN_FA kept FA epochs.
+    # Per task almost nobody qualifies (3/104), so in practice this lives in the pooled scope.
+    if "fa" in evs and "cr" in evs and evs["fa"].nave >= MIN_FA and evs["cr"].nave >= MIN_FA:
+        s, u = evs["fa"], evs["cr"]
+        for comp, sites, win in (("van", VAN_SITES, VAN_WIN), ("lp", LP_SITES, LP_WIN)):
+            a, b = _mean(s, sites, win), _mean(u, sites, win)
+            add(comp, "fa_minus_cr", s, u, a - b, a, b)
     return rows
+
+
+MIN_FA = 10  # PHASE1_BLUEPRINT §8 Step 10 (FA-vs-CR wave needs >= 10 false alarms)
 
 
 MIN_TRIALS, MAX_REJECTED = 30, 0.45  # PHASE1_REFERENCES §7 rules 2-3
@@ -183,6 +193,14 @@ def build(
             figures.dots(per_df, grp_df, "pooled", figures_out),
             figures.topomaps(pooled, "pooled", figures_out),
         ]
+        for task in tasks:
+            per_task = {s: e[task] for s, e in by_sub.items() if task in e}
+            if len(per_task) >= 2:
+                figs += [
+                    figures.waves(per_task, task, figures_out),
+                    figures.dots(per_df, grp_df, task, figures_out),
+                    figures.topomaps(per_task, task, figures_out),
+                ]
     return {
         "per_subject": per_df,
         "group": grp_df,

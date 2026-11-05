@@ -14,7 +14,17 @@ def _not_built(name: str, step: int) -> None:
 
 
 def inventory() -> None:
-    _not_built("sv-inventory", 3)
+    """Write results/phase1/inventory.tsv from the S3 listing of ds006171."""
+    from pathlib import Path
+
+    from start_vision.inventory import list_remote
+
+    df = list_remote()
+    out = Path("results/phase1/inventory.tsv")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out, sep="\t", index=False)
+    print(f"{len(df)} subjects, {df['bytes'].sum() / 1e9:.1f} GB -> {out}")
+    print(df["n_tasks"].value_counts().sort_index().to_string())
 
 
 def stage() -> None:

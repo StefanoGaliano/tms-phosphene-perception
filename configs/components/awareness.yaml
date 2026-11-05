@@ -1,0 +1,39 @@
+# Awareness ERP components for ds006171. Every value comes from docs/PHASE1_REFERENCES.md,
+# which cites the source section, table or code line. Nothing here is typed from memory.
+# Primary source: Eklund & Wiens 2018, Cogn Affect Behav Neurosci 18:176-188
+# (doi:10.3758/s13415-018-0562-z; PMC5823961; code figshare doi:10.17045/sthlmuni.5418967).
+
+van@awareness:
+  name: VAN (visual awareness negativity)
+  citation: Eklund & Wiens 2018, ERP analysis section; analyze_VAN.m lines 24-26
+  epoch_set: stim
+  contrast: seen_minus_unseen_m
+  window_ms: [180, 280]
+  rois: {primary: [O1, O2]}
+  lateralized_pairs: [[O1, O2]]
+  measures: [mean_amplitude, fractional_area_latency]
+  polarity: negative
+  reference: average
+  notes: >-
+    The source measures contralateral sites only (O1 for right-field, O2 for left-field Gabors).
+    The primary Phase 1 measure is therefore contra(seen_m) - contra(unseen_m), computed in
+    start_vision.analysis.lateral from the seen_lat / unseen_lat parent waves with this window
+    and these pairs (user decision 4). This eegunify entry (bilateral O1/O2 on the plain
+    contrast) and the double difference are secondary. Step 10 target: negative; Eklund Table 2
+    -1.58 uV (large) / -1.41 uV (small Gabor).
+
+lp@awareness:
+  name: P3b / late positivity (report/task control)
+  citation: Eklund & Wiens 2018, ERP analysis section; analyze_VAN.m lines 28-29
+  epoch_set: stim
+  contrast: seen_minus_unseen_m
+  window_ms: [350, 550]
+  rois: {primary: [Pz, CPP3, CPP4]}
+  measures: [mean_amplitude, fractional_area_latency]
+  polarity: positive
+  reference: average
+  notes: >-
+    Source sites P3, Pz, P4 (code and Methods; the paper's Results text says P1/Pz/P2, a typo).
+    P3 -> CPP3 (10.8 mm) and P4 -> CPP4 (10.4 mm) on the 128-channel ABC cap
+    (PHASE1_REFERENCES.md section 4). Read as a report/task control, not as an NCC candidate
+    (idea 001). Step 10 target: positive; Eklund Table 2 +1.35 / +1.00 uV.

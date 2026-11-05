@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "start-vision"
+version = "0.1.0"
+description = "EEG read-out of conscious perception (VAN / late positivity) on near-threshold vision data, built on eegunify"
+requires-python = ">=3.11"
+dependencies = ["eegunify==0.9.2"]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy"]
+
+[project.scripts]
+sv-inventory = "start_vision.cli:inventory"
+sv-stage = "start_vision.cli:stage"
+sv-configs = "start_vision.cli:configs"
+sv-analyze = "start_vision.cli:analyze"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/start_vision"]
+
+# ruff and mypy settings copied from eegunify's pyproject.toml (PHASE1_BLUEPRINT §7)
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM", "NPY", "PD", "RUF"]
+# Physical-unit suffixes (`_uV`, `_V`) are kept in their conventional case.
+ignore = ["N802", "N803", "N815"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["start_vision", "eegunify", "tests"]
+
+[tool.mypy]
+strict = true
+python_version = "3.12"
+files = ["src"]
+
+[[tool.mypy.overrides]]
+module = ["mne.*", "mne_bids.*", "scipy.*", "eegunify.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# real-data tests: pytest -m real (skipped by default; need sourcedata/ds006171)
+addopts = "-ra --strict-markers -m \"not real\""
+markers = [
+    "real: needs downloaded ds006171 data in sourcedata/",
+    "slow: slow tests",
+]

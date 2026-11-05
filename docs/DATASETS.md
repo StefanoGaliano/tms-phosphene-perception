@@ -69,6 +69,22 @@ Why it fits: identical (near-threshold) stimuli with a seen/unseen report on eve
 catch trials for false alarms, a photodiode for exact onsets, 128 channels for topographies and
 source analysis, a format eegunify already reads (BDF, BioSemi Status masking).
 
+### Eklund & Wiens 2018 — second dataset candidate (verified 2026-11-05)
+
+- **Data:** figshare doi:10.17045/sthlmuni.5418967, CC BY 4.0. Raw BioSemi `.bdf` in 4 zips
+  (~9.8 GB), logs `txt/VAN_Exp_<fp>_<session>.txt`, FieldTrip scripts, final ERPs.
+- **Paper:** Eklund R, Wiens S (2018). Cogn Affect Behav Neurosci 18:176-188,
+  doi:10.3758/s13415-018-0562-z (PMC5823961). Preregistered (osf.io/4a4ur).
+- **Design (paper, Procedure):** 35 subjects, two sessions (large / small Gabor), 580 trials per
+  session (400 critical, 100 catch, 80 control), Gabor in one of four quadrants, **duration**
+  calibrated by staircase to ~50 % seen; location response (4 keys), then awareness rating
+  1 "did not see", 2 "saw weakly", 3 "saw clearly".
+- **Codes (`fieldtrip/trialfun_VAN.m`):** 1-4 critical UL/UR/LL/LR, 5-8 control, 9 catch,
+  10 block; TTL bits on Status; photodiode `Light1` gives onsets. 64 channels (`biosemi64.lay`).
+- **To check before use:** which ratings the authors count as aware (TODO_FROM_SOURCE); the
+  Status decoding on a real file; the montage mapping to ds006171's 128-channel ABC cap.
+- Differs from ds006171: quadrants not hemifields, duration not contrast, 3-point rating, 64 ch.
+
 ### ds005273 — possible second dataset, blocked on its paper
 
 - **Title:** Neural representation of consciously seen and unseen information. **Authors:**

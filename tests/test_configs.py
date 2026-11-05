@@ -31,3 +31,9 @@ def test_noninformative_without_lateral() -> None:
     cfg = render(t, "noninformative", ["01"])
     assert "seen_lat" not in cfg["contrasts"] and "seen_left" not in cfg["conditions"]
     assert "seen_lat" in render(t, "nocue", ["01"])["contrasts"]
+
+
+def test_ptp_rule_lists_128_eeg() -> None:
+    t = (ROOT / "configs" / "template_ds006171.yaml").read_text()
+    rule = render(t, "nocue", ["01"])["epochs"]["reject"]["rules"][0]
+    assert len(rule["channels"]) == 128 and "Cz" in rule["channels"]

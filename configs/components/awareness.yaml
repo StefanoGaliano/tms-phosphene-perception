@@ -10,7 +10,6 @@ van@awareness:
   contrast: seen_minus_unseen_m
   window_ms: [180, 280]
   rois: {primary: [O1, O2]}
-  lateralized_pairs: [[O1, O2]]
   measures: [mean_amplitude, fractional_area_latency]
   polarity: negative
   reference: average
@@ -18,8 +17,9 @@ van@awareness:
     The source measures contralateral sites only (O1 for right-field, O2 for left-field Gabors).
     The primary Phase 1 measure is therefore contra(seen_m) - contra(unseen_m), computed in
     start_vision.analysis.lateral from the seen_lat / unseen_lat parent waves with this window
-    and these pairs (user decision 4). This eegunify entry (bilateral O1/O2 on the plain
-    contrast) and the double difference are secondary. Step 10 target: negative; Eklund Table 2
+    and pairs [[O1, O2]] (user decision 4). This eegunify entry (bilateral O1/O2 on the plain
+    contrast; eegunify allows lateralized_pairs only on a lateralized contrast) and the double
+    difference are secondary. Step 10 target: negative; Eklund Table 2
     -1.58 uV (large) / -1.41 uV (small Gabor).
 
 lp@awareness:

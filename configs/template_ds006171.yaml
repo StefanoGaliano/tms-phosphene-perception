@@ -18,6 +18,8 @@ reference:
   online: CMS/DRL (reference-free)
   scheme: average                          # REFERENCES §5: Melcón and Eklund both average
 channels:
+  # eegunify drops a channel if its new OR original name is in `drop`: spare externals EXG5-8 are
+  # renamed unused_EXG5-8 (not channels.tsv's EXG1-4, the original names of the EOG channels).
   # The BDFs carry BioSemi positional names (A1..D32, EXG1..EXG8); the 10-05 names exist only
   # in channels.tsv, identical in all 104 recordings (DATASETS.md, Step 3 checks).
   rename:   # BDF positional name -> channels.tsv name, by position (generated, Step 3)
@@ -153,10 +155,10 @@ channels:
     EXG2: VEOG2
     EXG3: HEOG1
     EXG4: HEOG2
-    EXG5: EXG1
-    EXG6: EXG2
-    EXG7: EXG3
-    EXG8: EXG4
+    EXG5: unused_EXG5
+    EXG6: unused_EXG6
+    EXG7: unused_EXG7
+    EXG8: unused_EXG8
     # unused BioSemi slots E1-H32 (9 recordings have 272 channels): renamed so F1-F32
     # cannot collide with the 10-05 F-row names, then dropped
     E1: unused_E1
@@ -288,7 +290,7 @@ channels:
     H31: unused_H31
     H32: unused_H32
   types: {VEOG1: eog, VEOG2: eog, HEOG1: eog, HEOG2: eog}
-  drop: [EXG1, EXG2, EXG3, EXG4, GSR1, GSR2, Erg1, Erg2, Resp, Plet, Temp, unused_E1, unused_E2, unused_E3, unused_E4, unused_E5, unused_E6, unused_E7, unused_E8, unused_E9, unused_E10, unused_E11, unused_E12, unused_E13, unused_E14, unused_E15, unused_E16, unused_E17, unused_E18, unused_E19, unused_E20, unused_E21, unused_E22, unused_E23, unused_E24, unused_E25, unused_E26, unused_E27, unused_E28, unused_E29, unused_E30, unused_E31, unused_E32, unused_F1, unused_F2, unused_F3, unused_F4, unused_F5, unused_F6, unused_F7, unused_F8, unused_F9, unused_F10, unused_F11, unused_F12, unused_F13, unused_F14, unused_F15, unused_F16, unused_F17, unused_F18, unused_F19, unused_F20, unused_F21, unused_F22, unused_F23, unused_F24, unused_F25, unused_F26, unused_F27, unused_F28, unused_F29, unused_F30, unused_F31, unused_F32, unused_G1, unused_G2, unused_G3, unused_G4, unused_G5, unused_G6, unused_G7, unused_G8, unused_G9, unused_G10, unused_G11, unused_G12, unused_G13, unused_G14, unused_G15, unused_G16, unused_G17, unused_G18, unused_G19, unused_G20, unused_G21, unused_G22, unused_G23, unused_G24, unused_G25, unused_G26, unused_G27, unused_G28, unused_G29, unused_G30, unused_G31, unused_G32, unused_H1, unused_H2, unused_H3, unused_H4, unused_H5, unused_H6, unused_H7, unused_H8, unused_H9, unused_H10, unused_H11, unused_H12, unused_H13, unused_H14, unused_H15, unused_H16, unused_H17, unused_H18, unused_H19, unused_H20, unused_H21, unused_H22, unused_H23, unused_H24, unused_H25, unused_H26, unused_H27, unused_H28, unused_H29, unused_H30, unused_H31, unused_H32]
+  drop: [unused_EXG5, unused_EXG6, unused_EXG7, unused_EXG8, GSR1, GSR2, Erg1, Erg2, Resp, Plet, Temp, unused_E1, unused_E2, unused_E3, unused_E4, unused_E5, unused_E6, unused_E7, unused_E8, unused_E9, unused_E10, unused_E11, unused_E12, unused_E13, unused_E14, unused_E15, unused_E16, unused_E17, unused_E18, unused_E19, unused_E20, unused_E21, unused_E22, unused_E23, unused_E24, unused_E25, unused_E26, unused_E27, unused_E28, unused_E29, unused_E30, unused_E31, unused_E32, unused_F1, unused_F2, unused_F3, unused_F4, unused_F5, unused_F6, unused_F7, unused_F8, unused_F9, unused_F10, unused_F11, unused_F12, unused_F13, unused_F14, unused_F15, unused_F16, unused_F17, unused_F18, unused_F19, unused_F20, unused_F21, unused_F22, unused_F23, unused_F24, unused_F25, unused_F26, unused_F27, unused_F28, unused_F29, unused_F30, unused_F31, unused_F32, unused_G1, unused_G2, unused_G3, unused_G4, unused_G5, unused_G6, unused_G7, unused_G8, unused_G9, unused_G10, unused_G11, unused_G12, unused_G13, unused_G14, unused_G15, unused_G16, unused_G17, unused_G18, unused_G19, unused_G20, unused_G21, unused_G22, unused_G23, unused_G24, unused_G25, unused_G26, unused_G27, unused_G28, unused_G29, unused_G30, unused_G31, unused_G32, unused_H1, unused_H2, unused_H3, unused_H4, unused_H5, unused_H6, unused_H7, unused_H8, unused_H9, unused_H10, unused_H11, unused_H12, unused_H13, unused_H14, unused_H15, unused_H16, unused_H17, unused_H18, unused_H19, unused_H20, unused_H21, unused_H22, unused_H23, unused_H24, unused_H25, unused_H26, unused_H27, unused_H28, unused_H29, unused_H30, unused_H31, unused_H32]
 montage: {source: standard, standard_name: standard_1005, on_missing: raise}
 events:
   source: bids_events
@@ -305,11 +307,12 @@ preproc:
   interpolate: true
 artifacts:
   method: ica
-  # Bipolar order (Step 3): kept as recorded, VEOG1-VEOG2 and HEOG1-HEOG2. Which electrode is
-  # upper/left could not be settled from the data (DATASETS.md, Step 3 checks), and neither
-  # eegunify use depends on the sign: the step rule takes |step| and the ICA EOG match |z|.
-  # Signed HEOG plots must not be read as left/right.
-  eog_bipolar: {VEOG: [VEOG1, VEOG2], HEOG: [HEOG1, HEOG2]}
+  # VEOG: VEOG1-VEOG2 as recorded (sign not settled, Step 3; used only by the ICA EOG match,
+  # which takes |z|). HEOG: built from lateral frontal EEG F7-F8 for every subject (user
+  # decision 7, 2026-11-05): the HEOG1/HEOG2 electrodes are broken in several subjects
+  # (results/phase1/notes_sub01.md). F7/F8 sit above the outer canthi, so saccade amplitude is
+  # smaller than at true canthal sites: a limit of the HEOG step rule, reported.
+  eog_bipolar: {VEOG: [VEOG1, VEOG2], HEOG: [F7, F8]}
   ica:
     fit_exclude: {}                        # Step 7 decides breaks/bursts exclusion if ICA fails
   post_bad_channels: {max_ptp_ratio: 2.0}
@@ -328,7 +331,10 @@ epochs:
   reject:
     method: rules
     rules:
-      - {test: ptp, channels: [eeg], threshold_uv: 100, win_ms: 200, step_ms: 100}
+      # 100 uV tested on -100..600 ms only (Eklund's epoch, which holds every measure): project
+      # choice, user decision 8; whole -1000..1000 ms rejected 29 % in clean sub-03.
+      - {test: ptp, channels: [eeg],  # sv-configs expands [eeg] to the 128 names
+          threshold_uv: 100, window_ms: [-100, 600], win_ms: 200, step_ms: 100}
       # Lateral Gabors: reject horizontal eye movements to the stimulus. 32 uV is a project
       # choice, not a literature value (user decision 5, version A; REFERENCES §5).
       - {test: step, channels: [HEOG], threshold_uv: 32, window_ms: [-50, 350], win_ms: 100, step_ms: 10}

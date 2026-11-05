@@ -1,14 +1,16 @@
 """sv-configs: eegunify configs per task from configs/template_ds006171.yaml (PHASE1 Step 5).
 
 Fills ``{task}``, ``{subjects}`` (recordings present for the task, from the staged tree or the
-inventory) and ``{mapping}`` (``codes.eegunify_mapping()``). For ``noninformative`` the
-left/right conditions and lateralized contrasts are removed: its Gabor side is unknown
-(README decision 6).
+inventory) and ``{mapping}`` (``codes.eegunify_mapping()``). A reject rule on
+``channels: [eeg]`` is expanded to the 128 EEG channel names (eegunify needs names). For
+``noninformative`` the left/right conditions and lateralized contrasts are removed: its Gabor
+side is unknown (README decision 6).
 """
 
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -33,6 +35,10 @@ def render(template: str, task: str, subjects: list[str]) -> dict[str, Any]:
         .replace("{mapping}", json.dumps(eegunify_mapping()))
     )
     cfg: dict[str, Any] = yaml.safe_load(text)
+    eeg = [v for k, v in cfg["channels"]["rename"].items() if re.fullmatch(r"[A-D]\d+", k)]
+    for rule in cfg["epochs"]["reject"]["rules"]:
+        if rule["channels"] == ["eeg"]:  # eegunify rules need names: expand to the 128 EEG
+            rule["channels"] = eeg
     if task == "noninformative":
         for c in SIDE_ONLY_CONDITIONS:
             cfg["conditions"].pop(c)

@@ -16,7 +16,8 @@ AUX = ["GSR1", "GSR2", "Erg1", "Erg2", "Resp", "Plet", "Temp", "Status"]
 def _kept(names: list[str]) -> list[str]:
     ch = yaml.safe_load(TEMPLATE.read_text())["channels"]
     m = normalize_names(names, rename=ch["rename"], protect=["Status"])
-    return [v for v in m.values() if v not in ch["drop"]]
+    # eegunify (pipeline.py) drops a channel when its new OR its original name is in `drop`
+    return [v for o, v in m.items() if v not in ch["drop"] and o not in ch["drop"]]
 
 
 def _header(extra_banks: bool) -> list[str]:
@@ -31,3 +32,9 @@ def test_ds006171_272_channel_header_no_collision() -> None:
         assert len(kept) == len(set(kept)) == 133
         assert sum(k in std for k in kept) == 128
         assert {"VEOG1", "VEOG2", "HEOG1", "HEOG2", "Status"} <= set(kept)
+
+
+def test_ds006171_eog_not_dropped_by_original_name() -> None:
+    # EXG1-4 are the BDF names of VEOG1/VEOG2/HEOG1/HEOG2: dropping "EXG1" removed them
+    kept = _kept(_header(False))
+    assert {"VEOG1", "VEOG2", "HEOG1", "HEOG2"} <= set(kept)

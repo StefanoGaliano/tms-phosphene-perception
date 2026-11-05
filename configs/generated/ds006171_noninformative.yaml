@@ -187,10 +187,10 @@ channels:
     EXG2: VEOG2
     EXG3: HEOG1
     EXG4: HEOG2
-    EXG5: EXG1
-    EXG6: EXG2
-    EXG7: EXG3
-    EXG8: EXG4
+    EXG5: unused_EXG5
+    EXG6: unused_EXG6
+    EXG7: unused_EXG7
+    EXG8: unused_EXG8
     E1: unused_E1
     E2: unused_E2
     E3: unused_E3
@@ -325,10 +325,10 @@ channels:
     HEOG1: eog
     HEOG2: eog
   drop:
-  - EXG1
-  - EXG2
-  - EXG3
-  - EXG4
+  - unused_EXG5
+  - unused_EXG6
+  - unused_EXG7
+  - unused_EXG8
   - GSR1
   - GSR2
   - Erg1
@@ -534,8 +534,8 @@ artifacts:
     - VEOG1
     - VEOG2
     HEOG:
-    - HEOG1
-    - HEOG2
+    - F7
+    - F8
   ica:
     fit_exclude: {}
   post_bad_channels:
@@ -559,8 +559,138 @@ epochs:
     rules:
     - test: ptp
       channels:
-      - eeg
+      - Cz
+      - CCPz
+      - CPz
+      - CPPz
+      - P1
+      - CPP3h
+      - CPP3
+      - PPO3
+      - PPO5
+      - PO7
+      - PO9h
+      - PO9
+      - I1
+      - OI1
+      - O1
+      - POO5
+      - PO3h
+      - PPO1
+      - Pz
+      - PPOz
+      - POz
+      - POOz
+      - Oz
+      - OIz
+      - Iz
+      - I2
+      - OI2
+      - O2
+      - POO6
+      - PO4h
+      - PPO2
+      - P2
+      - C2h
+      - CCP2h
+      - CPP4h
+      - CPP4
+      - PPO4
+      - PPO6
+      - PO8
+      - PO10h
+      - PO10
+      - P10
+      - P8
+      - P6
+      - CPP6h
+      - TP8
+      - TP8h
+      - CP6
+      - CP6h
+      - CCP4
+      - CCP2
+      - C2
+      - C4h
+      - C4
+      - C6h
+      - C6
+      - T8h
+      - T8
+      - FT8
+      - FT8h
+      - FC6
+      - FC6h
+      - FC4
+      - FC4h
+      - FCC2h
+      - FCC2
+      - FFC4h
+      - FFC4
+      - FFC6h
+      - F6
+      - F8
+      - AF8
+      - AFF6
+      - AFF6h
+      - FFC2
+      - F2
+      - AFF2
+      - AFF4h
+      - AF4
+      - Fp2
+      - Fpz
+      - AFpz
+      - AFz
+      - AFFz
+      - Fz
+      - FFCz
+      - FCz
+      - FFC1
+      - F1
+      - AFF1
+      - AFF3h
+      - AF3
+      - Fp1
+      - AF7
+      - AFF5
+      - AFF5h
+      - FCC1h
+      - FCC1
+      - FFC3h
+      - FFC3
+      - FFC5h
+      - F5
+      - F7
+      - FT7
+      - FT7h
+      - FC5
+      - FC5h
+      - FC3
+      - FC3h
+      - C1
+      - C1h
+      - CCP1h
+      - CCP1
+      - C3h
+      - C3
+      - C5h
+      - C5
+      - T7h
+      - T7
+      - TP7
+      - TP7h
+      - CP5
+      - CP5h
+      - CCP3
+      - CPP5h
+      - P5
+      - P7
+      - P9
       threshold_uv: 100
+      window_ms:
+      - -100
+      - 600
       win_ms: 200
       step_ms: 100
     - test: step

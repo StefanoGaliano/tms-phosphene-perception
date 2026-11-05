@@ -88,4 +88,13 @@ def configs() -> None:
 
 
 def analyze() -> None:
-    _not_built("sv-analyze", 9)
+    """sv-analyze: results/phase1/{per_subject,group,controls,eegunify_reproduction}.tsv."""
+    from pathlib import Path
+
+    from start_vision.analysis.report import build
+
+    r = build(Path("runs"), Path("sourcedata/staged/ds006171"), Path("results/phase1"))
+    print(r["group"].to_string(index=False))
+    if len(r["check"]):
+        print(f"eegunify reproduction to 1e-6: {int(r['check']['ok_1e-6'].sum())}"
+              f"/{len(r['check'])} rows")

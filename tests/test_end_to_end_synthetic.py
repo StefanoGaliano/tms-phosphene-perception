@@ -111,6 +111,15 @@ def _truth(recs: list, kind: str) -> float:
     )
 
 
+def test_no_roi_channel_interpolated(effect: tuple[Path, list]) -> None:
+    import json
+
+    roi = {"O1", "O2", "Pz", "CPP3", "CPP4"}
+    for f in effect[0].glob("derivatives/eegunify-preproc/sub-*/eeg/*_preproc_qa.json"):
+        bad = set(json.loads(f.read_text())["steps"].get("interpolated", []))
+        assert not bad & roi, (f.name, sorted(bad))
+
+
 @pytest.mark.parametrize("comp", ["van", "lp"])
 def test_recovered_effect_matches_truth(effect: tuple[Path, list], comp: str) -> None:
     root, recs = effect

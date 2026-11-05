@@ -133,7 +133,7 @@ def _gauss_topo(xyz: np.ndarray, centre: np.ndarray, width_m: float) -> np.ndarr
 
 
 def make_vision_recording(
-    n_trials: int = 160,
+    n_trials: int = 240,
     *,
     seed: int = 0,
     null: bool = False,
@@ -169,7 +169,9 @@ def make_vision_recording(
     mix = np.exp(-((dist / 0.05) ** 2))
     mix /= np.linalg.norm(mix, axis=1, keepdims=True)
     data = noise_uV * mix @ pink + 0.3 * rng.standard_normal((n_eeg, n))
-    data += 3.0 * _gauss_topo(xyz, pos["Oz"], 0.08)[:, None] * np.sin(2 * np.pi * 10 * t)
+    # posterior alpha, weak and broad: a narrow 3 uV alpha made pyprep flag every occipital
+    # channel on the dense cap (first Step 8 run), which interpolated away the planted VAN
+    data += 1.5 * _gauss_topo(xyz, pos["Oz"], 0.12)[:, None] * np.sin(2 * np.pi * 10 * t)
 
     van_topo = {
         C.LEFT: _gauss_topo(xyz, pos["O2"], 0.04),
@@ -203,7 +205,7 @@ def make_vision_recording(
         code = int(rng.choice([31, 32])) if catch else int(rng.choice(gabors))
         rs = C.RAW_STIMULI["nocue"][code]
         contrast = np.nan if catch else float(rng.uniform(0.01, 0.04))
-        seen = bool(rng.random() < (0.05 if catch else (contrast - 0.01) / 0.03))
+        seen = bool(rng.random() < (0.05 if catch else 0.2 + 0.6 * (contrast - 0.01) / 0.03))
         add(tt, code, k, gabor_contrast=contrast, subjective_r=float(seen))
         onset = q(tt + rng.integers(int(0.03 * SFREQ), int(0.06 * SFREQ) + 1) / SFREQ)
         add(onset, C.PHOTODIODE, k)

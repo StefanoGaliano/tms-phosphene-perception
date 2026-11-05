@@ -23,6 +23,7 @@ from scipy import stats
 SEEN, UNSEEN = "#2a78d6", "#eb6834"
 INK, MUTED, GRID = "#0b0b0b", "#52514e", "#dcdbd6"
 SURFACE = "#fcfcfb"
+WINDOW = "#6250d6"  # palette slot 7 (violet), used only as a pale tint for the component window
 LOWPASS_HZ = 30.0  # PHASE1_REFERENCES §2: plots low-passed at 30 Hz
 
 PANELS = {  # name -> (seen wave, unseen wave, channels, window, title)
@@ -93,9 +94,15 @@ def waves(per_subject: dict[str, dict[str, mne.Evoked]], scope: str, out: Path) 
         n = len(subs)
         half = stats.t.ppf(0.975, n - 1) * d.std(0, ddof=1) / np.sqrt(n)
         top, bot = axes[0, j], axes[1, j]
+        comp = title.split(",")[0]  # "VAN" or "LP"
         for ax in (top, bot):
             _style(ax)
-            ax.axvspan(*win, color="#efeeea", zorder=0)
+            ax.axvspan(*win, color=WINDOW, alpha=0.13, lw=0, zorder=0)
+        top.text(
+            (win[0] + win[1]) / 2, 0.98, f"{comp}\n{win[0]}-{win[1]} ms",
+            transform=top.get_xaxis_transform(), ha="center", va="top",
+            fontsize=8, color=INK, fontweight="bold",
+        )
         top.plot(t, s.mean(0), color=SEEN, lw=2, label="seen")
         top.plot(t, u.mean(0), color=UNSEEN, lw=2, label="unseen")
         k = int(np.argmin(np.abs(t - 700)))
@@ -111,7 +118,7 @@ def waves(per_subject: dict[str, dict[str, mne.Evoked]], scope: str, out: Path) 
             top.set_ylabel("µV", fontsize=8, color=MUTED)
             bot.set_ylabel("seen - unseen, µV\n(95 % CI)", fontsize=8, color=MUTED)
     fig.suptitle(
-        f"Phase 1 grand averages, scope: {scope} (shaded: measurement window; "
+        f"Phase 1 grand averages, scope: {scope} (violet band: component window; "
         f"plots low-passed {LOWPASS_HZ:g} Hz)",
         fontsize=10,
         color=INK,

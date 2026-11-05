@@ -43,7 +43,7 @@ python_version = "3.12"
 files = ["src"]
 
 [[tool.mypy.overrides]]
-module = ["mne.*", "mne_bids.*", "scipy.*", "eegunify.*", "sklearn.*", "skops.*"]
+module = ["mne.*", "mne_bids.*", "scipy.*", "eegunify.*", "sklearn.*", "skops.*", "joblib.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

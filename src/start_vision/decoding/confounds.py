@@ -191,11 +191,12 @@ def _cv_resid(cfg: DecodingConfig, post: np.ndarray, am: np.ndarray, y: np.ndarr
 
 
 def alpha_split_scores(ts: TrialSet, cfg: DecodingConfig, post_window_s: tuple[float, float],
-                       reps: list[list[cv.Split]] | None = None) -> dict[str, float]:
+                       reps: list[list[cv.Split]] | None = None,
+                       alpha_ts: TrialSet | None = None) -> dict[str, float]:
     """Out-of-fold window-detector AUC within low- and high-alpha halves (median split)."""
     reps = reps if reps is not None else within.splits_for(ts, cfg, n_repeats=1)
     y = ts.labels("seen")
-    am = alpha_features(ts, cfg)[0].mean(1)
+    am = alpha_features(alpha_ts if alpha_ts is not None else ts, cfg)[0].mean(1)
     pipe = models.window_detector(cfg, ts.times, post_window_s)
     x = within.prepared(ts, cfg)
     score = np.full(len(y), np.nan)

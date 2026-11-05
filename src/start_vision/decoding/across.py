@@ -15,6 +15,7 @@ on ``cfg.baseline_s``, then each channel z-scored with the subject's own prestim
 from __future__ import annotations
 
 from collections.abc import Sequence
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -36,9 +37,10 @@ def _auc(y: np.ndarray, s: np.ndarray) -> float:
 
 
 # ---------- A7 ----------
-def loso_sliding(sets: Sequence[TrialSet], cfg: DecodingConfig) -> tuple[np.ndarray, list[str]]:
+def loso_sliding(sets: Sequence[TrialSet], cfg: DecodingConfig, normalized: bool = False
+                 ) -> tuple[np.ndarray, list[str]]:
     """Held-out AUC(t) per subject, shape (n_subjects, n_times). ``sets``: one per subject."""
-    norm = [normalize(s, cfg) for s in sets]
+    norm = list(sets) if normalized else [normalize(s, cfg) for s in sets]
     subjects = [str(s.meta["subject"].iloc[0]) for s in norm]
     out = []
     for i, test in enumerate(norm):
@@ -49,20 +51,33 @@ def loso_sliding(sets: Sequence[TrialSet], cfg: DecodingConfig) -> tuple[np.ndar
 
 
 def loso_window(sets: Sequence[TrialSet], cfg: DecodingConfig, window_s: tuple[float, float],
-                C: float | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Window detector under LOSO: (per-subject AUC table, per-trial predictions table)."""
-    norm = [normalize(s, cfg) for s in sets]
-    rows, preds = [], []
-    for i, test in enumerate(norm):
-        train = TrialSet.concat([s for j, s in enumerate(norm) if j != i])
-        pipe = models.window_detector(cfg, train.times, window_s, C).fit(
-            train.X, train.labels("seen"))
-        s = pipe.decision_function(test.X)
-        y = test.labels("seen")
+                C: float | None = None, normalized: bool = False
+                ) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Window detector under LOSO: (per-subject AUC table, per-trial predictions table).
+
+    Folds run in threads (liblinear releases the GIL), sharing one copy of the data.
+    ``normalized``: the sets are already ``normalize``-d (saves memory when reused).
+    """
+    from joblib import Parallel, delayed
+
+    norm = list(sets) if normalized else [normalize(s, cfg) for s in sets]
+    xs = [s.X for s in norm]
+    ys = [s.labels("seen") for s in norm]
+
+    def fold(i: int) -> tuple[dict[str, Any], pd.DataFrame]:
+        xtr = np.concatenate([x for j, x in enumerate(xs) if j != i])
+        ytr = np.concatenate([y for j, y in enumerate(ys) if j != i])
+        pipe = models.window_detector(cfg, norm[0].times, window_s, C).fit(xtr, ytr)
+        s = pipe.decision_function(xs[i])
+        test = norm[i]
         sub = str(test.meta["subject"].iloc[0])
-        rows.append({"subject": sub, "n": len(y), "n_seen": int(y.sum()), "auc": _auc(y, s)})
-        preds.append(test.meta[["subject", "task", "trial_number", "seen"]].assign(score=s))
-    return pd.DataFrame(rows), pd.concat(preds, ignore_index=True)
+        row = {"subject": sub, "n": len(s), "n_seen": int(ys[i].sum()), "auc": _auc(ys[i], s)}
+        return row, test.meta[["subject", "task", "trial_number", "seen"]].assign(score=s)
+
+    res = Parallel(n_jobs=cfg.n_jobs, prefer="threads")(delayed(fold)(i)
+                                                        for i in range(len(norm)))
+    return (pd.DataFrame([r for r, _ in res]),
+            pd.concat([p for _, p in res], ignore_index=True))
 
 
 # ---------- A8 ----------
@@ -99,12 +114,12 @@ def cross_task_within(ts: TrialSet, cfg: DecodingConfig, tasks: Sequence[str] | 
 
 
 def loso_cross_task(sets: Sequence[TrialSet], cfg: DecodingConfig,
-                    window_s: tuple[float, float], tasks: Sequence[str] | None = None
-                    ) -> tuple[np.ndarray, list[str]]:
+                    window_s: tuple[float, float], tasks: Sequence[str] | None = None,
+                    normalized: bool = False) -> tuple[np.ndarray, list[str]]:
     """Window AUC, train on the other subjects' task i, test the held-out subject's task j.
     Shape (n_subjects, n_tasks, n_tasks); NaN where a subject lacks a task."""
     tasks = list(tasks or cfg.tasks)
-    norm = [normalize(s, cfg) for s in sets]
+    norm = list(sets) if normalized else [normalize(s, cfg) for s in sets]
     out = np.full((len(norm), len(tasks), len(tasks)), np.nan)
     for s_i, test in enumerate(norm):
         train = TrialSet.concat([s for j, s in enumerate(norm) if j != s_i])

@@ -19,6 +19,7 @@ from tests.synthetic.decoding import make_subject
 
 CFG = DecodingConfig(n_jobs=1, n_repeats=1, n_permutations=200, tasks=("nocue",),
                      min_trials_per_class=20)
+A = ("a1_sliding",)  # the synthetic project has no desc-preproc files (c3) or catch trials
 
 
 def _write_subject(root: Path, sub: str, seed: int) -> None:
@@ -60,34 +61,36 @@ def _status(outs: list[stages.Outcome]) -> list[str]:
 def test_cache_hit_rerun_on_config_change_and_provenance(tmp_path: Path) -> None:
     proj = _project(tmp_path)
     subs = ["01", "02", "03"]
-    assert _status(stages.run(proj, subs, CFG)) == ["ran"] * 4
-    assert _status(stages.run(proj, subs, CFG)) == ["cached"] * 4
+    assert _status(stages.run(proj, subs, CFG, A)) == ["ran"] * 4
+    assert _status(stages.run(proj, subs, CFG, A)) == ["cached"] * 4
     # parallelism is not part of the key
-    assert _status(stages.run(proj, subs, CFG.model_copy(update={"n_jobs": 2}))) == ["cached"] * 4
+    n_jobs2 = CFG.model_copy(update={"n_jobs": 2})
+    assert _status(stages.run(proj, subs, n_jobs2, A)) == ["cached"] * 4
     # a decoding setting changes every sv_decode* key
-    assert _status(stages.run(proj, subs, CFG.model_copy(update={"n_folds": 4}))) == ["ran"] * 4
+    assert _status(stages.run(proj, subs, CFG.model_copy(update={"n_folds": 4}), A)) == ["ran"] * 4
     prov = json.loads((proj.sub_dir("01") / "sub-01_desc-decoding_provenance.json").read_text())
     assert prov["status"] == "ok" and prov["outputs"]
     assert all((tmp_path / o).exists() for o in prov["outputs"])
     assert prov["upstream_keys"]["nocue:epochs"] == "key-01"
     g = json.loads((proj.group_dir() / "provenance.json").read_text())
-    assert g["included"] == subs and (proj.group_dir() / "a1_sliding_clusters.tsv").exists()
+    assert g["included"] == subs and (tmp_path / "results" / "phase2" / "clusters.tsv").exists()
+    assert all((tmp_path / o).exists() for o in g["outputs"])
 
 
 def test_upstream_change_reruns_only_that_subject_and_group(tmp_path: Path) -> None:
     proj = _project(tmp_path)
     subs = ["01", "02", "03"]
-    stages.run(proj, subs, CFG)
+    stages.run(proj, subs, CFG, A)
     ev = proj.staged / "sub-02" / "eeg" / "sub-02_task-nocue_events.tsv"
     ev.write_text(ev.read_text() + "\n")  # metadata source changed
-    assert _status(stages.run(proj, subs, CFG)) == ["cached", "ran", "cached", "ran"]
+    assert _status(stages.run(proj, subs, CFG, A)) == ["cached", "ran", "cached", "ran"]
     (proj.sub_dir("03") / "sub-03_desc-a1_sliding_scores.npz").unlink()  # output lost
-    assert _status(stages.run(proj, subs, CFG, group=False)) == ["cached", "cached", "ran"]
+    assert _status(stages.run(proj, subs, CFG, A, group=False)) == ["cached", "cached", "ran"]
 
 
 def test_missing_upstream_is_skipped_and_excluded(tmp_path: Path) -> None:
     proj = _project(tmp_path)
-    out = stages.run(proj, ["01", "02", "03", "04"], CFG)
+    out = stages.run(proj, ["01", "02", "03", "04"], CFG, A)
     assert out[3].status == "skipped"
     g = json.loads((proj.group_dir() / "provenance.json").read_text())
     assert g["excluded"] == {"04": "sv_decode not run"}
@@ -100,5 +103,5 @@ def test_inclusion_list_limits_tasks(tmp_path: Path) -> None:
     pd.DataFrame({"subject": ["01", "02", "03"], "task": "nocue",
                   "included": [True, False, True]}).to_csv(inc / "inclusion.tsv", sep="\t",
                                                            index=False)
-    out = stages.run(proj, ["01", "02", "03"], CFG)
+    out = stages.run(proj, ["01", "02", "03"], CFG, A)
     assert [o.status for o in out] == ["ran", "skipped", "ran", "ran"]

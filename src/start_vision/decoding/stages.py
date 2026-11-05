@@ -20,40 +20,24 @@ from __future__ import annotations
 
 import json
 import time
-from collections.abc import Callable, Mapping, Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 import numpy as np
-import pandas as pd
 
 from eegunify.erp.hashing import file_sha256, stage_key
-from start_vision.decoding import labels, stats, within
+from start_vision.decoding import labels
+from start_vision.decoding.analyses import ANALYSES, SubjectData
 from start_vision.decoding.config import DecodingConfig
-from start_vision.decoding.data import TrialSet, epochs_path, load_trialset
+from start_vision.decoding.data import epochs_path
 
 SUBJECT_STAGE, GROUP_STAGE = "sv_decode", "sv_decode_group"
 SCHEMA_VERSION = 1
 
-SubjectAnalysis = Callable[[TrialSet, DecodingConfig], dict[str, np.ndarray]]
-
-
-def _a1(ts: TrialSet, cfg: DecodingConfig) -> dict[str, np.ndarray]:
-    out = {"pooled": within.sliding_auc(ts, cfg)}
-    for task in cfg.tasks:
-        sub = ts.select(ts.meta["task"].to_numpy() == task)
-        if len(sub) and labels.enough_trials(sub, cfg.min_trials_per_class)[0]:
-            out[task] = within.sliding_auc(sub, cfg)
-    return out
-
-
-def _a3(ts: TrialSet, cfg: DecodingConfig) -> dict[str, np.ndarray]:
-    return {"patterns": within.patterns(ts, cfg)}
-
-
-SUBJECT_ANALYSES: dict[str, SubjectAnalysis] = {"a1_sliding": _a1, "a3_patterns": _a3}
-"""Registry; later steps add analyses here (name -> function returning named arrays)."""
+SUBJECT_ANALYSES = ANALYSES
+"""Registry of subject analyses (``start_vision.decoding.analyses.ANALYSES``)."""
 
 
 @dataclass(frozen=True)
@@ -154,23 +138,25 @@ def run_subject(project: Project, subject: str, cfg: DecodingConfig,
         return Outcome(SUBJECT_STAGE, subject, "cached", key)
     t0 = time.time()
     tasks = sorted({k.split(":")[0] for k in up})
-    sets = [labels.main_set(load_trialset(project.runs, project.staged, subject, t, cfg))
-            for t in tasks]
-    ts = TrialSet.concat(sets)
-    ok, why = labels.enough_trials(ts, cfg.min_trials_per_class)
+    d = SubjectData(project.runs, project.staged, subject, tasks, cfg)
+    ok, why = labels.enough_trials(d.main, cfg.min_trials_per_class)
     out.mkdir(parents=True, exist_ok=True)
     outputs: list[str] = []
+    timing: dict[str, float] = {}
     if ok:
         for name in analyses:
-            res = SUBJECT_ANALYSES[name](ts, cfg)
+            t1 = time.time()
+            res = SUBJECT_ANALYSES[name](d)
+            timing[name] = round(time.time() - t1, 1)
             path = out / f"sub-{subject}_desc-{name}_scores.npz"
-            _save_npz(path, {**res, "times": ts.times})
+            _save_npz(path, {**res, "times": d.main.times})
             outputs.append(str(path.relative_to(project.root)))
+    ts = d.main
     rec = {"stage": SUBJECT_STAGE, "stage_key": key, "schema_version": SCHEMA_VERSION,
            "status": "ok", "subject": subject, "upstream_keys": up,
            "config": _hash_config(cfg, analyses), "outputs": outputs,
            "excluded": "" if ok else why, "n_trials": len(ts), "tasks": tasks,
-           "extra": {"wall_time_s": round(time.time() - t0, 2)}}
+           "extra": {"wall_time_s": round(time.time() - t0, 2), "per_analysis_s": timing}}
     _write_json(prov, rec)
     return Outcome(SUBJECT_STAGE, subject, "ran", key, "" if ok else why)
 
@@ -199,24 +185,10 @@ def run_group(project: Project, subjects: Sequence[str], cfg: DecodingConfig,
         return Outcome(GROUP_STAGE, None, "cached", key)
     t0 = time.time()
     gdir.mkdir(parents=True, exist_ok=True)
-    data = [np.load(project.sub_dir(s) / f"sub-{s}_desc-a1_sliding_scores.npz")
-            for s in included]
-    times = data[0]["times"]
-    outputs = []
-    rows = []
-    for scope in ("pooled", *cfg.tasks):
-        subs = [s for s, d in zip(included, data, strict=True) if scope in d.files]
-        if len(subs) < 2:
-            continue
-        auc = np.array([d[scope] for d in data if scope in d.files])
-        cl = stats.cluster_auc(auc, times, cfg.n_permutations, cfg.cluster_p, cfg.seed)
-        rows.append(cl.assign(scope=scope, n=len(subs)))
-        path = gdir / f"a1_sliding_{scope}_auc.npz"
-        _save_npz(path, {"auc": auc, "times": times, "subjects": np.array(subs)})
-        outputs.append(str(path.relative_to(project.root)))
-    table = gdir / "a1_sliding_clusters.tsv"
-    pd.concat(rows, ignore_index=True).to_csv(table, sep="\t", index=False)
-    outputs.append(str(table.relative_to(project.root)))
+    from start_vision.decoding import group
+
+    figs = group.run(project, included, cfg)
+    outputs = [str(f.relative_to(project.root)) for f in figs]
     _write_json(prov, {"stage": GROUP_STAGE, "stage_key": key, "status": "ok",
                        "schema_version": SCHEMA_VERSION, "upstream_keys": up,
                        "included": included, "excluded": excluded, "outputs": outputs,

@@ -96,6 +96,30 @@ source analysis, a format eegunify already reads (BDF, BioSemi Status masking).
   match uses |z|, so no rejection depends on the sign; signed EOG plots are not read as
   up/down or left/right.
 
+#### Step 4 code inference (2026-11-05, all subjects)
+
+- **Cue codes 1/2** (cue tasks): in informative, 1 is always followed by 11/12/31 and 2 by
+  21/22/32 (6,994 / 6,997), so 1 = left cue and 2 = right cue there. A photodiode 128 also follows
+  each cue, so the photodiode rule applies to stimulus codes only.
+- **Noninformative** (undocumented; its `events.json` is the nocue copy):
+  101/102/111/112 and catch 98 always follow code 1; 103/104/113/114 and catch 99 always follow
+  code 2. Odd codes are mostly answered "vertical" and even ones "horizontal" (e.g. 101: 142 vs
+  71; 102: 55 vs 151), so **odd = vertical**. **Hemifield: not settled.** Two readings:
+  (A) codes 1/2 = cue side and 10x/11x = valid/invalid; (C) codes 1/2 = Gabor side. The
+  staircase contrast favours C: for the same code 1/2, 10x and 11x have the same mean contrast
+  (r = 0.98 across 34 subjects), and the cue1 - cue2 contrast difference follows each subject's
+  nocue left - right difference (r = 0.55, p = 0.0008). But the EEG did not confirm either one:
+  the lateralized posterior response (O1/PO7/PO3h/P7 vs the right-hand sites, 140-340 ms, average
+  reference) projected onto the nocue left/right template gave median +0.02 (Wilcoxon p = 0.56)
+  under A and +0.04 (p = 1) under C, N = 33. Decision 6 (README): side unknown.
+- **Glitch codes** seen once: 40 (nocue), 33, 41, 255 (noninformative), present in both Status
+  and events.tsv; dropped with the sub-23 code 6.
+- **Staging result** (`results/phase1/stage_summary.tsv`, all 104 recordings): no alignment
+  errors; every stimulus has a photodiode 128 (delay 37-83 ms, inside the 10-120 ms window);
+  exclusions are trials with no report only: 10 (nocue), 11 (noninformative), 81
+  (informative; 53 of them in sub-27 and 19 in sub-32). Contrast matching: median
+  standardized difference 0.25 before, at most 0.07 after.
+
 ### Eklund & Wiens 2018 — second dataset candidate (verified 2026-11-05)
 
 - **Data:** figshare doi:10.17045/sthlmuni.5418967, CC BY 4.0. Raw BioSemi `.bdf` in 4 zips

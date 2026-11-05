@@ -28,7 +28,52 @@ def inventory() -> None:
 
 
 def stage() -> None:
-    _not_built("sv-stage", 4)
+    """sv-stage [-s 01 ...] [--task all|nocue|...]: write sourcedata/staged/ds006171/."""
+    import argparse
+    from pathlib import Path
+
+    import pandas as pd
+
+    from start_vision.codes import TASKS
+    from start_vision.stage import stage_recording
+
+    p = argparse.ArgumentParser(prog="sv-stage")
+    p.add_argument("-s", "--subject", nargs="*", default=None, help="e.g. 01 03; default all")
+    p.add_argument("--task", default="all", choices=["all", *TASKS])
+    p.add_argument("--src", default="sourcedata/ds006171")
+    p.add_argument("--dst", default="sourcedata/staged/ds006171")
+    a = p.parse_args()
+    src, dst = Path(a.src), Path(a.dst)
+    subs = a.subject or sorted(d.name[4:] for d in src.glob("sub-*") if d.is_dir())
+    tasks = TASKS if a.task == "all" else (a.task,)
+    rows = []
+    for s in subs:
+        for t in tasks:
+            bdf = src / f"sub-{s}" / "eeg" / f"sub-{s}_task-{t}_eeg.bdf"
+            if not bdf.exists():
+                continue
+            r = stage_recording(bdf, dst / f"sub-{s}" / "eeg", t, s)
+            rows.append({"subject": s, "task": t, "sfreq": r.sfreq, "n_trials": r.n_trials,
+                         **r.counts, "no_report": r.excluded.get("no_report", 0),
+                         "no_photodiode": r.excluded.get("no_photodiode", 0),
+                         "dropped_codes": " ".join(map(str, r.dropped_codes)),
+                         "delay_min_ms": r.delay_ms.get("min"),
+                         "delay_max_ms": r.delay_ms.get("max"),
+                         "n_matched": r.extra["n_matched"],
+                         "smd_all": r.balance["smd_all"], "smd_matched": r.balance["smd_matched"]})
+            print(f"sub-{s} {t}: {r.counts}", flush=True)
+    if not rows:
+        raise SystemExit("no recordings found")
+    out = Path("results/phase1/stage_summary.tsv")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    new = pd.DataFrame(rows)
+    if out.exists():
+        old = pd.read_csv(out, sep="\t", dtype={"subject": str})
+        done = new.set_index(["subject", "task"]).index
+        keep = ~old.set_index(["subject", "task"]).index.isin(done)
+        new = pd.concat([old[keep], new]).sort_values(["subject", "task"])
+    new.to_csv(out, sep="\t", index=False)
+    print(f"{len(rows)} recordings staged -> {dst}; summary {out}")
 
 
 def configs() -> None:

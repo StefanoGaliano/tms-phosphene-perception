@@ -17,6 +17,7 @@ sv-inventory = "start_vision.cli:inventory"
 sv-stage = "start_vision.cli:stage"
 sv-configs = "start_vision.cli:configs"
 sv-analyze = "start_vision.cli:analyze"
+sv-decode = "start_vision.cli:decode"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/start_vision"]

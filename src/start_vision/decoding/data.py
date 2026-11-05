@@ -123,7 +123,7 @@ def prepare(epochs: mne.BaseEpochs, cfg: DecodingConfig) -> mne.BaseEpochs:
     if abs(e.info["sfreq"] / factor - cfg.sfreq) > 1e-6:
         raise ValueError(f"sfreq {e.info['sfreq']} is not an integer multiple of {cfg.sfreq}")
     e.decimate(factor, verbose="error")
-    return e.crop(*cfg.window_s, include_tmax=False)
+    return e.crop(cfg.window_s[0], min(cfg.window_s[1], e.tmax), include_tmax=False)
 
 
 def epochs_path(runs: Path, subject: str, task: str, desc: str = "stimraw") -> Path:

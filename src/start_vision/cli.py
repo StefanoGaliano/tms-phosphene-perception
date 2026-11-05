@@ -99,3 +99,27 @@ def analyze() -> None:
     if len(r["check"]):
         print(f"eegunify reproduction to 1e-6: {int(r['check']['ok_1e-6'].sum())}"
               f"/{len(r['check'])} rows")
+
+
+def decode() -> None:
+    """sv-decode: Phase 2 stages (sv_decode per subject, then sv_decode_group), cached."""
+    import argparse
+    from pathlib import Path
+
+    from start_vision.decoding import config, stages
+
+    p = argparse.ArgumentParser(prog="sv-decode", description=decode.__doc__)
+    p.add_argument("-s", "--subject", nargs="*", default=None, help="e.g. 01 03; default all")
+    p.add_argument("--config", default="configs/decoding.yaml")
+    p.add_argument("--analyses", nargs="*", default=list(stages.SUBJECT_ANALYSES),
+                   choices=list(stages.SUBJECT_ANALYSES))
+    p.add_argument("--force", action="store_true", help="rerun even on a cache hit")
+    p.add_argument("--no-group", action="store_true")
+    a = p.parse_args()
+    cfg = config.load(Path(a.config))
+    proj = stages.Project.default(Path.cwd())
+    subs = a.subject or sorted(
+        d.name[4:] for d in proj.staged.iterdir() if d.name.startswith("sub-"))
+    for o in stages.run(proj, subs, cfg, a.analyses, a.force, group=not a.no_group):
+        sub = f"sub-{o.subject}" if o.subject else "group"
+        print(f"{o.stage:16s} {sub:8s} {o.status:8s} {o.message}")

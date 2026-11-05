@@ -7,7 +7,7 @@ name = "start-vision"
 version = "0.1.0"
 description = "EEG read-out of conscious perception (VAN / late positivity) on near-threshold vision data, built on eegunify"
 requires-python = ">=3.11"
-dependencies = ["eegunify==0.9.2"]
+dependencies = ["eegunify==0.9.3"]
 
 [project.optional-dependencies]
 dev = ["pytest", "ruff", "mypy"]

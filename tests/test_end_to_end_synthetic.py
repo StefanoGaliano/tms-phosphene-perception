@@ -144,14 +144,17 @@ def test_lateralized_double_difference_negative(effect: tuple[Path, list]) -> No
 
 
 def _clusters(root: Path) -> pd.DataFrame:
-    f = (
-        root
-        / "derivatives"
-        / "eegunify-group"
-        / "task-nocue"
-        / "task-nocue_desc-seen_minus_unseen_m_clusters.tsv"
-    )
-    return pd.read_csv(f, sep="\t")
+    # Start_Vision's own cluster test, one wave per subject (eegunify 0.9.2's group cluster
+    # test counts each subject once per epoch set: stim + stimraw = twice)
+    from start_vision.analysis import stats
+
+    evs = [
+        {x.comment: x for x in mne.read_evokeds(f, verbose="error")}["seen_minus_unseen_m"]
+        for f in sorted(root.glob("derivatives/eegunify-erp/sub-*/eeg/*_desc-stim_ave.fif"))
+    ]
+    c = stats.cluster(evs)
+    assert (c.n_subjects == N_SUBJECTS).all()
+    return c
 
 
 def test_cluster_finds_planted_effect(effect: tuple[Path, list]) -> None:
@@ -160,7 +163,7 @@ def test_cluster_finds_planted_effect(effect: tuple[Path, list]) -> None:
     neg = sig[(sig.t_sum < 0) & sig.channels.str.contains("O1|O2")]
     pos = sig[(sig.t_sum > 0) & sig.channels.str.contains("Pz")]
     assert len(neg) and len(pos), c.to_string()
-    assert (neg.tmin_ms < VAN_MS).any() and (neg.tmax_ms > VAN_MS).any()
+    assert ((neg.tmin_ms < VAN_MS) & (neg.tmax_ms > VAN_MS)).any(), c.to_string()
 
 
 def test_cluster_null_finds_nothing(null: tuple[Path, list]) -> None:

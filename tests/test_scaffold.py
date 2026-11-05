@@ -7,7 +7,7 @@ import start_vision
 
 
 def test_eegunify_is_the_frozen_version() -> None:
-    assert eegunify.__version__ == "0.9.2"
+    assert eegunify.__version__ == "0.9.3"
 
 
 def test_start_vision_imports() -> None:

@@ -93,7 +93,8 @@ def analyze() -> None:
 
     from start_vision.analysis.report import build
 
-    r = build(Path("runs"), Path("sourcedata/staged/ds006171"), Path("results/phase1"))
+    r = build(Path("runs"), Path("sourcedata/staged/ds006171"), Path("results/phase1"),
+              figures_out=Path("results/phase1/figures"))
     print(r["group"].to_string(index=False))
     if len(r["check"]):
         print(f"eegunify reproduction to 1e-6: {int(r['check']['ok_1e-6'].sum())}"

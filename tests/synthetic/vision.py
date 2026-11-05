@@ -104,7 +104,10 @@ def make_event_stream(
 SFREQ = 512.0
 VAN_MS, VAN_SIGMA_MS = 230.0, 30.0
 LP_MS, LP_SIGMA_MS = 450.0, 80.0
-VAN_UV = {"seen": -2.0, "unseen": 0.0}  # at the peak electrode contralateral to the Gabor
+# at the peak electrode contralateral to the Gabor. -4 uV gives about -1.6 uV at O1/O2 after
+# the average reference, the size of the real effect (Eklund -1.58 uV); the blueprint's -2 uV
+# gave -0.66 uV, too small for the cluster test at N = 8 (p = 0.078, Step 8 third run).
+VAN_UV = {"seen": -4.0, "unseen": 0.0}
 LP_UV = {"seen": 4.0, "unseen": 1.0}  # at Pz
 
 
@@ -174,8 +177,8 @@ def make_vision_recording(
     data += 1.5 * _gauss_topo(xyz, pos["Oz"], 0.12)[:, None] * np.sin(2 * np.pi * 10 * t)
 
     van_topo = {
-        C.LEFT: _gauss_topo(xyz, pos["O2"], 0.04),
-        C.RIGHT: _gauss_topo(xyz, pos["O1"], 0.04),
+        C.LEFT: _gauss_topo(xyz, pos["O2"], 0.06),
+        C.RIGHT: _gauss_topo(xyz, pos["O1"], 0.06),
     }
     lp_topo = _gauss_topo(xyz, pos["Pz"], 0.07)
     tk = np.arange(int(-0.2 * SFREQ), int(0.9 * SFREQ)) / SFREQ * 1000

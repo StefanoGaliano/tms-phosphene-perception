@@ -92,6 +92,7 @@ class SubjectData:
                 preload=True, verbose="error")
             pe = mne.Epochs(raw, ep.events, ep.event_id, tmin=ep.tmin, tmax=ep.tmax,
                             baseline=None, reject=None, flat=None, preload=True,
+                            on_missing="ignore",
                             verbose="error")
             pe = attach_metadata(pe, staged_events(self.staged, self.subject, task))
             meta = meta_from_staged(pe.metadata, self.subject, task)

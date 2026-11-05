@@ -200,7 +200,14 @@ def run_group(project: Project, subjects: Sequence[str], cfg: DecodingConfig,
 def run(project: Project, subjects: Sequence[str], cfg: DecodingConfig,
         analyses: Sequence[str] = tuple(SUBJECT_ANALYSES), force: bool = False,
         group: bool = True) -> list[Outcome]:
-    res = [run_subject(project, s, cfg, analyses, force) for s in subjects]
+    res = []
+    for s in subjects:
+        try:
+            res.append(run_subject(project, s, cfg, analyses, force))
+        except Exception as e:  # one subject's failure is reported, the others still run
+            res.append(Outcome(SUBJECT_STAGE, s, "failed", "", f"{type(e).__name__}: {e}"))
+        print(f"{SUBJECT_STAGE:16s} sub-{s:5s} {res[-1].status:8s} {res[-1].message}",
+              flush=True)
     if group:
         res.append(run_group(project, subjects, cfg, force))
     return res

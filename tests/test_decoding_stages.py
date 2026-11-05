@@ -105,3 +105,51 @@ def test_inclusion_list_limits_tasks(tmp_path: Path) -> None:
                                                            index=False)
     out = stages.run(proj, ["01", "02", "03"], CFG, A)
     assert [o.status for o in out] == ["ran", "skipped", "ran", "ran"]
+
+
+def test_ds006171_noica_with_unused_event_label(tmp_path: Path) -> None:
+    """Epochs keep event_id labels whose epochs were all rejected (sub-13: stimulus/fa/left);
+    re-epoching desc-preproc at those events must not fail on the unused label."""
+    from start_vision.decoding.analyses import SubjectData
+
+    proj = _project(tmp_path)
+    ep_file = (tmp_path / "runs" / "nocue" / "derivatives" / "eegunify-epochs" / "sub-01"
+               / "eeg" / "sub-01_task-nocue_desc-stimraw_epo.fif")
+    ep = mne.read_epochs(ep_file, verbose="error")
+    ep.event_id = {**ep.event_id, "stimulus/fa/left": 99}  # label with no epochs
+    ep.save(ep_file, overwrite=True, verbose="error")
+    # continuous "preproc" raw holding the epochs back to back at their event samples
+    sf = ep.info["sfreq"]
+    n = int(ep.events[-1, 0] + len(ep.times) + 10)
+    data = np.zeros((len(ep.ch_names), n))
+    start = ep.events[:, 0] + round(ep.tmin * sf)
+    for k, s0 in enumerate(start):
+        data[:, s0:s0 + len(ep.times)] = ep.get_data()[k]
+    pre = (tmp_path / "runs" / "nocue" / "derivatives" / "eegunify-preproc" / "sub-01" / "eeg")
+    pre.mkdir(parents=True)
+    mne.io.RawArray(data, ep.info.copy(), verbose="error").save(
+        pre / "sub-01_task-nocue_desc-preproc_eeg.fif", verbose="error")
+    d = SubjectData(proj.runs, proj.staged, "01", ["nocue"], CFG)
+    assert len(d.noica) == len(d.main)
+    assert np.allclose(d.noica.X, d.main.X, atol=1e-3)
+
+
+def test_one_failing_subject_does_not_stop_the_run(tmp_path: Path) -> None:
+    proj = _project(tmp_path)
+    real = stages.run_subject
+
+    def flaky(project, subject, *a, **k):  # type: ignore[no-untyped-def]
+        if subject == "02":
+            raise ValueError("boom")
+        return real(project, subject, *a, **k)
+
+    import pytest
+
+    mp = pytest.MonkeyPatch()
+    mp.setattr(stages, "run_subject", flaky)
+    try:
+        out = stages.run(proj, ["01", "02", "03"], CFG, A, group=False)
+    finally:
+        mp.undo()
+    assert [o.status for o in out] == ["ran", "failed", "ran"]
+    assert "boom" in out[1].message

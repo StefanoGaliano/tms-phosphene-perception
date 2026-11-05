@@ -77,7 +77,14 @@ def stage() -> None:
 
 
 def configs() -> None:
-    _not_built("sv-configs", 5)
+    """sv-configs: write configs/generated/ds006171_<task>.yaml from the template."""
+    from pathlib import Path
+
+    from start_vision.configs import write_all
+
+    for p in write_all(Path("configs/template_ds006171.yaml"),
+                       Path("results/phase1/inventory.tsv"), Path("configs/generated")):
+        print(p)
 
 
 def analyze() -> None:

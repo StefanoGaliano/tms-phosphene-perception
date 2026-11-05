@@ -80,8 +80,18 @@ def _events(project: Project, subject: str, task: str) -> Path:
 
 
 def subject_upstream(project: Project, subject: str, cfg: DecodingConfig) -> dict[str, str]:
+    """Upstream keys of the subject's usable tasks. If ``results/phase2/inclusion.tsv`` exists
+    (Step 0, ``step0.run``), only its included recordings count."""
+    inc_file = project.root / "results" / "phase2" / "inclusion.tsv"
+    allowed: set[str] | None = None
+    if inc_file.exists():
+        from start_vision.decoding.step0 import included_tasks
+
+        allowed = set(included_tasks(project.root).get(subject, []))
     up: dict[str, str] = {}
     for task in cfg.tasks:
+        if allowed is not None and task not in allowed:
+            continue
         ep = epochs_path(project.runs, subject, task, cfg.epoch_set)
         prov = ep.parent / f"sub-{subject}_task-{task}_desc-epochs_provenance.json"
         if not ep.exists() or not prov.exists():

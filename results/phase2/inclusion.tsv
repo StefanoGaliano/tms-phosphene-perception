@@ -1,0 +1,105 @@
+subject	task	loaded	contract	phase1_rule	phase2_rule	n_trials	included
+01	nocue	True				339	True
+01	noninformative	True				340	True
+02	informative	True				346	True
+02	nocue	True				309	True
+03	informative	True				368	True
+03	nocue	True				308	True
+03	noninformative	True				386	True
+04	informative	True				325	True
+04	nocue	True				393	True
+04	noninformative	True				389	True
+05	informative	True				323	True
+05	nocue	True				307	True
+05	noninformative	True				362	True
+06	informative	True				394	True
+06	nocue	True				398	True
+06	noninformative	True				400	True
+07	informative	True				369	True
+07	nocue	True				372	True
+07	noninformative	True				379	True
+08	informative	True				355	True
+08	nocue	True		2: 47% epochs rejected (> 45 %)		212	False
+08	noninformative	True				329	True
+09	informative	True				322	True
+09	nocue	True				372	True
+09	noninformative	True				273	True
+10	informative	True				378	True
+10	nocue	True				378	True
+10	noninformative	True				381	True
+11	informative	True				389	True
+11	nocue	True				389	True
+11	noninformative	True				387	True
+12	informative	True				366	True
+12	nocue	True				370	True
+12	noninformative	True				364	True
+13	informative	True				270	True
+13	nocue	True				268	True
+13	noninformative	True				249	True
+14	informative	True				290	True
+14	nocue	False	no stimraw epochs (eegunify epochs stage failed)	3: < 30 matched epochs (eegunify epochs stage failed)		0	False
+14	noninformative	False	no stimraw epochs (eegunify epochs stage failed)	3: < 30 matched epochs (eegunify epochs stage failed)		0	False
+15	informative	True				291	True
+15	nocue	True				375	True
+15	noninformative	True		2: 48% epochs rejected (> 45 %)		208	False
+16	informative	True				374	True
+16	nocue	True				333	True
+16	noninformative	True				370	True
+17	informative	True				378	True
+17	nocue	True				379	True
+17	noninformative	True				387	True
+18	informative	True				397	True
+18	nocue	True				398	True
+18	noninformative	True				386	True
+19	informative	True				314	True
+19	nocue	False	no stimraw epochs (eegunify epochs stage failed)	3: < 30 matched epochs (eegunify epochs stage failed)		0	False
+19	noninformative	True				273	True
+20	informative	True		1: pooled hit rate 47%, FA rate 22%		295	False
+20	nocue	True		1: pooled hit rate 47%, FA rate 22%		394	False
+20	noninformative	True		1: pooled hit rate 47%, FA rate 22%		338	False
+21	informative	True		1: pooled hit rate 49%, FA rate 26%		328	False
+21	nocue	True		1: pooled hit rate 49%, FA rate 26%		386	False
+21	noninformative	True		1: pooled hit rate 49%, FA rate 26%		284	False
+22	informative	True				357	True
+22	nocue	True				305	True
+22	noninformative	True				319	True
+23	informative	True				384	True
+23	nocue	True				376	True
+23	noninformative	True				355	True
+24	informative	True				237	True
+24	nocue	True				310	True
+24	noninformative	True				327	True
+25	informative	True				313	True
+25	nocue	True				335	True
+25	noninformative	True				382	True
+26	informative	True				387	True
+26	nocue	True				362	True
+26	noninformative	True				361	True
+27	informative	False	no stimraw epochs (eegunify epochs stage failed)	3: < 30 matched epochs (eegunify epochs stage failed)		0	False
+27	nocue	True				260	True
+27	noninformative	True				233	True
+28	informative	True				371	True
+28	nocue	True				296	True
+28	noninformative	True				286	True
+29	informative	True				355	True
+29	nocue	True				372	True
+29	noninformative	True				353	True
+30	informative	True				349	True
+30	nocue	True				306	True
+30	noninformative	True				382	True
+31	informative	True				388	True
+31	nocue	True				393	True
+31	noninformative	True				279	True
+32	informative	False	no stimraw epochs (eegunify epochs stage failed)	3: < 30 matched epochs (eegunify epochs stage failed)		0	False
+32	nocue	True				252	True
+32	noninformative	True				252	True
+33	informative	True				376	True
+33	nocue	True				396	True
+33	noninformative	True				397	True
+34	informative	True				290	True
+34	nocue	True				241	True
+34	noninformative	True				347	True
+35	informative	True				337	True
+35	noninformative	True				248	True
+36	informative	True				381	True
+36	nocue	True				370	True

@@ -91,3 +91,14 @@ def test_missing_upstream_is_skipped_and_excluded(tmp_path: Path) -> None:
     assert out[3].status == "skipped"
     g = json.loads((proj.group_dir() / "provenance.json").read_text())
     assert g["excluded"] == {"04": "sv_decode not run"}
+
+
+def test_inclusion_list_limits_tasks(tmp_path: Path) -> None:
+    proj = _project(tmp_path)
+    inc = tmp_path / "results" / "phase2"
+    inc.mkdir(parents=True)
+    pd.DataFrame({"subject": ["01", "02", "03"], "task": "nocue",
+                  "included": [True, False, True]}).to_csv(inc / "inclusion.tsv", sep="\t",
+                                                           index=False)
+    out = stages.run(proj, ["01", "02", "03"], CFG)
+    assert [o.status for o in out] == ["ran", "skipped", "ran", "ran"]

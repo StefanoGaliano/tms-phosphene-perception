@@ -123,3 +123,16 @@ def decode() -> None:
     for o in stages.run(proj, subs, cfg, a.analyses, a.force, group=not a.no_group):
         sub = f"sub-{o.subject}" if o.subject else "group"
         print(f"{o.stage:16s} {sub:8s} {o.status:8s} {o.message}")
+
+
+def step0() -> None:
+    """sv-step0: Phase 2 Step 0 (contract, inclusion, descriptives) -> results/phase2/."""
+    from pathlib import Path
+
+    from start_vision.decoding import config
+    from start_vision.decoding import step0 as s0
+
+    inc, _ = s0.run(Path.cwd(), config.load(Path("configs/decoding.yaml")),
+                    Path("results/phase2"))
+    print(f"{int(inc.included.sum())}/{len(inc)} recordings included, "
+          f"{inc[inc.included].subject.nunique()} subjects")

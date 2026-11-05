@@ -1,0 +1,38 @@
+{
+ "subject": "03",
+ "task": "nocue",
+ "bad_channels": [],
+ "ica_excluded": [
+  "1: iclabel eye blink 0.98",
+  "19: eog VEOG z=3.6; eog HEOG z=-3.1",
+  "22: eog HEOG z=-3.5",
+  "56: iclabel eye blink 0.81"
+ ],
+ "ica_blink_removed": true,
+ "n_kept": 308,
+ "n_epochs": 398,
+ "rejection_by_class": {
+  "seen": 0.226,
+  "unseen": 0.238,
+  "fa": 0.0,
+  "cr": 0.194
+ },
+ "balance_after_rejection": {
+  "n_seen_all": 144.0,
+  "n_unseen_all": 131.0,
+  "contrast_seen_all": 0.0287,
+  "contrast_unseen_all": 0.0272,
+  "smd_all": 0.3962,
+  "n_seen_matched": 108.0,
+  "n_unseen_matched": 106.0,
+  "contrast_seen_matched": 0.028,
+  "contrast_unseen_matched": 0.0279,
+  "smd_matched": 0.0291
+ },
+ "measures_uv": {
+  "VAN_bilateral_seen_minus_unseen_m": -3.445,
+  "LP_seen_minus_unseen_m": 1.138,
+  "VAN_contra_seen_minus_unseen": -3.908
+ },
+ "lp_direction_ok": true
+}

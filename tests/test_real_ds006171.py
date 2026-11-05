@@ -49,3 +49,18 @@ def test_ds006171_epochs_metadata_join_real() -> None:
     ep = mne.read_epochs(f, preload=False, verbose="error")
     m = attach_metadata(ep, staged_events(ROOT.parent / "staged" / "ds006171", "03", "nocue"))
     assert len(m.metadata) == len(ep) == 308
+
+
+@pytest.mark.parametrize(("sub", "task"), [("03", "nocue"), ("01", "noninformative")])
+def test_ds006171_phase2_trialset_contract(sub: str, task: str) -> None:
+    from start_vision.decoding.config import DecodingConfig
+    from start_vision.decoding.data import epochs_path, load_trialset
+
+    runs = Path(__file__).parents[1] / "runs"
+    if not epochs_path(runs, sub, task).exists():
+        pytest.skip(f"runs/{task} sub-{sub} not built")
+    ts = load_trialset(runs, ROOT.parent / "staged" / "ds006171", sub, task, DecodingConfig())
+    assert ts.X.shape[1:] == (128, 192) and ts.sfreq == 128
+    assert ts.meta.loc[ts.meta.stim_present, "gabor_contrast"].notna().all()
+    if task == "noninformative":
+        assert (ts.meta.hemifield == "unknown").all()

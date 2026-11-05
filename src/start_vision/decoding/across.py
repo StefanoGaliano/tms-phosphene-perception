@@ -37,16 +37,33 @@ def _auc(y: np.ndarray, s: np.ndarray) -> float:
 
 
 # ---------- A7 ----------
+def _sliding_fit_score(cfg: DecodingConfig, xtr: np.ndarray, ytr: np.ndarray,
+                       xte: np.ndarray, yte: np.ndarray) -> np.ndarray:
+    """Per-time-point fit and AUC, time points in threads (no data copies; liblinear
+    releases the GIL). Same estimator as ``models.sliding``, without its process pool, which
+    copies the training data into every worker (out of memory on 34 subjects, 2026-11-05)."""
+    from joblib import Parallel, delayed
+
+    def one(t: int) -> float:
+        est = models.time_point(cfg).fit(xtr[:, :, t], ytr)
+        return _auc(yte, est.decision_function(xte[:, :, t]))
+
+    return np.asarray(Parallel(n_jobs=cfg.n_jobs, prefer="threads")(
+        delayed(one)(t) for t in range(xtr.shape[2])))
+
+
 def loso_sliding(sets: Sequence[TrialSet], cfg: DecodingConfig, normalized: bool = False
                  ) -> tuple[np.ndarray, list[str]]:
-    """Held-out AUC(t) per subject, shape (n_subjects, n_times). ``sets``: one per subject."""
+    """Held-out AUC(t) per subject, shape (n_subjects, n_times). ``sets``: one per subject.
+    Folds run one at a time (one training copy in memory)."""
     norm = list(sets) if normalized else [normalize(s, cfg) for s in sets]
     subjects = [str(s.meta["subject"].iloc[0]) for s in norm]
     out = []
     for i, test in enumerate(norm):
-        train = TrialSet.concat([s for j, s in enumerate(norm) if j != i])
-        est = models.sliding(cfg).fit(train.X, train.labels("seen"))
-        out.append(est.score(test.X, test.labels("seen")))
+        xtr = np.concatenate([s.X for j, s in enumerate(norm) if j != i])
+        ytr = np.concatenate([s.labels("seen") for j, s in enumerate(norm) if j != i])
+        out.append(_sliding_fit_score(cfg, xtr, ytr, test.X, test.labels("seen")))
+        del xtr
     return np.asarray(out), subjects
 
 
@@ -55,20 +72,23 @@ def loso_window(sets: Sequence[TrialSet], cfg: DecodingConfig, window_s: tuple[f
                 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Window detector under LOSO: (per-subject AUC table, per-trial predictions table).
 
-    Folds run in threads (liblinear releases the GIL), sharing one copy of the data.
+    Window features are computed per subject first (``WindowFeatures`` is stateless, nothing
+    is fitted), so folds concatenate small feature matrices; folds run in threads.
     ``normalized``: the sets are already ``normalize``-d (saves memory when reused).
     """
     from joblib import Parallel, delayed
 
     norm = list(sets) if normalized else [normalize(s, cfg) for s in sets]
-    xs = [s.X for s in norm]
+    feat = models.WindowFeatures(norm[0].times, window_s, cfg.feature_bin_s)
+    fs = [feat.transform(s.X) for s in norm]
     ys = [s.labels("seen") for s in norm]
 
     def fold(i: int) -> tuple[dict[str, Any], pd.DataFrame]:
-        xtr = np.concatenate([x for j, x in enumerate(xs) if j != i])
+        ftr = np.concatenate([f for j, f in enumerate(fs) if j != i])
         ytr = np.concatenate([y for j, y in enumerate(ys) if j != i])
-        pipe = models.window_detector(cfg, norm[0].times, window_s, C).fit(xtr, ytr)
-        s = pipe.decision_function(xs[i])
+        pipe = models.window_detector(cfg, norm[0].times, window_s, C)
+        pipe.steps[0] = (pipe.steps[0][0], "passthrough")  # features already computed
+        s = pipe.fit(ftr, ytr).decision_function(fs[i])
         test = norm[i]
         sub = str(test.meta["subject"].iloc[0])
         row = {"subject": sub, "n": len(s), "n_seen": int(ys[i].sum()), "auc": _auc(ys[i], s)}

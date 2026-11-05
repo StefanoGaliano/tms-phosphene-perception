@@ -85,3 +85,24 @@ def test_a12_transfer_and_harmonization_check() -> None:
     other = make_subject("9", "seen_late", 60, n_channels=16, seed=8)
     with pytest.raises(ValueError):
         across.transfer(train, [other], CFG)
+
+
+def test_ds006171_loso_low_memory_matches_reference() -> None:
+    """The memory-saving LOSO (34 subjects ran out of memory, 2026-11-05) must give the same
+    held-out scores as the plain SlidingEstimator / full window pipeline."""
+    from start_vision.decoding import models
+
+    sets = [across.normalize(s, CFG) for s in
+            make_synthetic_trialset(4, 80, generator="seen_late", d=1.0, seed=7)]
+    auc, _ = across.loso_sliding(sets, CFG, normalized=True)
+    table, preds = across.loso_window(sets, CFG, (0.3, 0.5), normalized=True)
+    for i, test in enumerate(sets):
+        train = TrialSet.concat([s for j, s in enumerate(sets) if j != i])
+        ref = models.sliding(CFG).fit(train.X, train.labels("seen")).score(
+            test.X, test.labels("seen"))
+        np.testing.assert_allclose(auc[i], ref, atol=1e-10)
+        pipe = models.window_detector(CFG, test.times, (0.3, 0.5)).fit(
+            train.X, train.labels("seen"))
+        sub = str(test.meta["subject"].iloc[0])
+        np.testing.assert_allclose(preds.loc[preds.subject == sub, "score"].to_numpy(),
+                                   pipe.decision_function(test.X), atol=1e-8)

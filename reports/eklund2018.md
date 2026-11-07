@@ -35,10 +35,14 @@ staircase, 4 **quadrants**, location response then a 3-point awareness rating, t
 |---|---|---|
 | LP 350-550 ms, P3/Pz/P4, large | +1.36 µV (d_z 1.59, N 24) | +1.35 µV |
 | LP, small | +1.19 µV (d_z 1.54, N 14) | +1.00 µV |
-| VAN 180-280 ms, large | -1.06 µV, bilateral O1/O2 (d_z -0.71) | -1.58 µV, contralateral |
-| VAN, small | -0.85 µV, bilateral (d_z -0.79) | -1.41 µV, contralateral |
+| **VAN 180-280 ms, contralateral, large** | **-1.48 µV** (d_z -0.74, p 0.001, N 24) | -1.58 µV |
+| **VAN, contralateral, small** | **-1.38 µV** (d_z -1.05, p 0.002, N 14) | -1.41 µV |
+| VAN, bilateral O1/O2, large | -1.06 µV (d_z -0.71) | |
+| VAN, bilateral, small | -0.85 µV (d_z -0.79) | |
 
-The LP matches; the VAN has the right sign and is smaller, as expected for bilateral sites.
+Contralateral = O1 for right-field and O2 for left-field Gabors, the authors' measure
+(`results/eklund2018/van_contralateral.{tsv,json}`). Both the LP and the contralateral VAN
+reproduce the paper, so the preprocessing is not what limits the transfer.
 
 ## Result
 
@@ -74,7 +78,24 @@ any false alarm) and 0.539 (small, 12): no consistent separation, as in ds006171
    0.62 vs unaware 0.52), so Phase 3 should not rely on the global threshold θ without a
    check; the subject-adaptive rule (open question Q4) is the safer pre-registration.
 
-## Not done / open
+## Secondary: decoder retrained on ds006171, tested over time on Eklund
 
-- Retrained transfer (`across.transfer`, secondary per decision 9).
-- Contralateral VAN in this pipeline (only bilateral computed here).
+A sliding decoder (per time point, as Phase 2 A7) trained on all 34 included ds006171
+subjects (28 066 stimulus-present trials, 64-channel subset), tested on each Eklund session;
+AUC(t) of aware vs unaware correct (`results/eklund2018/retrained_transfer.{json,_auc.npz}`).
+
+| | Large (N 24) | Small (N 14) |
+|---|---|---|
+| VAN 180-280 ms | 0.538 [0.526, 0.551], d_z 1.22, p 1e-4 | 0.534 [0.519, 0.549], p 5e-4 |
+| LP 350-550 ms | 0.601 [0.587, 0.613], d_z 3.00, p 1e-4 | 0.595 [0.577, 0.617], p 2e-4 |
+| post 200-600 ms | 0.572 [0.561, 0.583], p 1e-4 | 0.569 [0.554, 0.586], p 2e-4 |
+| prestim -500..0 ms | 0.504, p 0.22 | 0.503, p 0.29 |
+| clusters (p < .05) | 156-273 ms (p 0.027), 305-742 ms (p 1e-4) | 156-266 ms (p 0.045), 320-805 ms (p 1e-4) |
+| peak | 0.628 at 453 ms | 0.624 at 477 ms |
+
+- The transferable code has two parts: a small early one in the VAN window and a larger late
+  one peaking near 450 ms (the LP window). Nothing before the stimulus.
+- Per time point the transfer is weaker than the frozen window detector (0.65), which pools
+  150-600 ms; the time course says where the shared signal is, not a better detector.
+- Within ds006171 the A7 sliding decoder reached 0.568 (VAN) and 0.652 (LP); across labs
+  0.538 and 0.601. The late part carries most of what generalizes.

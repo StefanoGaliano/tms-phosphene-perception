@@ -74,17 +74,50 @@ class _Stub:
         raise NotImplementedError(f"{self.name}: {self.missing}")
 
 
-class Eklund2018Adapter(_Stub):
-    """Eklund & Wiens 2018 (figshare doi:10.17045/sthlmuni.5418967; idea 001). First
-    cross-dataset candidate: BioSemi 64 ch, Gabor in 4 quadrants, duration staircase, 3-point
-    awareness rating; codes 1-4 critical, 5-8 control, 9 catch (``trialfun_VAN.m``)."""
+class Eklund2018Adapter:
+    """Eklund & Wiens 2018 (figshare doi:10.17045/sthlmuni.5418967; A12 issue #1, built
+    2026-11-07). One "subject" per included session, ``<fp>_<large|small>``. Trials: aware correct
+    (seen = 1) and unaware correct (seen = 0), the authors' contrast (user decision 9); epochs from
+    ``runs/eklund2018`` (eegunify, ICA), prepared like ds006171 (``data.prepare``)."""
 
     name = "eklund2018"
     modality: Modality = "visual"
-    missing = ("not built. Before writing it: (1) which awareness ratings the authors count as "
-               "'seen' (TODO_FROM_SOURCE, paper methods); (2) Status-channel decoding checked "
-               "on a real file; (3) mapping of its 64 channels to the ds006171 ABC cap. "
-               "See docs/A12_OPEN_ISSUES.md #1.")
+
+    def __init__(self, cfg: DecodingConfig | None = None) -> None:
+        self.cfg = cfg or DecodingConfig()
+
+    def subjects(self, root: Path) -> list[str]:
+        import pandas as pd
+
+        from start_vision.decoding.eklund_test import epochs_file
+
+        t = pd.read_csv(root / "configs" / "eklund2018_sessions.tsv", sep="\t")
+        t = t[t["authors_included"]]
+        return [f"{int(f):02d}_{g}" for f, g in zip(t["fp"], t["gabor"], strict=True)
+                if epochs_file(root / "runs" / "eklund2018", f"{int(f):02d}", str(g)).exists()]
+
+    def load(self, subject: str, root: Path) -> TrialSet:
+        import numpy as np
+        import pandas as pd
+
+        from start_vision.decoding.data import META_COLUMNS, prepare
+        from start_vision.decoding.eklund_test import load_session
+
+        sub, gabor = subject.split("_")
+        ep, meta = load_session(root / "runs" / "eklund2018",
+                                root / "sourcedata" / "staged" / "eklund2018", sub, gabor)
+        keep = (meta["cls"].isin(["aware", "unaware"])
+                & (meta["exclusion"].fillna("") == "")).to_numpy()
+        e = prepare(ep[np.flatnonzero(keep)], self.cfg).pick("eeg")
+        m = meta[keep].reset_index(drop=True)
+        side = m["quadrant"].map({"UL": "left", "LL": "left", "UR": "right", "LR": "right"})
+        out = pd.DataFrame({c: np.nan for c in META_COLUMNS}, index=m.index).astype(object)
+        out = out.assign(subject=subject, dataset=self.name, task=gabor,
+                         trial_number=m["trial_number"], event_code=m["condition"],
+                         stim_present=True, hemifield=side, seen=(m["cls"] == "aware").astype(int),
+                         objective_correct=True, matched=True)
+        x = (e.get_data() * 1e6).astype(np.float32)
+        return TrialSet(x, e.times.copy(), tuple(e.ch_names), float(e.info["sfreq"]), out, e.info)
 
 
 class Ds005273Adapter(_Stub):

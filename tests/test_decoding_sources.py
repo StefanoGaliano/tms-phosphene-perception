@@ -44,8 +44,8 @@ def test_adapters_follow_the_protocol() -> None:
     assert isinstance(_SyntheticAdapter("x", 16, 128.0, (-0.5, 1.0), 0), sources.DatasetAdapter)
 
 
-@pytest.mark.parametrize("cls", [sources.Eklund2018Adapter, sources.Ds005273Adapter,
-                                 sources.TactileAdapter, sources.TmsPhospheneAdapter])
+@pytest.mark.parametrize("cls", [sources.Ds005273Adapter, sources.TactileAdapter,
+                                 sources.TmsPhospheneAdapter])
 def test_stubs_say_what_is_missing(cls: type, tmp_path: Path) -> None:
     a = cls()
     for call in (lambda: a.subjects(tmp_path), lambda: a.load("01", tmp_path)):

@@ -82,3 +82,18 @@ def test_ds006171_adapter_loads_an_included_subject() -> None:
     assert ts.meta["stim_present"].any() and (~ts.meta["stim_present"].astype(bool)).any()
     seen = ts.meta.loc[ts.meta["stim_present"].astype(bool), "seen"]
     assert set(seen.unique()) <= {0, 1}
+
+
+def test_eklund2018_adapter_loads_a_session() -> None:
+    """A12 issue #1: Eklund sessions in the TrialSet format, contract channels, 128 Hz."""
+    from start_vision.decoding import sources
+
+    root = Path(__file__).parents[1]
+    if not (root / "runs" / "eklund2018").exists():
+        pytest.skip("Eklund runs/ not present")
+    a = sources.Eklund2018Adapter()
+    subs = a.subjects(root)
+    assert len(subs) == 38 and "06_small" not in subs  # sub-06 small failed preprocessing
+    ts = a.load("01_large", root)
+    assert ts.sfreq == 128.0 and len(ts.ch_names) == 64
+    assert set(ts.meta["dataset"]) == {"eklund2018"} and set(ts.labels("seen")) == {0, 1}

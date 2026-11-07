@@ -131,3 +131,87 @@ def run(root: Path, cfg: DecodingConfig, out: Path) -> pd.DataFrame:
                                   .mean().round(3).to_dict() for g in ("large", "small")}
     (out / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     return res
+
+
+def contralateral_van(root: Path, out: Path, win_ms: tuple[int, int] = (180, 280)
+                      ) -> dict[str, Any]:
+    """Eklund's VAN measure on this pipeline: contra(aware) - contra(unaware), O1 for right- and
+    O2 for left-field Gabors (analyze_VAN.m; Phase 1 decision 4), 180-280 ms, per session."""
+    import json
+
+    from scipy import stats as sps
+
+    from start_vision.analysis import lateral
+
+    sessions = pd.read_csv(root / "configs" / "eklund2018_sessions.tsv", sep="\t")
+    rows = []
+    for rec in sessions[sessions["authors_included"]].to_dict("records"):
+        sub, gabor = f"{int(rec['fp']):02d}", str(rec["gabor"])
+        f = (root / "runs" / "eklund2018" / gabor / "derivatives" / "eegunify-erp" / f"sub-{sub}"
+             / "eeg" / f"sub-{sub}_task-{gabor}_desc-stim_ave.fif")
+        if not f.exists():
+            continue
+        evs = {e.comment: e for e in mne.read_evokeds(f, verbose="error")}
+        d = lateral.contra_difference({"seen_contra": evs["aware_contra"],
+                                       "unseen_contra": evs["unaware_contra"]})
+        rows.append({"fp": int(rec["fp"]), "gabor": gabor,
+                     "van_contra_uv": lateral.window_mean(d, win=win_ms)})
+    df = pd.DataFrame(rows)
+    df.to_csv(out / "van_contralateral.tsv", sep="\t", index=False)
+    res: dict[str, Any] = {}
+    for g in ("large", "small"):
+        v = df.loc[df["gabor"] == g, "van_contra_uv"].to_numpy()
+        t = sps.ttest_1samp(v, 0.0)
+        res[g] = {"n": len(v), "mean_uv": float(v.mean()), "sd_uv": float(v.std(ddof=1)),
+                  "t": float(t.statistic), "p": float(t.pvalue),
+                  "d_z": float(v.mean() / v.std(ddof=1))}
+    (out / "van_contralateral.json").write_text(json.dumps(res, indent=2) + "\n")
+    return res
+
+
+def retrained_transfer(root: Path, cfg: DecodingConfig, out: Path) -> dict[str, Any]:
+    """Secondary test (decision 9): a sliding decoder trained on all included ds006171
+    subjects (stimulus-present trials, 64-channel subset) and tested on each Eklund session,
+    AUC(t). Group: cluster test over time and window tests (VAN, LP, post), per Gabor size."""
+    import json
+
+    from start_vision.decoding import across, channels, stats
+    from start_vision.decoding.analyses import SubjectData
+    from start_vision.decoding.sources import Eklund2018Adapter
+    from start_vision.decoding.stages import Project
+    from start_vision.decoding.step0 import included_tasks
+
+    proj = Project.default(root)
+    table = pd.read_csv(root / "configs" / "channels" / "ds006171_to_biosemi64.tsv", sep="\t")
+    train = []
+    for s, tasks in sorted(included_tasks(root).items()):
+        train.append(channels.subset(SubjectData(proj.runs, proj.staged, s, tasks, cfg).main,
+                                     table))
+    ek = Eklund2018Adapter(cfg)
+    names = ek.subjects(root)
+    test = [ek.load(n, root) for n in names]
+    h = channels.harmonize(train + test)
+    tr, te = h[:len(train)], h[len(train):]
+    df = across.transfer(tr, te, cfg)
+    times = tr[0].times
+    auc = np.vstack([np.asarray(a, dtype=float) for a in df["auc"]])
+    gab = np.array([n.split("_")[1] for n in names])
+    np.savez(out / "retrained_transfer_auc.npz", auc=auc, times=times, sessions=np.array(names))
+    windows = {"VAN 180-280": (0.18, 0.28), "LP 350-550": (0.35, 0.55),
+               "post 200-600": (0.2, 0.6), "prestim -500-0": (-0.5, 0.0)}
+    res: dict[str, Any] = {"n_train_subjects": len(train),
+                           "n_train_trials": int(sum(len(t) for t in tr)),
+                           "channels": len(tr[0].ch_names)}
+    for g in ("large", "small"):
+        a = auc[gab == g]
+        win = {}
+        for k, (lo, hi) in windows.items():
+            m = (times >= lo - 1e-9) & (times <= hi + 1e-9)
+            win[k] = stats.window_test(a[:, m].mean(1), seed=cfg.seed)
+        cl = stats.cluster_auc(a, times, seed=cfg.seed)
+        res[g] = {"n": len(a), "windows": win,
+                  "clusters": cl[cl["p"] < 0.05].to_dict("records"),
+                  "peak_auc": float(a.mean(0).max()),
+                  "peak_time_s": float(times[int(a.mean(0).argmax())])}
+    (out / "retrained_transfer.json").write_text(json.dumps(res, indent=2, default=float) + "\n")
+    return res

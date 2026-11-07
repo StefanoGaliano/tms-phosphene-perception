@@ -1,0 +1,76 @@
+{
+  "detector": "detectors/sv-perception-tms-robust-v1.0.0",
+  "failed": [
+    {
+      "fp": 6,
+      "gabor": "small",
+      "error": "FileNotFoundError('File does not exist: \"/home/stefanogaliano/Documents/Projects/Neurosciences/Start_Vision/runs/eklund2018/small/derivatives/eegunify-epochs/sub-06/eeg/sub-06_task-small_desc-stimraw_epo.fif\"')"
+    }
+  ],
+  "large": {
+    "auc_primary": {
+      "n": 24,
+      "mean_auc": 0.6505847574965872,
+      "ci_low": 0.6289146593948377,
+      "ci_high": 0.6712120730060814,
+      "d_z": 2.809856939887801,
+      "p_one_sided": 9.999000099990002e-05,
+      "n_above_chance": 24
+    },
+    "auc_rating_only": {
+      "n": 24,
+      "mean_auc": 0.6618862704393716,
+      "ci_low": 0.6398559713721269,
+      "ci_high": 0.6833062784139933,
+      "d_z": 2.9146474170784056,
+      "p_one_sided": 9.999000099990002e-05,
+      "n_above_chance": 24
+    },
+    "catch_fa_vs_cr": {
+      "n_sessions": 21,
+      "mean_auc": 0.46909266307717745
+    }
+  },
+  "small": {
+    "auc_primary": {
+      "n": 14,
+      "mean_auc": 0.65432867234787,
+      "ci_low": 0.6259470451707557,
+      "ci_high": 0.6822242294090745,
+      "d_z": 2.7707092082000555,
+      "p_one_sided": 0.00019998000199980003,
+      "n_above_chance": 14
+    },
+    "auc_rating_only": {
+      "n": 14,
+      "mean_auc": 0.6656764240263285,
+      "ci_low": 0.634715261896805,
+      "ci_high": 0.696759968512362,
+      "d_z": 2.67660761515457,
+      "p_one_sided": 0.00019998000199980003,
+      "n_above_chance": 14
+    },
+    "catch_fa_vs_cr": {
+      "n_sessions": 12,
+      "mean_auc": 0.5387583154666858
+    }
+  },
+  "p_seen_by_class": {
+    "large": {
+      "aware": 0.619,
+      "aware_incorrect": 0.469,
+      "catch": 0.474,
+      "control": 0.703,
+      "unaware": 0.518,
+      "unaware_incorrect": 0.476
+    },
+    "small": {
+      "aware": 0.624,
+      "aware_incorrect": 0.486,
+      "catch": 0.466,
+      "control": 0.635,
+      "unaware": 0.515,
+      "unaware_incorrect": 0.469
+    }
+  }
+}

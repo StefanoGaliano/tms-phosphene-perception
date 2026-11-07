@@ -159,3 +159,15 @@ def export() -> None:
     subs = sorted(included_tasks(proj.root))
     for f in ex.run(proj, subs, config.load(Path(a.config)), a.variant, a.backend):
         print(f"exported {f}")
+
+
+def eklund() -> None:
+    """sv-eklund: frozen tms-robust detector on Eklund & Wiens 2018 (A12 issue #1)."""
+    from pathlib import Path
+
+    from start_vision.decoding import config
+    from start_vision.decoding import eklund_test as et
+
+    root = Path.cwd()
+    et.run(root, config.load(root / "configs" / "decoding.yaml"),
+           root / "results" / "eklund2018")

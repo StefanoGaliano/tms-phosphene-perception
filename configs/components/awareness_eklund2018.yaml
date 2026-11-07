@@ -1,0 +1,30 @@
+# Awareness ERP components for Eklund & Wiens 2018 on its own 64-channel BioSemi cap
+# (A12 issue #1). Values from docs/PHASE1_REFERENCES.md section 2 (paper ERP analysis;
+# analyze_VAN.m lines 24-29). Used only as a preprocessing sanity check before the detector test.
+
+van@awareness_eklund2018:
+  name: VAN (visual awareness negativity)
+  citation: Eklund & Wiens 2018, ERP analysis section; analyze_VAN.m lines 24-26
+  epoch_set: stim
+  contrast: aware_minus_unaware
+  window_ms: [180, 280]
+  rois: {primary: [O1, O2]}
+  measures: [mean_amplitude, fractional_area_latency]
+  polarity: negative
+  reference: average
+  notes: >-
+    Bilateral O1/O2 here; the source measures contralateral only (aware_lat / unaware_lat
+    waves). Eklund Table 2: -1.58 uV (large) / -1.41 uV (small Gabor), contralateral.
+
+lp@awareness_eklund2018:
+  name: P3b / late positivity
+  citation: Eklund & Wiens 2018, ERP analysis section; analyze_VAN.m lines 28-29
+  epoch_set: stim
+  contrast: aware_minus_unaware
+  window_ms: [350, 550]
+  rois: {primary: [P3, Pz, P4]}
+  measures: [mean_amplitude, fractional_area_latency]
+  polarity: positive
+  reference: average
+  notes: >-
+    The source's own sites (code and Methods). Eklund Table 2: +1.35 / +1.00 uV.

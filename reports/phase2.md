@@ -126,4 +126,6 @@ estimate. N = 34 subjects.
 - LOSO implementation changed after an out-of-memory failure at 34 subjects (same numbers, tested
   by `test_ds006171_loso_low_memory_matches_reference`). Group stage: 64 min, peak ~23 GB.
 - Saccade-rejection version B (Phase 1 decision 5) is still to be run as a robustness check.
-- Step 15 done (A11 above). Next: step 16 (A12 stubs).
+- Step 15 done (A11 above). Step 16 done: A12 interfaces (`decoding/sources.py`, ds006171 adapter +
+  four stubs), synthetic cross-dataset transfer test; blockers per dataset in
+  `docs/A12_OPEN_ISSUES.md` (Eklund 2018 is buildable next; ds005273, touch, TMS blocked).

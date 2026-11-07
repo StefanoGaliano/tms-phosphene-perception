@@ -64,3 +64,21 @@ def test_ds006171_phase2_trialset_contract(sub: str, task: str) -> None:
     assert ts.meta.loc[ts.meta.stim_present, "gabor_contrast"].notna().all()
     if task == "noninformative":
         assert (ts.meta.hemifield == "unknown").all()
+
+
+def test_ds006171_adapter_loads_an_included_subject() -> None:
+    """A12 adapter (step 16) on the real Phase 1 epochs; needs runs/ (skips otherwise)."""
+    from start_vision.decoding import sources
+
+    root = Path(__file__).parents[1]
+    if not (root / "runs").exists():
+        pytest.skip("Phase 1 runs/ not present")
+    a = sources.Ds006171Adapter()
+    subs = a.subjects(root)
+    assert len(subs) == 34 and "03" in subs
+    ts = a.load("03", root)
+    assert set(ts.meta["dataset"]) == {"ds006171"} and ts.sfreq == 128.0
+    assert len(ts.ch_names) == 128
+    assert ts.meta["stim_present"].any() and (~ts.meta["stim_present"].astype(bool)).any()
+    seen = ts.meta.loc[ts.meta["stim_present"].astype(bool), "seen"]
+    assert set(seen.unique()) <= {0, 1}

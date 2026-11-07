@@ -1,0 +1,131 @@
+{
+  "loso_auc_mean": 0.7583667710270723,
+  "loso_auc_ci95": [
+    0.7383839405804153,
+    0.7781149070901311
+  ],
+  "nested_loso_auc_mean": 0.7583657851396318,
+  "nested_loso_auc_ci95": [
+    0.7383841670925018,
+    0.7781176697485787
+  ],
+  "threshold": 0.5176684155392085,
+  "balanced_accuracy_at_threshold": 0.6956745202529278,
+  "brier": 0.20056897727162332,
+  "selection": {
+    "rule": "max LOSO mean AUC over windows x C (ties: first)",
+    "backend": "torch",
+    "window_s": [
+      0.15,
+      0.6
+    ],
+    "C": 0.01,
+    "grid": [
+      {
+        "window_s": [
+          0.15,
+          0.6
+        ],
+        "C": 0.01,
+        "loso_auc_mean": 0.7583657851396318
+      },
+      {
+        "window_s": [
+          0.15,
+          0.6
+        ],
+        "C": 0.1,
+        "loso_auc_mean": 0.7481029976502621
+      },
+      {
+        "window_s": [
+          0.15,
+          0.6
+        ],
+        "C": 1.0,
+        "loso_auc_mean": 0.7441177043158932
+      },
+      {
+        "window_s": [
+          0.2,
+          0.6
+        ],
+        "C": 0.01,
+        "loso_auc_mean": 0.7439496643647628
+      },
+      {
+        "window_s": [
+          0.2,
+          0.6
+        ],
+        "C": 0.1,
+        "loso_auc_mean": 0.7339244604633735
+      },
+      {
+        "window_s": [
+          0.2,
+          0.6
+        ],
+        "C": 1.0,
+        "loso_auc_mean": 0.7300420840432329
+      },
+      {
+        "window_s": [
+          0.2,
+          0.8
+        ],
+        "C": 0.01,
+        "loso_auc_mean": 0.7487958142042214
+      },
+      {
+        "window_s": [
+          0.2,
+          0.8
+        ],
+        "C": 0.1,
+        "loso_auc_mean": 0.7347544127085996
+      },
+      {
+        "window_s": [
+          0.2,
+          0.8
+        ],
+        "C": 1.0,
+        "loso_auc_mean": 0.7287861019620337
+      },
+      {
+        "window_s": [
+          0.3,
+          0.8
+        ],
+        "C": 0.01,
+        "loso_auc_mean": 0.7280844882067945
+      },
+      {
+        "window_s": [
+          0.3,
+          0.8
+        ],
+        "C": 0.1,
+        "loso_auc_mean": 0.7145375406251355
+      },
+      {
+        "window_s": [
+          0.3,
+          0.8
+        ],
+        "C": 1.0,
+        "loso_auc_mean": 0.7089912363461506
+      }
+    ]
+  },
+  "catch": {
+    "n_catch": 3146,
+    "n_false_alarms": 206,
+    "behavioural_fa_rate": 0.06547997457088366,
+    "detector_fa_rate_at_threshold": 0.22155117609663064,
+    "threshold_at_behavioural_fa": 0.6686033176004315,
+    "hit_rate_at_behavioural_fa_threshold": 0.4063727306409781,
+    "auc_fa_vs_cr_pooled": 0.50308764282412
+  }
+}

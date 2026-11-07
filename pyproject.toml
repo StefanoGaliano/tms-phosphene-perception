@@ -11,6 +11,7 @@ dependencies = ["eegunify==0.9.3", "pydantic>=2", "scikit-learn>=1.9", "skops>=0
 
 [project.optional-dependencies]
 dev = ["pytest", "ruff", "mypy"]
+gpu = ["torch>=2.14"]  # sv-export --backend torch
 
 [project.scripts]
 sv-inventory = "start_vision.cli:inventory"
@@ -19,6 +20,7 @@ sv-configs = "start_vision.cli:configs"
 sv-analyze = "start_vision.cli:analyze"
 sv-decode = "start_vision.cli:decode"
 sv-step0 = "start_vision.cli:step0"
+sv-export = "start_vision.cli:export"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/start_vision"]

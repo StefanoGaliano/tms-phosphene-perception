@@ -95,7 +95,7 @@ def test_ds006171_loso_low_memory_matches_reference() -> None:
     sets = [across.normalize(s, CFG) for s in
             make_synthetic_trialset(4, 80, generator="seen_late", d=1.0, seed=7)]
     auc, _ = across.loso_sliding(sets, CFG, normalized=True)
-    table, preds = across.loso_window(sets, CFG, (0.3, 0.5), normalized=True)
+    _, preds = across.loso_window(sets, CFG, (0.3, 0.5), normalized=True)
     for i, test in enumerate(sets):
         train = TrialSet.concat([s for j, s in enumerate(sets) if j != i])
         ref = models.sliding(CFG).fit(train.X, train.labels("seen")).score(

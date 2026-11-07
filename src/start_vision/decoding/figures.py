@@ -257,7 +257,8 @@ def f9_cross(matrix: np.ndarray, tasks: Sequence[str], cross: Mapping[str, np.nd
     return _save(fig, out, "F9_cross")
 
 
-def f10_calibration(calib: pd.DataFrame, scores: Mapping[str, np.ndarray], out: Path) -> Path:
+def f10_calibration(calib: pd.DataFrame, scores: Mapping[str, np.ndarray], out: Path,
+                    name: str = "F10_calibration", title: str = "") -> Path:
     """F10: reliability diagram (calibration.tsv) and calibrated score distributions."""
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(10, 3.8), facecolor=SURFACE)
     _style(a1)
@@ -269,23 +270,23 @@ def f10_calibration(calib: pd.DataFrame, scores: Mapping[str, np.ndarray], out: 
                 color=MUTED)
     a1.set_xlabel("calibrated P(seen)", fontsize=8, color=MUTED)
     a1.set_ylabel("observed rate seen", fontsize=8, color=MUTED)
-    a1.set_title("F10  Reliability (LOSO held-out)", fontsize=9, color=INK, loc="left")
+    a1.set_title(f"F10  Reliability (LOSO held-out){title}", fontsize=9, color=INK, loc="left")
     _style(a2)
     bins = np.linspace(0, 1, 26)
     styles = ("-", "--", "-.", ":")
-    for i, (name, s) in enumerate(scores.items()):
+    for i, (label, s) in enumerate(scores.items()):  # not `name`: that is the file name
         h, e = np.histogram(s, bins=bins, density=True)
         mid = (e[1:] + e[:-1]) / 2
-        a2.plot(mid, h, color=_color(name, i), lw=2, ls=styles[i % 4],
-                label=f"{name} (n = {len(s)})")
+        a2.plot(mid, h, color=_color(label, i), lw=2, ls=styles[i % 4],
+                label=f"{label} (n = {len(s)})")
         k = int(np.argmax(h))
-        a2.text(mid[k], h[k], f" {name}", fontsize=7, color=INK, va="bottom")
+        a2.text(mid[k], h[k], f" {label}", fontsize=7, color=INK, va="bottom")
     a2.set_xlabel("calibrated P(seen)", fontsize=8, color=MUTED)
     a2.set_ylabel("density", fontsize=8, color=MUTED)
     a2.legend(fontsize=7, frameon=False)
     a2.set_title("Score distributions", fontsize=9, color=INK, loc="left")
     fig.tight_layout()
-    return _save(fig, out, "F10_calibration")
+    return _save(fig, out, name)
 
 
 # ---------- tables ----------

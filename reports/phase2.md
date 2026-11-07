@@ -93,6 +93,32 @@ window level (e.g. A1 pooled 0.504, p = 0.025) but no prestimulus cluster surviv
    stimulus-like cortical response, and a null could mean either no percept or a percept without
    that response. N of false alarms is small (median 4 per subject), so this is a weak test.
 
+## A11: exported detectors v1.0.0 (build step 15, 2026-11-07)
+
+Files: `detectors/sv-perception-<variant>-v1.0.0/` (immutable; manifest hashes checked);
+summaries `results/phase2/detector_<variant>_summary.json`; reliability F10
+`results/phase2/figures/F10_<variant>.png`. Window and C were chosen by LOSO mean AUC over
+4 windows x C {0.01, 0.1, 1}; nested LOSO (outer subject left out of the choice) is the unbiased
+estimate. N = 34 subjects.
+
+| Variant | Channels | Chosen window, C | LOSO AUC [95 % CI] | nested LOSO AUC | θ | balanced acc. | Brier | catch FA rate at θ | catch FA vs CR AUC |
+|---|---|---|---|---|---|---|---|---|---|
+| `tms-robust` | 64 | 150-600 ms, 0.01 | 0.750 [0.730, 0.770] | 0.750 | 0.521 | 0.688 | 0.203 | 0.228 | 0.478 |
+| `full` | 128 | 150-600 ms, 0.01 | 0.758 [0.738, 0.778] | 0.758 | 0.518 | 0.696 | 0.201 | 0.222 | 0.503 |
+
+- Both variants choose the same window and C; the nested estimate equals the plain LOSO one, so
+  the choice does not inflate the result. 64 channels cost 0.008 AUC.
+- Behavioural catch FA rate is 0.065; θ at max balanced accuracy gives a detector FA rate of
+  about 0.22 on catch trials. The θ matched to the behavioural FA rate is in `performance.json`
+  (`threshold_at_behavioural_fa`; tms-robust 0.674, hit rate 0.387 there). Phase 3 must
+  pre-register the rule (Q4).
+- Catch "seen" false alarms still score like correct rejections (0.478 / 0.503), as in C5.
+- **Deviation**: the window x C selection fits ran on the GPU (`gpu_select`, exact Newton solve of
+  liblinear's objective in float32; `sv-export --backend torch`), because the CPU selection did
+  not finish `tms-robust` in 4.5 h. Tests check it against sklearn (same choices, AUC within
+  0.002). The exported models are fitted by sklearn as before. `tms-robust` ran before a
+  stopping-rule fix (2026-11-07: fp32 fits always ran 50 Newton steps); same optimum, slower.
+
 ## Deviations and open items
 
 - A6 not run (no key side). C5 catch uses >= 3 FA per subject instead of the blueprint's >= 10
@@ -100,4 +126,4 @@ window level (e.g. A1 pooled 0.504, p = 0.025) but no prestimulus cluster surviv
 - LOSO implementation changed after an out-of-memory failure at 34 subjects (same numbers, tested
   by `test_ds006171_loso_low_memory_matches_reference`). Group stage: 64 min, peak ~23 GB.
 - Saccade-rejection version B (Phase 1 decision 5) is still to be run as a robustness check.
-- Next: step 15 (export `tms-robust` and `full` detectors v1.0.0, F10 calibration), step 16 (A12).
+- Step 15 done (A11 above). Next: step 16 (A12 stubs).

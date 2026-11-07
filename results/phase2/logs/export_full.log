@@ -1,0 +1,118 @@
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+selection: 12 configs x 34 subjects = 7140 fits (torch)
+selection: done
+export: full window (0.15, 0.6) C 0.01 LOSO 0.758 nested 0.758
+exported /home/stefanogaliano/Documents/Projects/Neurosciences/Start_Vision/detectors/sv-perception-full-v1.0.0
+	Command being timed: "/home/stefanogaliano/miniconda3/envs/eegunify/bin/sv-export --backend torch --variant full"
+	User time (seconds): 1446.95
+	System time (seconds): 19.34
+	Percent of CPU this job got: 117%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 20:44.49
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 5805304
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 98
+	Minor (reclaiming a frame) page faults: 10549377
+	Voluntary context switches: 95636
+	Involuntary context switches: 17958
+	Swaps: 0
+	File system inputs: 16832112
+	File system outputs: 1192
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

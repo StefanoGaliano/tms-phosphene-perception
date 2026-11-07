@@ -46,6 +46,7 @@ class DecodingConfig(BaseModel):
     candidate_windows_s: tuple[Window, ...] = (
         (0.15, 0.6), (0.2, 0.6), (0.2, 0.8), (0.3, 0.8)
     )
+    C_grid: tuple[float, ...] = (0.01, 0.1, 1.0)  # A11 inner-LOSO choice (set 2026-11-05)
     t_min_robust_s: float = 0.15  # D9 placeholder (open question Q3)
     alpha_band_hz: Window = (8.0, 13.0)
     alpha_peak_halfwidth_hz: float = 2.0

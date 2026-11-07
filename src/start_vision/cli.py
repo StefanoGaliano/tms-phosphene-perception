@@ -136,3 +136,26 @@ def step0() -> None:
                     Path("results/phase2"))
     print(f"{int(inc.included.sum())}/{len(inc)} recordings included, "
           f"{inc[inc.included].subject.nunique()} subjects")
+
+
+def export() -> None:
+    """sv-export: A11, choose and export the frozen detectors into detectors/ (immutable)."""
+    import argparse
+    from pathlib import Path
+
+    from start_vision.decoding import config, stages
+    from start_vision.decoding import export as ex
+    from start_vision.decoding.step0 import included_tasks
+
+    p = argparse.ArgumentParser(prog="sv-export", description=export.__doc__)
+    p.add_argument("--variant", nargs="*", default=["tms-robust", "full"],
+                   choices=["tms-robust", "full"])
+    p.add_argument("--config", default="configs/decoding.yaml")
+    p.add_argument("--backend", default="sklearn", choices=["sklearn", "torch"],
+                   help="selection fits: sklearn (CPU threads) or torch (GPU); the exported "
+                        "detector is fitted by sklearn either way")
+    a = p.parse_args()
+    proj = stages.Project.default(Path.cwd())
+    subs = sorted(included_tasks(proj.root))
+    for f in ex.run(proj, subs, config.load(Path(a.config)), a.variant, a.backend):
+        print(f"exported {f}")

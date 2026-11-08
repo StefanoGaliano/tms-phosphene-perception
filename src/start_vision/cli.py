@@ -171,3 +171,25 @@ def eklund() -> None:
     root = Path.cwd()
     et.run(root, config.load(root / "configs" / "decoding.yaml"),
            root / "results" / "eklund2018")
+
+
+def p3_inventory() -> None:
+    """sv-p3-inventory: GIN Phosphenes_occipital files vs annex keys (Phase 3 step 1)."""
+    import argparse
+    import shutil
+    from pathlib import Path
+
+    from start_vision.phase3 import inventory as inv
+
+    p = argparse.ArgumentParser(prog="sv-p3-inventory")
+    p.add_argument("--hash", action="store_true", help="also check MD5 of every local file (slow)")
+    a = p.parse_args()
+    root = Path.cwd()
+    src = root / "sourcedata"
+    df, note = inv.run(src / "phosphenes_occipital_index", src / "phosphenes_occipital",
+                       root / "results" / "phase3" / "inventory.tsv", a.hash)
+    print(df[["site", "subject", "status"]].to_string(index=False))
+    print(note)
+    need = df.loc[df["status"] == "missing", ["set_bytes_key", "fdt_bytes_key"]].fillna(0)
+    print(f"to download: {(df['status'] == 'missing').sum()} recordings, "
+          f"{need.to_numpy().sum() / 1e9:.1f} GB; free: {shutil.disk_usage(src).free / 1e9:.0f} GB")

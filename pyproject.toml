@@ -22,6 +22,7 @@ sv-decode = "start_vision.cli:decode"
 sv-step0 = "start_vision.cli:step0"
 sv-export = "start_vision.cli:export"
 sv-eklund = "start_vision.cli:eklund"
+sv-p3-inventory = "start_vision.cli:p3_inventory"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/start_vision"]

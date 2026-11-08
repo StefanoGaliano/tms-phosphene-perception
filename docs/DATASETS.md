@@ -172,6 +172,53 @@ phosphene TMS-EEG, e.g. Bagattini et al. 2015; a phosphene-threshold TMS-EEG alp
 bioRxiv; a Samaha, Gosseries & Postle poster with 5 participants), but none points to public data.
 Next places to look: data-availability statements of those papers, OSF, author contact.
 
+### Search of 2026-11-08: one candidate found
+
+**GIN `DB_123/Phosphenes_occipital`** (https://gin.g-node.org/DB_123/Phosphenes_occipital),
+linked as the data of Siviero et al. 2023, Sensors 23(21) 8833 (Verona group; PMC10650175).
+Checked from the repository's own files:
+- License file: CC0 1.0. README empty (title only), no codebook.
+- Folders `O1/` and `O2/` (stimulation site): EEGLAB `.set` + `.fdt`, 16 files per site,
+  names `NN_XX_O1_SICL` (subject number + initials; `SICL` meaning unknown). Subjects 01, 02, 12
+  missing; `O1/` has `18_ET_O1_SICL.set` with `18_ET_O2_SICL.fdt` (mismatched pair, check).
+- Opened `O1/03_RS_O1_SICL.set` (76.6 MB header, data in `.fdt`): 64 channels, **5000 Hz**,
+  continuous (1 trial, 1905 s), BrainVision markers; history shows only renaming/`eeg_checkset`
+  (looks raw, TMS artifact not removed). Events: `S100` x 253, `S200` x 106, 1 boundary
+  (359 markers vs 360 pulses).
+**Verified from Siviero 2023 Methods (read in full, Europe PMC XML in `paper_for_info/`):**
+18 right-handed subjects; site hotspot near O1/O2 with neuronavigation; phosphene threshold by
+method of constant stimuli (7 intensities, 60-78 % MSO), the 50 % point used; per session 360
+pulses (6 blocks x 60), sites counterbalanced; trial = 700-1000 ms jitter, pulse, up to 2000 ms
+to answer ('m' right hand = phosphene present, 'z' left hand = absent), 1300 ms ITI; earplugs,
+no masking noise stated; BrainAmp, 59 scalp channels + EOG, reference RM, ground AFz, 5000 Hz.
+The paper does **not** define S100/S200. Since there is one marker per pulse, the code was
+likely written on the pulse trigger after the answer; which code is "present" is still
+unverified (ask the authors, or check whether answer-locked motor activity is left vs right
+hand: 'm' right hand = present, so a left-hemisphere (C3) readiness/beta drop before the answer
+would mark "present").
+**Code direction checked 2026-11-08 (C3/C4, pulse-locked, 0.1-10 Hz, C3-C4 mean 0.3-1.2 s,
+trial-label permutation, 5000 perms):** 03_RS O1: S100 -1.72 uV (n 253), S200 +0.55 uV (n 106),
+diff -2.27, p < 0.0002; 04_DP O1: S100 -0.85 (n 209), S200 +1.91 (n 151), diff -2.76,
+p < 0.0002. Left-hemisphere negativity on S100 = right-hand ('m') preparation, so
+**S100 = phosphene present, S200 = absent** (inferred from 2 subjects, not stated by the
+authors; beta lateralization agrees in direction on 03_RS). Extended to O1 subjects 03-11:
+negative in 9/9 (sign test p = 0.004), see `results/phase3/notes_data_check.md`.
+Previously from search snippets (sibling paper of the same group, Bonfanti et al.,
+Psychophysiology): 18 participants, 360 single pulses at phosphene threshold over left/right
+early visual cortex, yes/no phosphene report after each pulse. **Whether S100/S200 = phosphene
+yes/no (and which is which) is unverified**; 253/106 (~70 % yes) would be high for a 50 %
+threshold. Checked 2026-11-08 on 7 more files (04_DP O1/O2, 09_GT O1/O2, 14_XV O1,
+17_AC O1, 18_ET O2): always one marker per pulse, 327-360 markers (360 in 4 files), S100 share
+0.40-0.65, median interval 2.7-3.1 s (min 2.3 s). One marker per pulse whose split varies by
+subject around 50 % fits a per-pulse yes/no report coded on the pulse trigger; still
+**unverified**, and the direction (S100 = yes?) is unknown. Next: read Siviero 2023 and Bonfanti methods in full (PMC blocks automated fetch),
+check codes across subjects, or ask the authors.
+
+Other leads (not datasets): Taylor et al. 2010 "The neural signature of phosphene perception"
+(HBM; threshold TMS, P3 from ~270-300 ms on seen trials), Samaha et al. 2017 J Neurosci
+(bioRxiv 082693), Bagattini et al. 2015; intracranial V1 stimulation with ECoG (Winawer &
+Parvizi 2016 Neuron, Bosking et al. 2017) as a non-TMS alternative. No data links seen for these.
+
 ### TMS-EEG for developing pulse-artifact handling (found, not about sensations)
 
 - Scientific Data (2022): 24 healthy participants, intermittent / continuous theta-burst and sham

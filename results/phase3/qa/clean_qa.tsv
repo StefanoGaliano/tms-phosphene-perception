@@ -1,0 +1,3 @@
+recording	artifact_end_ms	cut_ms	artifact_end_after_ica_ms	decay_ica_excluded	decay_ica_n	ocular_ica_excluded	bad_channels	kept	rej_ptp	rej_heog	gmfp_150_600_over_pre	gmfp_50_150_over_pre	time_total_s
+sub-03_site-O1	9.6	[-2.0, 10.0]	20.0	1	31	3	TP7	357	0	2	8.650444030761719	8.429092407226562	84
+sub-04_site-O1	34.4	[-2.0, 20.0]	22.0	1	34	2	-	215	115	45	10.534912109375	10.668862342834473	86

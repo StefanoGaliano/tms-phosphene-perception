@@ -193,3 +193,24 @@ def p3_inventory() -> None:
     need = df.loc[df["status"] == "missing", ["set_bytes_key", "fdt_bytes_key"]].fillna(0)
     print(f"to download: {(df['status'] == 'missing').sum()} recordings, "
           f"{need.to_numpy().sum() / 1e9:.1f} GB; free: {shutil.disk_usage(src).free / 1e9:.0f} GB")
+
+
+def p3_clean() -> None:
+    """sv-p3-clean: TMS cleaning + detector-matched chain, cached (Phase 3 step 9)."""
+    import argparse
+    from pathlib import Path
+
+    from start_vision.phase3 import config, stages
+
+    p = argparse.ArgumentParser(prog="sv-p3-clean")
+    p.add_argument("-s", "--subject", action="append", required=True, help="e.g. 03 (repeatable)")
+    p.add_argument("--site", action="append", choices=["O1", "O2"], default=None)
+    p.add_argument("--pipeline", default="primary", choices=["primary", "paperlike"])
+    p.add_argument("--force", action="store_true")
+    a = p.parse_args()
+    root = Path.cwd()
+    cfg = config.load(root / "configs" / "phase3.yaml")
+    for sub in a.subject:
+        for site in a.site or ["O1", "O2"]:
+            path, ran = stages.run(cfg, root, sub, site, a.pipeline, a.force)
+            print(f"{'cleaned' if ran else 'cached '} {path}")

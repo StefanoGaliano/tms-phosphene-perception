@@ -1,5 +1,5 @@
 # Phase 3 cleaning/scoring config (plans/PHASE3_BLUEPRINT.md §7). Sources in docs/PHASE3_REFERENCES.md.
-# PROJECT CHOICE values await the user's approval at the Step 9 stop (Decision 11, Q11).
+# PROJECT CHOICE values approved by the user 2026-11-08 (README Decision 12).
 data_dir: sourcedata/phosphenes_occipital
 index_dir: sourcedata/phosphenes_occipital_index
 out_dir: derivatives/sv_p3_clean

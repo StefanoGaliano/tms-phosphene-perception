@@ -20,7 +20,7 @@ the user and may differ" between data (line 26). The paper cites TESA (Rogasch e
 but does not give the values it used. Rogasch et al. 2017 (NeuroImage 147:934-951) was not read
 in full; the values above come from the code, not the paper.
 
-## Project choices (pending the user's approval at the Step 9 stop)
+## Project choices (approved by the user 2026-11-08 at the Step 9 stop)
 
 | Parameter | Proposed | Why |
 |---|---|---|

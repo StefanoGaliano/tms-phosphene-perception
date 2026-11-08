@@ -1,0 +1,42 @@
+# Phase 3 cleaning/scoring config (plans/PHASE3_BLUEPRINT.md §7). Sources in docs/PHASE3_REFERENCES.md.
+# PROJECT CHOICE values await the user's approval at the Step 9 stop (Decision 11, Q11).
+data_dir: sourcedata/phosphenes_occipital
+index_dir: sourcedata/phosphenes_occipital_index
+out_dir: derivatives/sv_p3_clean
+detector: detectors/sv-perception-tms-robust-v1.0.0
+eegunify_template: configs/template_ds006171.yaml   # preproc/artifacts/reference of training
+codes: {present: S100, absent: S200}                 # inferred (results/phase3/notes_data_check.md)
+pulse:
+  cut_ms: [-2.0, 10.0]          # Siviero 2023 §2.4
+  interp: cubic                 # Siviero 2023 §2.4
+  artifact_k: 3.0               # PROJECT CHOICE (C1)
+  artifact_hold_ms: 2.0         # PROJECT CHOICE (C1)
+  max_cut_ms: 20.0              # PROJECT CHOICE (C2 cap)
+  extend_cut: true
+ica_sfreq: 1000.0               # PROJECT CHOICE (C3)
+decay_ica:                      # C4: TESA tmsMuscle rule (tesa_compselect.m defaults)
+  enabled: true
+  epoch_s: [-1.0, 1.0]
+  fit_highpass_hz: 1.0
+  window_ms: [11.0, 30.0]
+  ratio_threshold: 8.0
+  method: picard
+  seed: 97
+epochs:
+  window_s: [-1.0, 1.0]
+rejection:                      # blueprint §6 (user decisions 5, 8 values)
+  ptp_uv: 100.0
+  ptp_windows_s: [[-0.5, -0.01], [0.15, 0.6]]
+  ptp_win_s: 0.2
+  ptp_step_s: 0.1
+  heog_step_uv: 32.0
+  heog_window_s: [-0.05, 0.35]
+  heog_win_s: 0.1                # as training (template_ds006171.yaml step rule)
+  heog_step_s: 0.01
+lowpass_hz: 40.0                # contract (decoding.data.prepare)
+eog_bipolar: {VEOG: [VEOGUP, VEOGDOWN], HEOG: [HEOGL, HEOGR]}
+drop_channels: [LM]
+pipelines:
+  primary: {muscle_ica: false, reference: average}
+  paperlike: {muscle_ica: true, reference: average}   # REST not available in MNE -> average (recorded)
+  gonogo: {rough: true}

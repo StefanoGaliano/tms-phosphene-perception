@@ -148,6 +148,17 @@ def pairing_rule_18(df: pd.DataFrame, data: Path) -> tuple[pd.DataFrame, str]:
     if not sel.any():
         return df, "sub-18 site-O1 not in the index"
     r = df[sel].iloc[0]
+    # GIN's O1 folder holds 18_ET_O1_SICL.set + 18_ET_O2_SICL.fdt (no O1-named .fdt). Decide from
+    # the annex keys first: an O1-folder .fdt with the same key as the O2 one is the O2 data.
+    index = data.parent / f"{data.name}_index"
+    k_o1 = _key(index, "O1", "18_ET_O2_SICL.fdt") if index.exists() else None
+    k_o2 = _key(index, "O2", "18_ET_O2_SICL.fdt") if index.exists() else None
+    if k_o1 is not None and k_o1 == k_o2:
+        exp = r.get("fdt_bytes_expected")
+        df.loc[sel, "status"] = "pairing_excluded"
+        return df, (f"sub-18 O1: the only .fdt in O1/ (18_ET_O2_SICL.fdt) has the same annex key "
+                    f"as O2/18_ET_O2_SICL.fdt ({k_o1.size} B; the O1 header needs {exp} B) "
+                    f"-> O1 data not on GIN, sub-18 site-O1 excluded")
     if r["status"] != "ok":
         return df, f"sub-18 site-O1 not checkable yet (status {r['status']})"
     o2 = df[(df["site"] == "O2") & (df["subject"] == "18")]
@@ -186,8 +197,11 @@ def _oz_corr(set_a: Path, set_b: Path) -> float:
 
 
 def run(index: Path, data: Path, out: Path, do_hash: bool = False) -> tuple[pd.DataFrame, str]:
-    rows = [check_recording(index, data, s, sub, ini, do_hash)
-            for s, sub, ini in _recordings(index)]
+    recs = _recordings(index)
+    if not recs:
+        raise FileNotFoundError(f"no annex index under {index}: git clone "
+                                "https://gin.g-node.org/DB_123/Phosphenes_occipital.git there")
+    rows = [check_recording(index, data, s, sub, ini, do_hash) for s, sub, ini in recs]
     df = pd.DataFrame(rows)
     df, note = pairing_rule_18(df, data)
     out.parent.mkdir(parents=True, exist_ok=True)

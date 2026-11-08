@@ -73,9 +73,9 @@ def run(cfg: Phase3Config, root: Path, sub: str, site: str, pipeline: str = "pri
     rid = rec_id(sub, site)
     out = out_paths(cfg, root, pipeline, rid)
     k = key(cfg, pipeline, sp)
-    if not force and out["qa"].exists() and out["epo"].exists():
-        if json.loads(out["qa"].read_text(encoding="utf-8")).get("stage_key") == k:
-            return out["epo"], False
+    if (not force and out["qa"].exists() and out["epo"].exists()
+            and json.loads(out["qa"].read_text(encoding="utf-8")).get("stage_key") == k):
+        return out["epo"], False
     out["epo"].parent.mkdir(parents=True, exist_ok=True)
     rec = clean.read_recording(sp, cfg)
     cb = _QaErp()

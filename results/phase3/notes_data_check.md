@@ -53,6 +53,14 @@ See `gonogo/README.md`: detector AUC median 0.526 (8/9 > 0.5, p = 0.008), 0.520 
 motor channels, no trial-wise tracking of C3-C4. Decision: go (small effect). Email to the
 authors (codes, RTs) sent by the user 2026-11-08 (to D. Bonfanti, cc I. Siviero); no answer yet.
 
+## 5. sub-18 site-O1 (Step 1, 2026-11-08)
+
+GIN's `O1/` holds `18_ET_O1_SICL.set` and `18_ET_O2_SICL.fdt`; the `.set` names
+`18_ET_O1_SICL.fdt`, which is not on GIN. The O1-folder `.fdt` has the same annex key
+(MD5, 2 876 953 600 B) as `O2/18_ET_O2_SICL.fdt`, while the O1 header needs 2 294 553 600 B: it is
+the O2 data. **sub-18 site-O1 excluded** (blueprint §5.4, Q10); its O2 recording stays. All 17
+other O1 recordings verified by MD5.
+
 ## Open
 - Download O2 and O1 subjects 13-18; rerun section 1 on all.
 - Confirm the code with the authors.

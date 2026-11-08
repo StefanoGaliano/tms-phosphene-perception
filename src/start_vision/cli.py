@@ -214,3 +214,62 @@ def p3_clean() -> None:
         for site in a.site or ["O1", "O2"]:
             path, ran = stages.run(cfg, root, sub, site, a.pipeline, a.force)
             print(f"{'cleaned' if ran else 'cached '} {path}")
+
+
+def p3_score() -> None:
+    """sv-p3-score: frozen detector on every cleaned recording (Phase 3 step 10)."""
+    import argparse
+    from pathlib import Path
+
+    from start_vision.phase3 import config, score
+
+    p = argparse.ArgumentParser(prog="sv-p3-score")
+    p.add_argument("--pipeline", default="primary", choices=["primary", "paperlike"])
+    a = p.parse_args()
+    root = Path.cwd()
+    cfg = config.load(root / "configs" / "phase3.yaml")
+    df = score.score_all(cfg, root, a.pipeline)
+    out = root / "results" / "phase3" / f"scores_{a.pipeline}.tsv"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out, sep="\t", index=False)
+    print(f"{df['recording'].nunique()} recordings, {len(df)} trials -> {out}")
+
+
+def p3_analyze() -> None:
+    """sv-p3-analyze: inclusion, primary/secondary tests and controls (Phase 3 step 11)."""
+    import argparse
+    from pathlib import Path
+
+    import pandas as pd
+
+    from start_vision.phase3 import analyses as an
+    from start_vision.phase3 import config, stages
+
+    p = argparse.ArgumentParser(prog="sv-p3-analyze")
+    p.add_argument("--pipeline", default="primary", choices=["primary", "paperlike"])
+    a = p.parse_args()
+    root = Path.cwd()
+    cfg = config.load(root / "configs" / "phase3.yaml")
+    res = root / "results" / "phase3"
+    scores = pd.read_csv(res / f"scores_{a.pipeline}.tsv", sep="\t", dtype={"subject": str})
+    cpath = res / "code_check.tsv"
+    codes = (pd.read_csv(cpath, sep="\t") if cpath.exists()
+             else pd.DataFrame(columns=["recording", "code_diff_uv", "code_p"]))
+    for rid in sorted(set(scores["recording"]) - set(codes["recording"])):
+        sub, site = rid.split("_")[0][4:], rid.split("_")[1][5:]
+        r = an.code_check(stages.set_path(cfg, root, sub, site))
+        codes = pd.concat([codes, pd.DataFrame([{"recording": rid, **r}])], ignore_index=True)
+        print(f"code check {rid}: {r}")
+    codes.to_csv(cpath, sep="\t", index=False)
+    inc = an.inclusion(scores, codes)
+    inc.to_csv(res / f"inclusion_{a.pipeline}.tsv", sep="\t", index=False)
+    keep = set(inc.loc[inc["included"], "recording"])
+    per = an.per_recording(scores[scores["recording"].isin(keep)])
+    per.to_csv(res / f"per_recording_{a.pipeline}.tsv", sep="\t", index=False)
+    t2, t3 = an.tests(per)
+    t2.to_csv(res / f"t2_tests_{a.pipeline}.tsv", sep="\t", index=False)
+    t3.to_csv(res / f"t3_controls_{a.pipeline}.tsv", sep="\t", index=False)
+    with pd.option_context("display.width", 200, "display.max_columns", 20):
+        print(inc[["recording", "kept", "seen_share", "included", "reason"]].to_string(index=False))
+        print(t2.to_string(index=False))
+        print(t3.to_string(index=False))

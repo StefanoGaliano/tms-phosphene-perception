@@ -24,6 +24,8 @@ sv-export = "start_vision.cli:export"
 sv-eklund = "start_vision.cli:eklund"
 sv-p3-inventory = "start_vision.cli:p3_inventory"
 sv-p3-clean = "start_vision.cli:p3_clean"
+sv-p3-score = "start_vision.cli:p3_score"
+sv-p3-analyze = "start_vision.cli:p3_analyze"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/start_vision"]

@@ -71,8 +71,8 @@ def test_ds006171_adapter_loads_an_included_subject() -> None:
     from start_vision.decoding import sources
 
     root = Path(__file__).parents[1]
-    if not (root / "runs").exists():
-        pytest.skip("Phase 1 runs/ not present")
+    if not any((root / "runs").glob("*/derivatives/eegunify-epochs")):
+        pytest.skip("Phase 1 runs/ epochs not present")
     a = sources.Ds006171Adapter()
     subs = a.subjects(root)
     assert len(subs) == 34 and "03" in subs

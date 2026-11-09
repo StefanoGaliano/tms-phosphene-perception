@@ -22,6 +22,7 @@ named as the confirmation set.
 | Q04 | `saved_results/` | ds006171 LOSO scores, unmatched | contrast-matched analysis |
 | Q37a | `q37ab_phase3/` (mean subtraction, SSP-3) | GIN primary, all recordings | trial-level TEP amplitude covariate |
 | Q37b | `q37ab_phase3/` | GIN primary, all recordings (pooled) | the O1 -> O2 split and the independence model |
+| Q38 | `van_topography_explore/` | GIN primary, all channels, both sites | the hand-lateralization covariate |
 
 ## 1. General rules (all questions)
 
@@ -34,7 +35,7 @@ named as the confirmation set.
 - Equivalence: TOST with bound ±0.03 AUC (**PROJECT CHOICE**, the Phase 2 A8 precedent,
   `reports/phase2.md`). No other equivalence bounds.
 - Minimum cell sizes: 3 trials per cell for a unit to enter a contrast (as the first look).
-- **Primary test per question** and **family**: the six primary tests marked **[P]** below are
+- **Primary test per question** and **family**: the seven primary tests marked **[P]** below are
   Holm-corrected together (family alpha 0.05). Everything else is secondary, reported with
   uncorrected p and labelled.
 - Inclusion: as in the source analyses (Eklund: authors-included sessions, critical trials,
@@ -127,6 +128,24 @@ named as the confirmation set.
 - Stated limits: subjects with single-pulse AUC < 0.5 (reported, not excluded); O1 and O2 are
   mostly the same subjects, so O2 is a held-out set of recordings, not of people.
 
+## 9. Q38 Phosphene VAN topography and a wider response-hand control (GIN) — idea 013 (amendment 2)
+
+- Honesty: all channels at both sites were seen in the exploration of 2026-11-09
+  (`results/questions_to_solve/van_topography_explore/`); the VAN parts are descriptive. The hand
+  control is the inferential part.
+- **[P]** Hand-lateralization covariate: per trial, the hand index = mean over mirrored channel pairs
+  (left minus right) of all lateral contract channels (every odd-numbered channel minus its
+  even-numbered mirror, e.g. C3-C4, P7-P8, PO7-PO8, TP7-TP8; midline excluded), mean 0.15-0.6 s
+  (the detector window), baseline -0.2..-0.01 s (contract). H1 with P(seen) residualized on the
+  hand index within recording (as A1): AUC > 0.5, one-sided. Joins the Holm family (seven primary tests).
+- Secondary: (a) H1 with all lateral channels of both hemispheres interpolated from the midline
+  and the rest (R1 logic, widened); (b) AUC of the hand index alone, two-sided; (c) per site.
+- Descriptive (seen data): VAN at Oz 180-220 ms (Samaha 2017, preprint Methods) and the S6 ROI,
+  per site; LP Pz 300-800 ms (Samaha) next to S6's 350-550 ms; site maps 180-280 ms.
+- Interpretation rule: H1 survives the hand covariate = the effect is not carried by the lateralized
+  hand signal on any channel pair; if it does not survive, the claim narrows to "not separable from
+  the response". A null after (a) is ambiguous (posterior signal removed too).
+
 ## 8. Deviations and changes
 - **Amendment 1 (2026-11-09, user):** Q37b (idea 009) added after the tag `questions-prereg`, before
   any analysis of this addendum was rerun; the Holm family grows from five to six primary tests.
@@ -137,3 +156,5 @@ named as the confirmation set.
   Q04 matching and family reading, Q37a inputs, Q37b generator per recording, pooling and O2
   entry). Two of them border on the analysis: the extra >= 3 correct trials for Q02, and the Q37b
   generator scheme; both recorded here as decided before the rerun.
+- **Amendment 2 (2026-11-09, user):** Q38 added (idea 013) before any rerun; Holm family seven
+  primary tests; tag `questions-prereg-amend2`.

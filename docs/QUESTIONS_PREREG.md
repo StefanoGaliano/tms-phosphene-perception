@@ -158,3 +158,8 @@ named as the confirmation set.
   generator scheme; both recorded here as decided before the rerun.
 - **Amendment 2 (2026-11-09, user):** Q38 added (idea 013) before any rerun; Holm family seven
   primary tests; tag `questions-prereg-amend2`.
+- **Interpretation note Q37b (2026-11-09, found while building, before any rerun):** the blocks are
+  random draws within class (as the first look), so dependence between neighbouring pulses cannot
+  enter them; the secondary "observed minus predicted" therefore tests whether the single-pulse
+  scores fit the model's equal-variance Gaussian shape, not pulse independence. The analysis is
+  unchanged; only its reading is corrected. The [P] test (O2 block AUC) is unaffected.

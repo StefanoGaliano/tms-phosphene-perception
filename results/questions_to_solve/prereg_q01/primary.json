@@ -1,0 +1,12 @@
+{
+  "question": "q01",
+  "test": "large Gabors: rating slope with centred duration > 0",
+  "tail": 1.0,
+  "n": 24.0,
+  "mean": 0.10276046626950834,
+  "ci_low": 0.08647366666418115,
+  "ci_high": 0.11901936114239858,
+  "d_z": 2.458703735305741,
+  "p": 0.0001,
+  "n_positive": 24.0
+}

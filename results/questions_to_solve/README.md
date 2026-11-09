@@ -10,3 +10,19 @@ not pre-registered; thresholds were fixed in the script before group statistics 
 | `saved_results/` | Q02 + Q03 on ds006171, Q04 attention, Q17 size, Q27 below-chance | ds006171 LOSO scores + Phase 1 tables; Eklund session AUCs; Phase 2 A2 | `scripts/questions_saved_results.py` | 2026-11-09 |
 | `q03_where_eklund/` | Q03 step 1 (where the signal lives) | needs Eklund epochs: **not run**, `runs/` removed on purpose | `scripts/questions_q03_where_eklund.py` | waiting |
 | `q37ab_phase3/` | Q37a shared pulse response, Q37b pulses needed | Phase 3 primary cleaned epochs and scores | `scripts/questions_q37ab_phase3.py` | 2026-11-09 |
+
+## Pre-registered run (2026-11-09, `sv-questions all`, code `19521eb`, tags questions-prereg / -amend1 / -amend2)
+
+| Folder | Question | [P] result | Holm p (family of 7) |
+|---|---|---|---|
+| `prereg_q01/` | Q01 graded awareness | rating slope +0.103 [0.086, 0.119], 24/24 | 0.0007 |
+| `prereg_q02/` | Q02 seen with wrong content | correctness slope +0.140 [0.100, 0.188], 14/15 | 0.0015 |
+| `prereg_q03/` | Q03 guessing mixture | D_obs - D_pred -0.051 [-0.066, -0.036] (below prediction) | 0.0007 |
+| `prereg_q04/` | Q04 attention, matched | informative - nocue -0.014; equivalence ±0.03 not shown (p 0.086) | 0.086 |
+| `prereg_q37a/` | Q37a TEP amplitude | H1 residualized 0.526 [0.510, 0.543] | 0.010 |
+| `prereg_q37b/` | Q37b pulses needed | k* not reached on O1; O2 block AUC at k = 20: 0.686 [0.580, 0.784] | 0.0087 |
+| `prereg_q38/` | Q38 hand covariate | H1 residualized 0.537 [0.519, 0.555] | 0.0052 |
+| `prereg_family/` | Holm table | 6 of 7 rejected | - |
+
+Log: `logs/prereg_run.log` (14 s wall clock, 1.0 GB peak). Known cosmetic flaw: `primary.json`
+of Q01-Q03 stores `tail` as a number (1.0/2.0) instead of the word; p values unaffected.

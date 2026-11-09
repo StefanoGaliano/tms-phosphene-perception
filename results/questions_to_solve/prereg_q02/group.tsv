@@ -1,0 +1,4 @@
+test	role	n	mean	ci_low	ci_high	d_z	p	tail	n_positive
+Eklund large: correctness slope (centred duration) > 0	[P]	15.00000	0.13975	0.09987	0.18830	1.54563	0.00030	1.00000	14.00000
+Eklund small: same	replication	9.00000	0.13153	0.07307	0.19249	1.33362	0.00391	1.00000	8.00000
+ds006171: AUC correct vs wrong, contrast-residualized, vs 0.5	secondary	31.00000	0.58752	0.53988	0.63448	0.63095	0.00170	2.00000	25.00000

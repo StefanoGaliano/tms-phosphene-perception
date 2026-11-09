@@ -1,0 +1,11 @@
+test	role	n	mean	ci_low	ci_high	d_z	p	tail	n_positive
+large: D_obs - D_pred (two-sided)	[P]	24.00000	-0.05105	-0.06633	-0.03584	-1.30977	0.00010	2.00000	2.00000
+large: TOST ±0.03 on D_obs - D_pred	secondary						0.99277		
+large: D_obs	secondary	24.00000	0.04098	0.02570	0.05659	1.05447	0.00010	2.00000	21.00000
+large: mean D_pred	secondary		0.09203						
+small: D_obs - D_pred (two-sided)	replication	14.00000	-0.06236	-0.08434	-0.04196	-1.49432	0.00030	2.00000	0.00000
+small: TOST ±0.03 on D_obs - D_pred	secondary						0.99381		
+small: D_obs	secondary	14.00000	0.03674	0.01368	0.06184	0.78402	0.00940	2.00000	10.00000
+small: mean D_pred	secondary		0.09910						
+ds006171: a vs 0.5	check	34.00000	0.51772	0.49352	0.54220	0.24237	0.16790	2.00000	20.00000
+ds006171: D_obs (LOSO score)	check	34.00000	0.09433	-0.01022	0.20323	0.28792	0.11260	2.00000	22.00000

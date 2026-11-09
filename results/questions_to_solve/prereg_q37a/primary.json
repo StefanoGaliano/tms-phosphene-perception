@@ -1,0 +1,10 @@
+{
+  "question": "q37a",
+  "test": "H1 residualized on TEP amplitude",
+  "tail": "one-sided",
+  "n": 17.0,
+  "mean": 0.5259316470935517,
+  "ci_low": 0.5096430480415568,
+  "ci_high": 0.5426206640403011,
+  "p": 0.005
+}

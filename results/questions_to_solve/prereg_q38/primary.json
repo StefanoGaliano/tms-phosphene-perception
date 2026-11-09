@@ -1,0 +1,10 @@
+{
+  "question": "q38",
+  "test": "H1 residualized on the hand index",
+  "tail": "one-sided",
+  "n": 17.0,
+  "mean": 0.5368853626646729,
+  "ci_low": 0.5189496366522894,
+  "ci_high": 0.5551759169857371,
+  "p": 0.0013
+}

@@ -1,0 +1,5 @@
+test	role	n	mean	ci_low	ci_high	d_z	p	tail	n_positive
+H1 with P(seen) residualized on TEP amplitude > 0.5	[P]	17.00000	0.52593	0.50964	0.54262	0.72162	0.00500	1.00000	12.00000
+H1 frozen (reproduces Phase 3)	check	17.00000	0.53981				0.00080	1.00000	
+TEP amplitude alone, AUC vs 0.5	secondary	17.00000	0.54127	0.51849	0.56222	0.88291	0.00350	2.00000	16.00000
+SSP-3 (first look, copied as context)	context	17.00000	0.52540				0.01840	1.00000	

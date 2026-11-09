@@ -97,6 +97,15 @@ reports a Holm over S1/S3/S9 only (deviation 4).
   effect itself together with any hand lateralization: a high r is expected whenever the detector
   separates the classes, and this test cannot tell the two apart. R1, R2 and R5 are the tests that
   bound the hand part, and they do not flag.
+- **Caveat, response hand in the VAN window (exploratory, 2026-11-09,
+  `results/questions_to_solve/van_topography_explore/`):** at the O2 site the phosphene - none map
+  in 180-280 ms shows left central negativity (C3 -0.31, C5 -0.38, CP5 -0.41 µV) with right
+  central positivity (C4 +0.42), the pattern of a prepared right-hand response, extending to left
+  lateral-posterior channels (P7 -0.51, TP7 -0.47, PO7 -0.43 µV) that R1 did not remove. H1 with
+  the 18 central channels removed holds (R1, 0.536), but the hand signal is present this early and
+  outside R1's channel set, so a hand contribution to H1 through lateral-posterior channels is not
+  excluded. At the O1 site central channels are flat and the posterior negativity (O1 -0.60 µV) is
+  bilateral, the better VAN candidate. Uncorrected per-channel tests; not pre-registered.
 - **Eyes:** the HEOG effect runs opposite to H1, and H1 is unchanged on trials with small HEOG steps.
 - **Alpha:** prestimulus alpha does not separate the classes here (unlike Romei 2008 and Samaha 2017),
   and H1 survives regressing it out.
@@ -138,6 +147,7 @@ reports a Holm over S1/S3/S9 only (deviation 4).
 
 - S7 and R4b once the ds006171 epochs are rebuilt (`runs/`, deferred by the user).
 - Confirm S100/S200 with the authors (asked 2026-11-08).
+- Hand caveat above: a pre-registered VAN-topography follow-up with a wider hand control (council idea 013).
 - Follow-ups pre-registered in `docs/QUESTIONS_PREREG.md` (tags `questions-prereg`,
   `questions-prereg-amend1`): Q37a (trial-level pulse-response amplitude) and Q37b (pulses needed);
   build plan `plans/QUESTIONS_BLUEPRINT.md` waiting for the user's answers.

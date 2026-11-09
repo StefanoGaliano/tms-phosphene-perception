@@ -80,3 +80,31 @@ def test_phase3_early_lesion_identity(monkeypatch) -> None:  # type: ignore[no-u
     assert np.allclose(score.early_lesion_scores(ep, det), score.score_epochs(ep, det))
     monkeypatch.setattr(score, "EARLY_CUT_S", 0.30)
     assert not np.allclose(score.early_lesion_scores(ep, det), score.score_epochs(ep, det))
+
+
+def test_gin_phosphenes_too_few_trials_excluded_not_crash() -> None:
+    """Real data (sub-?? primary, 2026-11-09): a recording with 23 kept trials crashed
+    sv-p3-score (ContractError). It must get NaN scores and be excluded by inclusion()."""
+    from pathlib import Path
+
+    import mne
+
+    from start_vision.decoding.channels import positions
+    from start_vision.decoding.detector import Detector
+    from start_vision.phase3 import score
+
+    root = Path(__file__).parents[1]
+    det = Detector.load(root / "detectors/sv-perception-tms-robust-v1.0.0")
+    c = det.contract
+    n = c["min_trials_for_normalization"] - 17
+    t = np.arange(-1.0, 1.0, 1 / 128)
+    info = mne.create_info(c["channels"], 128.0, "eeg")
+    ep = mne.EpochsArray(np.random.default_rng(0).normal(size=(n, 64, len(t))) * 5e-6, info,
+                         tmin=-1.0, verbose="error")
+    ep.set_montage(mne.channels.make_dig_montage(positions(c["channels"]), coord_frame="head"))
+    p, p_nm, p_early = score.recording_scores(ep, det)
+    assert len(p) == n and np.isnan(p).all() and np.isnan(p_nm).all() and np.isnan(p_early).all()
+    df = pd.DataFrame({"recording": "sub-99_site-O1", "subject": "99", "site": "O1",
+                       "seen": np.arange(n) % 2, "p_seen": p})
+    inc = an.inclusion(df)
+    assert not inc["included"].iloc[0] and "kept <" in inc["reason"].iloc[0]

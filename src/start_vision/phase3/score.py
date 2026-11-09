@@ -96,6 +96,18 @@ def trial_features(ep: mne.BaseEpochs) -> pd.DataFrame:
     return pd.DataFrame(out)
 
 
+def recording_scores(ep: mne.BaseEpochs, det: Detector
+                     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """P(seen), motor-removed and early-lesion scores. A recording below the contract's
+    ``min_trials_for_normalization`` cannot be normalized: its trials get NaN scores and
+    ``analyses.inclusion`` excludes it ("kept < 40", PHASE3_PREREG recording inclusion)."""
+    if len(ep) < det.contract["min_trials_for_normalization"]:
+        nan = np.full(len(ep), np.nan)
+        return nan, nan.copy(), nan.copy()
+    return (score_epochs(ep, det), score_epochs(ep, det, without_motor),
+            early_lesion_scores(ep, det))
+
+
 def parse_rid(path: Path) -> tuple[str, str]:
     parts = path.name.split("_")
     return parts[0].removeprefix("sub-"), parts[1].removeprefix("site-")
@@ -107,9 +119,7 @@ def score_all(cfg: Phase3Config, root: Path, pipeline: str = "primary") -> pd.Da
     for f in sorted((root / cfg.out_dir / pipeline).glob("*_desc-detector_epo.fif")):
         ep = mne.read_epochs(f, verbose="error")
         sub, site = parse_rid(f)
-        p = score_epochs(ep, det)
-        p_nm = score_epochs(ep, det, without_motor)
-        p_early = early_lesion_scores(ep, det)
+        p, p_nm, p_early = recording_scores(ep, det)
         m = ep.metadata.reset_index(drop=True)
         rows.append(pd.concat([pd.DataFrame({
             "recording": f"sub-{sub}_site-{site}", "subject": sub, "site": site,

@@ -72,8 +72,31 @@ def early_lesion_scores(ep: mne.BaseEpochs, det: Detector) -> np.ndarray:
     return np.asarray(det.calibrator.predict_proba(np.asarray(s)[:, None])[:, 1])
 
 
+HEOG_STEP_WINDOW_S = (-0.05, 0.35)   # PHASE3_PREREG §6, phase3.yaml rejection.heog_window_s
+HEOG_STEP_WIN_S = 0.1                # rejection.heog_win_s
+HEOG_STEP_STEP_S = 0.01              # rejection.heog_step_s
+
+
+def heog_step_uv(ep: mne.BaseEpochs) -> np.ndarray | None:
+    """E1 follow-up: per-trial max HEOG step (eegunify ``step_like``, the rejection rule's
+    window and settings). Computed on the stored ``HEOG_ctl`` copy, which is already 40 Hz
+    low-passed and at 128 Hz, so steps are slightly smaller than at the rejection stage
+    (recorded as a deviation in the step 12 notes)."""
+    from eegunify.erp.epochs import step_like
+
+    if "HEOG_ctl" not in ep.ch_names:
+        return None
+    t, sf = ep.times, ep.info["sfreq"]
+    m = (t >= HEOG_STEP_WINDOW_S[0]) & (t <= HEOG_STEP_WINDOW_S[1])
+    h = ep.get_data(picks=["HEOG_ctl"]) * 1e6
+    st = step_like(h[:, :, m], round(HEOG_STEP_WIN_S * sf),
+                   max(1, round(HEOG_STEP_STEP_S * sf)))
+    return np.asarray(st).reshape(len(ep), -1).max(axis=1)
+
+
 def trial_features(ep: mne.BaseEpochs) -> pd.DataFrame:
-    """Per-trial control features (label-free): C3-C4 (R2, R5), EOG (E1), prestim alpha (A1)."""
+    """Per-trial control features (label-free): C3-C4 (R2, R5), EOG (E1, with the HEOG step for
+    the E1 follow-up), prestim alpha (A1)."""
     from mne.time_frequency import psd_array_multitaper
 
     t = ep.times
@@ -88,6 +111,9 @@ def trial_features(ep: mne.BaseEpochs) -> pd.DataFrame:
             x = ep.get_data(picks=[f"{e}_ctl"])[:, 0] * 1e6
             pre = x[:, (t >= -0.2) & (t < -0.01)].mean(1)
             out[e.lower()] = x[:, w].mean(1) - pre
+    hs = heog_step_uv(ep)
+    if hs is not None:
+        out["heog_step_uv"] = hs
     pre = (t >= -0.5) & (t <= -0.1)
     seg = ep.get_data(picks=[c for c in POSTERIOR if c in ch])[:, :, pre].astype(np.float64)
     psd, _ = psd_array_multitaper(seg, ep.info["sfreq"], fmin=ALPHA_BAND[0],

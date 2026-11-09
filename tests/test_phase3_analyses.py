@@ -108,3 +108,36 @@ def test_gin_phosphenes_too_few_trials_excluded_not_crash() -> None:
                        "seen": np.arange(n) % 2, "p_seen": p})
     inc = an.inclusion(df)
     assert not inc["included"].iloc[0] and "kept <" in inc["reason"].iloc[0]
+
+
+def test_phase3_e1_followup_heog_step() -> None:
+    """E1 follow-up (PHASE3_PREREG §9): HEOG step measured per trial; H1 rerun on trials with
+    step < 16 uV. An effect carried only by large-step trials must vanish in the rerun."""
+    import mne
+
+    from start_vision.phase3 import score
+
+    # step measurement: a 40 uV step at 0.1 s on HEOG_ctl, 128 Hz
+    t = np.arange(-1.0, 1.0, 1 / 128)
+    x = np.zeros((2, 1, len(t)))
+    x[1, 0, t >= 0.1] = 40e-6
+    info = mne.create_info(["HEOG_ctl"], 128.0, "misc")
+    st = score.heog_step_uv(mne.EpochsArray(x, info, tmin=-1.0, verbose="error"))
+    assert st is not None and st[0] < 1.0 and 35.0 < st[1] <= 40.0 + 1e-6
+
+    # analysis: P(seen) separates the classes only on trials with a large step
+    rng = np.random.default_rng(1)
+    rows = []
+    for s in range(12):
+        n = 200
+        y = (rng.random(n) < 0.5).astype(int)
+        big = rng.random(n) < 0.3
+        p = rng.random(n) + 2.0 * y * big
+        rows.append(pd.DataFrame({"recording": f"sub-{s:02d}_site-O1", "subject": f"{s:02d}",
+                                  "site": "O1", "seen": y, "p_seen": p, "p_seen_no_motor": p,
+                                  "p_seen_early": p, "heog": rng.normal(size=n),
+                                  "heog_step_uv": np.where(big, 30.0, 5.0)}))
+    per = an.per_recording(pd.concat(rows, ignore_index=True), n_perm=0)
+    _, t3 = an.tests(per)
+    row = t3[t3["control"].str.startswith("E1 follow-up")].iloc[0]
+    assert per["auc"].mean() > 0.6 and row["p"] > 0.05

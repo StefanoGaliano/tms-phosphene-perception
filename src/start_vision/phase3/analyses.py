@@ -87,6 +87,10 @@ def rec_auc_perm_p(g: pd.DataFrame, col: str, n_perm: int = 2000, seed: int = 0)
     return float((1 + (null >= obs).sum()) / (1 + n_perm))
 
 
+E1_HALF_STEP_UV = 16.0
+"""E1 follow-up: half the 32 uV HEOG step rule (PHASE3_PREREG §9)."""
+
+
 def subject_values(per_rec: pd.DataFrame, col: str) -> pd.Series:
     """Subject value = mean over that subject's included recordings (D6)."""
     return per_rec.groupby("subject")[col].mean()
@@ -134,6 +138,9 @@ def per_recording(scores: pd.DataFrame, n_perm: int = 2000) -> pd.DataFrame:
         if "alpha_log10" in g:
             gg = g.assign(p_res=residualized(g, "p_seen", "alpha_log10"))
             r["auc_alpha_residualized"] = rec_auc(gg, "p_res")
+        if "heog_step_uv" in g:
+            # E1 follow-up (PHASE3_PREREG §9): H1 on trials with HEOG step < half the rule
+            r["auc_heog_half"] = rec_auc(g[g["heog_step_uv"] < E1_HALF_STEP_UV], "p_seen")
         r |= {f"{k}_theta": v for k, v in binary_metrics(g, THETA).items()}
         r |= {f"{k}_median": v for k, v in
               binary_metrics(g, float(np.median(g["p_seen"]))).items()}
@@ -185,6 +192,11 @@ def tests(per_rec: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
             p2 = stats._signflip_p(a - 0.5, 10_000, 0, tail=0)
             t3.append({"control": name, "n": len(a), "mean": float(a.mean()), "p": p2,
                        "flag": bool(p2 < 0.05) if c in ("heog", "veog") else None})
+    if "auc_heog_half" in per_rec:
+        flagged = any(r["flag"] for r in t3 if str(r["control"]).startswith("E1 ") and r["flag"])
+        t3.append({"control": f"E1 follow-up: H1 on trials with HEOG step < {E1_HALF_STEP_UV:g} uV",
+                   **group_one_sided(subject_values(per_rec, "auc_heog_half")),
+                   "flag": None, "required": flagged})
     if "auc_alpha_residualized" in per_rec:
         t3.append({"control": "A1 H1 with P(seen) residualized on alpha",
                    **group_one_sided(subject_values(per_rec, "auc_alpha_residualized")),

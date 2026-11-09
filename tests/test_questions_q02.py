@@ -21,7 +21,7 @@ def test_questions_q02_wrong_cell_minimum() -> None:
 
 
 def test_questions_q02_ds006171_contrast_only_stays_null() -> None:
-    t = ds006171_table(contrast_auc_only=True, seed=7)
+    t = ds006171_table(contrast_auc_only=True, contrast_gain=40.0, seed=7)
     t["correct"] = np.where(t["correct"].notna(), (t["gabor_contrast"] > 0.03).astype(float),
                             np.nan)   # correctness follows contrast only
     per = q02.ds006171_auc(t)

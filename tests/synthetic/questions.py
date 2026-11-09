@@ -29,8 +29,10 @@ def eklund_table(n_sessions: int = 16, n_trials: int = 300, gabors: tuple[str, .
 
 
 def ds006171_table(n_subjects: int = 20, n_trials: int = 300, contrast_auc_only: bool = False,
-                   task_drop: float = 0.0, seed: int = 0) -> pd.DataFrame:
-    """Rows as ``questions.io.ds006171_trials`` returns them (three tasks)."""
+                   task_drop: float = 0.0, contrast_gain: float = 15.0,
+                   seed: int = 0) -> pd.DataFrame:
+    """Rows as ``questions.io.ds006171_trials`` returns them (three tasks). ``contrast_gain`` sets
+    how strongly the score follows contrast."""
     rng = np.random.default_rng(seed)
     rows = []
     for s in range(n_subjects):
@@ -38,7 +40,7 @@ def ds006171_table(n_subjects: int = 20, n_trials: int = 300, contrast_auc_only:
             c = rng.uniform(0.01, 0.05, n_trials) + shift
             seen = rng.random(n_trials) < 1 / (1 + np.exp(-(c - 0.03) * 150))
             gain = 0.0 if contrast_auc_only else (1.0 - (task_drop if task == "informative" else 0))
-            score = 40 * (c - 0.03) + gain * seen + rng.normal(0, 1, n_trials)
+            score = contrast_gain * (c - 0.03) + gain * seen + rng.normal(0, 1, n_trials)
             correct = np.where(rng.random(n_trials) < 0.15,
                                (rng.random(n_trials) < np.where(seen, 0.85, 0.5)).astype(float),
                                np.nan)

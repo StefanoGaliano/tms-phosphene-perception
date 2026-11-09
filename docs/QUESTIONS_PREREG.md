@@ -1,0 +1,119 @@
+# Questions_to_solve: pre-registration addendum
+
+**Status: FINAL (2026-11-09), tagged `questions-prereg`.** Any later change is a reported
+deviation. Council evaluation: ideas 002-006 and 008 applied (`ideas/INDEX.md`); 002 is this document;
+idea 009 (Q37b) not applied.
+
+Questions and full references: `Question_to_answer/` (`QUESTIONS.md`, "References per question").
+Scripts go in `scripts/`, results in `results/questions_to_solve/<question>/`.
+
+## 0. What has already been seen (honesty table)
+
+These analyses are specified **after** a first look at the same data. They are not confirmatory on
+those data. What this addendum adds: every choice is fixed before the rerun, the analyses run once,
+the multiplicity is corrected, and where a part of the data has not been used for the question it is
+named as the confirmation set.
+
+| Q | First look (2026-11-09) | Data already used | Not yet used for this question |
+|---|---|---|---|
+| Q01 | `q01_q03_eklund/` | Eklund large + small, all rating levels | none (no other dataset has ratings) |
+| Q02 | `q01_q03_eklund/`, `saved_results/` | Eklund; ds006171 (run after Eklund, settings fixed before running) | none |
+| Q03 | same | Eklund; ds006171 | the mixture-model test itself (not computed yet) |
+| Q04 | `saved_results/` | ds006171 LOSO scores, unmatched | contrast-matched analysis |
+| Q37a | `q37ab_phase3/` (mean subtraction, SSP-3) | GIN primary, all recordings | trial-level TEP amplitude covariate |
+
+## 1. General rules (all questions)
+
+- Unit of inference: subject (Eklund: session within a Gabor size; GIN: subject = mean of included
+  sites). Two-stage summary statistics: one value per unit (a regression slope, AUC or difference),
+  then a group test. Nothing is fitted across units; no refitting of any detector; the frozen
+  detectors are used as exported.
+- Group tests: sign-flip permutation, 10 000 permutations, two-sided unless stated; bootstrap 95 % CI
+  (10 000); d_z. Seed 20261109.
+- Equivalence: TOST with bound ±0.03 AUC (**PROJECT CHOICE**, the Phase 2 A8 precedent,
+  `reports/phase2.md`). No other equivalence bounds.
+- Minimum cell sizes: 3 trials per cell for a unit to enter a contrast (as the first look).
+- **Primary test per question** and **family**: the five primary tests marked **[P]** below are
+  Holm-corrected together (family alpha 0.05). Everything else is secondary, reported with
+  uncorrected p and labelled.
+- Inclusion: as in the source analyses (Eklund: authors-included sessions, critical trials,
+  duration exclusion; ds006171: Phase 2 inclusion; GIN: `inclusion_primary.tsv`). No new exclusions.
+- Reporting: one table and one figure per question, the result whatever it is, in
+  `results/questions_to_solve/<q>/README.md` and `docs/ARTICLE_NOTES.md`.
+
+## 2. Q01 Graded awareness (Eklund) — idea 003
+
+- Hypothesis: P(seen) of the frozen `tms-robust` detector increases with the subjective rating
+  (1 did not see, 2 saw something, 3 saw clearly), beyond stimulus duration.
+- Data: `results/eklund2018/trial_scores.tsv.gz`; critical trials (condition 1-4) with correct
+  localization (`obj_corr` = 1), duration exclusion applied.
+- Measure: per session, OLS of P(seen) on rating (numeric 1-3) and `duration_ms` (centred within
+  session); the rating slope.
+- **[P]** Large Gabors: rating slope > 0 (one-sided). Small Gabors: the same, reported as replication.
+- Secondary: steps 2-1 and 3-2 (sessions with >= 3 trials per level) as in the first look.
+- Interpretation rule: a positive slope with the covariate = graded read-out; if the slope vanishes
+  with the covariate, the gradation is attributed to duration.
+
+## 3. Q02 Seen with wrong content (Eklund, ds006171) — idea 004
+
+- Hypothesis: among trials reported as seen, wrong content (location or orientation) gives lower
+  P(seen) than correct content, not explained by stimulus strength.
+- Eklund: rating >= 2 critical trials; per session OLS of P(seen) on correctness (1/0) and
+  `duration_ms`; sessions with >= 3 wrong trials. **[P]** correctness slope > 0 (one-sided), large
+  Gabors. Small Gabors: replication.
+- ds006171: seen trials with the orientation question; per subject, AUC(correct vs wrong) on LOSO
+  scores residualized on contrast within subject x task (as the first look); secondary.
+- Interpretation rule: both datasets positive = the read-out needs content-bearing evidence; stated
+  limit: wrong-content "seen" trials can be false reports.
+
+## 4. Q03 "Unseen but correct": a guessing-mixture test (Eklund; ds006171 check) — idea 005
+
+- Question: is the higher P(seen) of unseen-correct vs unseen-wrong trials (first look +0.041)
+  what weak percepts reported as unseen would produce (criterion account), or less (stimulus
+  processing without the awareness signature)?
+- Model, per session (rating 1 critical trials): localization accuracy a; chance c = 0.25 (four
+  quadrants, `src/start_vision/eklund2018.py:10-13`); informed fraction f = max(0, (a - c)/(1 - c)),
+  assuming informed trials are always correct and guesses are uniform. Correct trials = informed +
+  lucky guesses, so the expected difference is
+  D_pred = f / (f + (1 - f) c) × (m_I - m_G), with m_G = mean P(seen) of unseen-wrong trials (all
+  guesses) and m_I = mean P(seen) of rating-2 correct trials (**PROJECT CHOICE**: the reference
+  class for "weak percepts").
+- Observed: D_obs = mean P(seen) unseen-correct - unseen-wrong.
+- **[P]** Large Gabors: D_obs - D_pred, two-sided. Secondary: TOST ±0.03 on D_obs - D_pred; small
+  Gabors as replication; ds006171 (c = 0.5, orientation) as a check that a ≈ c predicts D ≈ 0.
+- Interpretation rule: D_obs - D_pred not different from 0 and equivalent = consistent with the
+  criterion account; D_obs significantly below D_pred = informed unseen trials carry less of the
+  signature than weak seen ones (evidence for processing without awareness); above = not predicted,
+  reported as such.
+- Stated limits: the mixture assumptions; rating-2 as the reference class.
+
+## 5. Q04 Attention, contrast-matched (ds006171 detector) — idea 006
+
+- Hypothesis (equivalence): the cue does not change the detector's seen/unseen AUC.
+- Data: `derivatives/sv_decode_group/loso_predictions.tsv` + staged `gabor_contrast`.
+- Matching: within subject x task, contrast deciles, the larger class subsampled per bin with a fixed
+  seed 97 (the Phase 1 rule, `start_vision.matching.match` defaults: 10 bins, seed 97); then per subject x task AUC.
+- **[P]** Informative minus nocue: TOST ±0.03 (equivalence p). Secondary: noninformative minus
+  nocue (TOST), the difference tests, the mean contrast per task.
+- Deferred: the VAN part (needs the ds006171 epochs, `runs/`).
+
+## 6. Q37a Trial-level TMS-evoked-response amplitude (GIN) — idea 008
+
+- Question: does the H1 difference survive controlling for how large each pulse's evoked response
+  was, and does that amplitude itself differ by report?
+- Data: `derivatives/sv_p3_clean/primary/` included recordings; detector input (contract channels and
+  window).
+- Template: the recording's mean over all kept trials (label-free), 0-0.6 s, all contract channels.
+  Trial amplitude: the least-squares projection coefficient of the trial on the template over
+  0-0.6 s, <trial, template> / <template, template> (one scalar per trial; 1 = as large as the mean).
+- **[P]** H1 with P(seen) residualized on TEP amplitude within recording (as A1): AUC > 0.5, one-sided.
+- Secondary: AUC of TEP amplitude alone for S100 vs S200 (two-sided); the SSP-3 result already
+  computed is reported as context.
+- Interpretation rule: H1 survives = the effect is not the trial-to-trial size of the pulse response;
+  if TEP amplitude alone separates the classes, report that the phosphene modulates the evoked
+  response (Taylor 2010-like) and that residualizing then removes part of a real effect.
+
+## 7. Q37b: not adopted (idea 009 not applied, 2026-11-09); its first look stays exploratory.
+
+## 8. Deviations and changes
+None yet.

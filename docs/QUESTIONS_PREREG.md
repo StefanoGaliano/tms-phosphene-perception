@@ -131,3 +131,9 @@ named as the confirmation set.
 - **Amendment 1 (2026-11-09, user):** Q37b (idea 009) added after the tag `questions-prereg`, before
   any analysis of this addendum was rerun; the Holm family grows from five to six primary tests.
   Tag `questions-prereg-amend1`.
+- **Implementation clarifications (2026-11-09, user, before any rerun):** the twelve answers in
+  `plans/QUESTIONS_BLUEPRINT.md` §17 "Answers" fix details this addendum leaves open (Q01/Q02 cell
+  rules, Q02 covariate centring and tail, ds006171 inclusion = 34 subjects, Q03 ds006171 reporting,
+  Q04 matching and family reading, Q37a inputs, Q37b generator per recording, pooling and O2
+  entry). Two of them border on the analysis: the extra >= 3 correct trials for Q02, and the Q37b
+  generator scheme; both recorded here as decided before the rerun.

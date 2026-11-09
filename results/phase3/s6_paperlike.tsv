@@ -1,0 +1,3 @@
+test	n	mean_uv	ci_low	ci_high	d_z	p_two_sided	p_expected_direction	n_expected_direction
+S6 VAN contralateral 180-280 ms	17	-0.13508	-0.37669	0.08881	-0.26831	0.29650	0.14920	9
+S6 LP Pz 350-550 ms	17	0.48947	0.19552	0.80443	0.73491	0.00690	0.00300	14

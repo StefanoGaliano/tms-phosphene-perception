@@ -273,3 +273,20 @@ def p3_analyze() -> None:
         print(inc[["recording", "kept", "seen_share", "included", "reason"]].to_string(index=False))
         print(t2.to_string(index=False))
         print(t3.to_string(index=False))
+
+
+def p3_secondary() -> None:
+    """sv-p3-secondary: S2, S4, S6, S8, R3 on the included recordings (Phase 3 step 12)."""
+    import argparse
+    from pathlib import Path
+
+    from start_vision.phase3 import config, secondary
+
+    p = argparse.ArgumentParser(prog="sv-p3-secondary")
+    p.add_argument("--pipeline", default="primary", choices=["primary", "paperlike"])
+    a = p.parse_args()
+    root = Path.cwd()
+    cfg = config.load(root / "configs" / "phase3.yaml")
+    out = secondary.run(root, a.pipeline, root / cfg.detector)
+    for k in ("s2", "s4_means", "s6", "s6_clusters", "s8_clusters", "r3"):
+        print(f"--- {k}\n{out[k].to_string(index=False)}")

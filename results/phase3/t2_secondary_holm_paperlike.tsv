@@ -1,0 +1,9 @@
+test	p	p_holm_all_secondary
+S1 untouched subset	0.00100	0.00400
+S2 site O1 vs O2	0.12973	0.25946
+S3 balanced accuracy (theta)	0.00040	0.00280
+S3 balanced accuracy (median)	0.00040	0.00280
+S6 VAN contralateral 180-280 ms (two-sided)	0.29650	0.29650
+S6 LP Pz 350-550 ms (two-sided)	0.00690	0.02070
+S8 within-recording decoding (largest cluster)	0.00010	0.00080
+S9 seen share 30-70 %	0.00070	0.00350

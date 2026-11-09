@@ -27,6 +27,7 @@ sv-p3-clean = "start_vision.cli:p3_clean"
 sv-p3-score = "start_vision.cli:p3_score"
 sv-p3-analyze = "start_vision.cli:p3_analyze"
 sv-p3-secondary = "start_vision.cli:p3_secondary"
+sv-questions = "start_vision.cli:questions"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/start_vision"]

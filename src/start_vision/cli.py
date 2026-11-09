@@ -290,3 +290,24 @@ def p3_secondary() -> None:
     out = secondary.run(root, a.pipeline, root / cfg.detector)
     for k in ("s2", "s4_means", "s6", "s6_clusters", "s8_clusters", "r3"):
         print(f"--- {k}\n{out[k].to_string(index=False)}")
+
+
+def questions() -> None:
+    """sv-questions: the pre-registered Questions_to_solve analyses (docs/QUESTIONS_PREREG.md)."""
+    import argparse
+    import importlib
+    from pathlib import Path
+
+    from start_vision.questions.params import FAMILY
+
+    p = argparse.ArgumentParser(prog="sv-questions")
+    p.add_argument("what", choices=[*FAMILY, "family", "all"])
+    p.add_argument("--root", default=".")
+    p.add_argument("--force", action="store_true", help="overwrite an existing prereg_* folder")
+    a = p.parse_args()
+    root = Path(a.root).resolve()
+    todo = [*FAMILY, "family"] if a.what == "all" else [a.what]
+    for name in todo:
+        mod = importlib.import_module(f"start_vision.questions.{name}")
+        out = mod.run(root, force=a.force)
+        print(f"{name}: {out}")

@@ -2,7 +2,7 @@
 
 **Status: FINAL (2026-11-09), tagged `questions-prereg`.** Any later change is a reported
 deviation. Council evaluation: ideas 002-006 and 008 applied (`ideas/INDEX.md`); 002 is this document;
-idea 009 (Q37b) not applied.
+idea 009 (Q37b) added by amendment 1 (tag `questions-prereg-amend1`).
 
 Questions and full references: `Question_to_answer/` (`QUESTIONS.md`, "References per question").
 Scripts go in `scripts/`, results in `results/questions_to_solve/<question>/`.
@@ -21,6 +21,7 @@ named as the confirmation set.
 | Q03 | same | Eklund; ds006171 | the mixture-model test itself (not computed yet) |
 | Q04 | `saved_results/` | ds006171 LOSO scores, unmatched | contrast-matched analysis |
 | Q37a | `q37ab_phase3/` (mean subtraction, SSP-3) | GIN primary, all recordings | trial-level TEP amplitude covariate |
+| Q37b | `q37ab_phase3/` | GIN primary, all recordings (pooled) | the O1 -> O2 split and the independence model |
 
 ## 1. General rules (all questions)
 
@@ -33,7 +34,7 @@ named as the confirmation set.
 - Equivalence: TOST with bound ±0.03 AUC (**PROJECT CHOICE**, the Phase 2 A8 precedent,
   `reports/phase2.md`). No other equivalence bounds.
 - Minimum cell sizes: 3 trials per cell for a unit to enter a contrast (as the first look).
-- **Primary test per question** and **family**: the five primary tests marked **[P]** below are
+- **Primary test per question** and **family**: the six primary tests marked **[P]** below are
   Holm-corrected together (family alpha 0.05). Everything else is secondary, reported with
   uncorrected p and labelled.
 - Inclusion: as in the source analyses (Eklund: authors-included sessions, critical trials,
@@ -113,7 +114,20 @@ named as the confirmation set.
   if TEP amplitude alone separates the classes, report that the phosphene modulates the evoked
   response (Taylor 2010-like) and that residualizing then removes part of a real effect.
 
-## 7. Q37b: not adopted (idea 009 not applied, 2026-11-09); its first look stays exploratory.
+## 7. Q37b Pulses needed, independence model, O1 -> O2 (GIN) — idea 009 (amendment 1)
+
+- Single-pulse AUC per recording (primary scores). Independence model: d' = √2 Φ⁻¹(AUC);
+  predicted block AUC_k = Φ(d' √k / √2) for k = 1, 5, 10, 20.
+- Observed block AUC_k: as the first look (1000 resampled blocks per class, without replacement).
+- Secondary: observed minus predicted per k (sign flip over subjects).
+- k* = the smallest k in {1, 5, 10, 20} with group mean observed AUC >= 0.75, chosen on **O1
+  recordings only**; "not reached" if none.
+- **[P]** On O2 recordings: block AUC at k* (or at k = 20 if not reached) > 0.5, one-sided; report
+  the value as the planning estimate.
+- Stated limits: subjects with single-pulse AUC < 0.5 (reported, not excluded); O1 and O2 are
+  mostly the same subjects, so O2 is a held-out set of recordings, not of people.
 
 ## 8. Deviations and changes
-None yet.
+- **Amendment 1 (2026-11-09, user):** Q37b (idea 009) added after the tag `questions-prereg`, before
+  any analysis of this addendum was rerun; the Holm family grows from five to six primary tests.
+  Tag `questions-prereg-amend1`.

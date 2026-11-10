@@ -68,8 +68,16 @@ reports a Holm over S1/S3/S9 only (deviation 4).
 - **S8:** the TMS data themselves separate the classes well within a recording (0.617 from 70 ms),
   more than the frozen detector reads (0.540). This shows what the data hold; it is not evidence for
   the "naturally-seen" claim.
-- **S7** (retrained ds006171 decoder, time-resolved transfer) **not run**: it needs the ds006171
-  epochs, which were removed for disk space (to rebuild later).
+- **S7** (run 2026-11-10 after the ds006171 epochs were rebuilt; `results/phase3/s7_r4b/s7.json`,
+  `scripts/phase3_s7_r4b.py`): a sliding decoder trained on all 34 ds006171 subjects (64-channel
+  `tms-robust` set, stimulus-present trials) and tested on each included TMS recording. One cluster,
+  148-992 ms (p 0.0001, mean AUC 0.547), in both pipelines; window AUCs VAN 0.535 [0.522, 0.549],
+  LP 0.545 [0.529, 0.561], post 150-600 0.539 [0.526, 0.552] (all p 0.0002), prestimulus 0.501
+  (p 0.40). Paperlike: VAN 0.530, LP 0.543, same cluster. The transfer starts near 150 ms, as in
+  natural vision (no lag visible at this resolution), and keeps rising to 0.575 at 0.92 s; the
+  part after about 0.6 s overlaps the response-locked lateralization flagged by R3 and is not read
+  as perception. S7 ran after the Holm family above was computed and is reported outside it; its p
+  would survive any correction over the secondary tests.
 
 ## Confound controls
 
@@ -79,7 +87,7 @@ reports a Holm over S1/S3/S9 only (deviation 4).
 | R2 | P(seen) vs C3-C4 within class | mean rho -0.07 | -0.07 | no |
 | R3 | detector pattern vs TMS lateralization map | see below | - | **yes (8/9 bins)** |
 | R4a | frozen model, bins before 300 ms only | 0.519 [0.507, 0.532], p 0.006 | 0.519, p 0.014 | reported |
-| R4b | early-only retrained detector | not run (needs ds006171 epochs) | - | - |
+| R4b | early-only retrained detector (0.15-0.30 s, C 0.01, ds006171 LOSO AUC 0.655) | 0.539 [0.522, 0.555], p 0.0004, 13/17 | 0.533 [0.517, 0.549], p 0.0009, 13/17 | reported |
 | R5 | C3-C4 alone | 0.472, p 0.20 | 0.475 | reported |
 | E1 | HEOG alone | 0.477, p 0.025 (below chance) | 0.481, p 0.024 | **yes** |
 | E1 | VEOG alone | 0.514, p 0.18 | 0.514 | no |
@@ -110,7 +118,8 @@ reports a Holm over S1/S3/S9 only (deviation 4).
 - **Alpha:** prestimulus alpha does not separate the classes here (unlike Romei 2008 and Samaha 2017),
   and H1 survives regressing it out.
 - **Early window:** the frozen model limited to bins before 300 ms still separates the classes
-  (0.519), so the effect is not only the late, report-sensitive part.
+  (0.519), and a detector retrained on 0.15-0.30 s only (R4b, 2026-11-10) reaches 0.539, about the
+  size of H1, so the effect is not only the late, report-sensitive part.
 
 ## What can and cannot be claimed (PHASE3_PREREG §10)
 
@@ -141,11 +150,12 @@ reports a Holm over S1/S3/S9 only (deviation 4).
 6. S6 window tests reported two-sided (no tail in the prereg) and in the expected direction.
 7. S6 cluster times were wrong in the first run (1-D cluster bug); fixed with a regression test and
    recomputed from the saved subject waves.
-8. Not run: S7, R4b (need the ds006171 epochs), `gonogo`.
+8. Not run: `gonogo`. S7 and R4b ran on 2026-11-10, a day after the other tests, on ds006171 epochs
+   rebuilt with the same configs (the 5 eegunify failures and their rejection rates reproduce
+   Phase 1 exactly); the R4b C was chosen by LOSO over the Phase 2 grid on the GPU backend.
 
 ## Open items
 
-- S7 and R4b once the ds006171 epochs are rebuilt (`runs/`, deferred by the user).
 - Confirm S100/S200 with the authors (asked 2026-11-08).
 - Hand caveat above: a pre-registered VAN-topography follow-up with a wider hand control (council idea 013).
 - Follow-ups pre-registered in `docs/QUESTIONS_PREREG.md` (tags `questions-prereg`,

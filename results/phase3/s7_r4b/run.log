@@ -1,0 +1,131 @@
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-01: 610 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-02: 586 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-03: 952 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-04: 996 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-05: 899 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-06: 1074 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-07: 1006 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-08: 614 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-09: 871 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-10: 1026 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-11: 1048 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-12: 985 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-13: 707 trials
+Adding metadata with 15 columns
+train sub-14: 255 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-15: 595 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-16: 970 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-17: 1030 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-18: 1063 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-19: 528 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-22: 876 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-23: 1004 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-24: 787 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-25: 927 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-26: 1006 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-27: 445 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-28: 853 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-29: 969 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-30: 926 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-31: 956 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-32: 452 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-33: 1054 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-34: 792 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-35: 524 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-36: 680 trials
+selection: 3 configs x 34 subjects = 1785 fits (torch)
+selection: done
+R4b primary: {'n': 17, 'mean': 0.5387295508363229, 't': 4.423942177781925, 'p': 0.0004, 'd_z': 1.0729635812129352, 'ci_low': 0.5217793396816715, 'ci_high': 0.5550546575079668, 'p_two_sided': 0.0006, 'n_above': 13, 'n_subjects': 17, 'n_recordings': 33, 'subjects_above_chance': 13}
+R4b paperlike: {'n': 17, 'mean': 0.5333476894408569, 't': 3.9985408540318965, 'p': 0.0009, 'd_z': 0.9697886052659387, 'ci_low': 0.5172884726813298, 'ci_high': 0.5490034281445364, 'p_two_sided': 0.0013, 'n_above': 13, 'n_subjects': 17, 'n_recordings': 33, 'subjects_above_chance': 13}
+S7 primary: peak 0.575 at 0.922 s; sig clusters 1
+S7 paperlike: peak 0.574 at 0.992 s; sig clusters 1

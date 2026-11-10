@@ -1,0 +1,39 @@
+{
+  "window_s": [
+    0.15,
+    0.3
+  ],
+  "C": 0.01,
+  "backend": "torch",
+  "loso_auc_mean": 0.6552130300733737,
+  "nested_loso_auc_mean": 0.6552144003588835,
+  "detector": "/home/stefanogaliano/Documents/Projects/Neurosciences/Start_Vision/results/phase3/s7_r4b/r4b_detector",
+  "primary": {
+    "n": 17,
+    "mean": 0.5387295508363229,
+    "t": 4.423942177781925,
+    "p": 0.0004,
+    "d_z": 1.0729635812129352,
+    "ci_low": 0.5217793396816715,
+    "ci_high": 0.5550546575079668,
+    "p_two_sided": 0.0006,
+    "n_above": 13,
+    "n_subjects": 17,
+    "n_recordings": 33,
+    "subjects_above_chance": 13
+  },
+  "paperlike": {
+    "n": 17,
+    "mean": 0.5333476894408569,
+    "t": 3.9985408540318965,
+    "p": 0.0009,
+    "d_z": 0.9697886052659387,
+    "ci_low": 0.5172884726813298,
+    "ci_high": 0.5490034281445364,
+    "p_two_sided": 0.0013,
+    "n_above": 13,
+    "n_subjects": 17,
+    "n_recordings": 33,
+    "subjects_above_chance": 13
+  }
+}

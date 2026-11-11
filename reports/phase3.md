@@ -158,7 +158,7 @@ reports a Holm over S1/S3/S9 only (deviation 4).
 6. S6 window tests reported two-sided (no tail in the prereg) and in the expected direction.
 7. S6 cluster times were wrong in the first run (1-D cluster bug); fixed with a regression test and
    recomputed from the saved subject waves.
-8. Not run: `gonogo`. S7 and R4b ran on 2026-11-10, a day after the other tests, on ds006171 epochs
+8. `gonogo` ran 2026-11-11 (deviation 3). S7 and R4b ran on 2026-11-10, a day after the other tests, on ds006171 epochs
    rebuilt with the same configs (the 5 eegunify failures and their rejection rates reproduce
    Phase 1 exactly); the R4b C was chosen by LOSO over the Phase 2 grid on the GPU backend.
 

@@ -146,6 +146,39 @@ named as the confirmation set.
   hand signal on any channel pair; if it does not survive, the claim narrows to "not separable from
   the response". A null after (a) is ambiguous (posterior signal removed too).
 
+## 10. Q39 Time-shifted transfer of the natural-vision code to TMS phosphenes (GIN) — amendment 3
+
+- Motivation: after parietal TMS, VAN-like lateral occipital activity appears earlier than after a
+  visual stimulus because the retina is bypassed (Knight et al. 2024, Neuropsychologia 198:108864);
+  perception-to-imagery overlap appears only off the diagonal of a train-time x test-time matrix
+  (Dijkstra et al. 2018, eLife 7:e33904). S7 trained and tested at the same time point only.
+- Honesty: the diagonal of the matrix is S7 (seen 2026-11-10, cluster 148-992 ms). No off-diagonal
+  cell has been computed on the TMS data. Written 2026-11-11, before any run.
+- Method: the S7 decoder (Phase 2 per-time-point recipe: StandardScaler + L2 logistic regression,
+  liblinear, C = 1, balanced; `tms-robust` 64 channels; label-free per-subject baseline and
+  prestimulus z-scoring as in Phase 2 LOSO) trained on all 34 included ds006171 subjects
+  (stimulus-present trials) as an `mne.decoding.GeneralizingEstimator`, i.e. one classifier per
+  training time; each is tested at every time point of each included TMS recording (primary
+  pipeline; paperlike as secondary). Train and test times 0-1.0 s at 128 Hz. Per recording one AUC
+  matrix; subject = mean of included sites. No TMS labels enter training.
+- **[P]** Earlier transfer of the VAN-window code: the mean AUC of classifiers trained at 0.18-0.28 s
+  (VAN window, Eklund) and tested at 0.08-0.18 s (100 ms earlier) > 0.5, one-sided sign-flip test
+  over subjects (10 000), bootstrap 95 % CI, d_z. Own test at alpha 0.05; not added to the
+  seven-test Holm family (which is closed).
+- Secondary (uncorrected, labelled): (a) shift asymmetry for the same training window: mean AUC at
+  test 0.08-0.18 s minus mean AUC at test 0.28-0.38 s, two-sided; (b) the same [P] statistic for the
+  LP-trained classifiers (train 0.35-0.55 s, test 0.25-0.35 s); (c) per subject and over the group,
+  the test time of maximal mean AUC for VAN-window-trained classifiers (descriptive); (d) a
+  two-dimensional one-sided cluster permutation test over the full matrix (10 000), descriptive map;
+  (e) paperlike pipeline.
+- Interpretation rule: [P] significant and (a) positive = the natural VAN-window pattern appears
+  earlier after TMS than after a visual stimulus (consistent with bypassing the retina). [P]
+  significant with (a) not positive = broad generalization, not a specific shift. [P] null = no
+  evidence of earlier transfer; the paper keeps "partial match" without a time-shift claim.
+- Stated limits: train and test times share the same epoch grid; an earlier window can also carry
+  signal from the pulse-evoked response common to both classes, which shifts levels but not the
+  phosphene-vs-none ranking (as for H1).
+
 ## 8. Deviations and changes
 - **Amendment 1 (2026-11-09, user):** Q37b (idea 009) added after the tag `questions-prereg`, before
   any analysis of this addendum was rerun; the Holm family grows from five to six primary tests.
@@ -163,3 +196,6 @@ named as the confirmation set.
   enter them; the secondary "observed minus predicted" therefore tests whether the single-pulse
   scores fit the model's equal-variance Gaussian shape, not pulse independence. The analysis is
   unchanged; only its reading is corrected. The [P] test (O2 block AUC) is unaffected.
+- **Amendment 3 (2026-11-11, user):** Q39 added (time-shifted transfer, §10) after reading Knight
+  et al. 2024 and Dijkstra et al. 2018, before any off-diagonal cell was computed; its own primary
+  test at alpha 0.05, outside the closed seven-test Holm family. Tag `questions-prereg-amend3`.

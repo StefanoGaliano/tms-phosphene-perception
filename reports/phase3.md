@@ -165,8 +165,14 @@ reports a Holm over S1/S3/S9 only (deviation 4).
 ## Open items
 
 - Confirm S100/S200 with the authors (asked 2026-11-08).
-- Hand caveat above: a pre-registered VAN-topography follow-up with a wider hand control (council idea 013).
-- Follow-ups pre-registered in `docs/QUESTIONS_PREREG.md` (tags `questions-prereg`,
-  `questions-prereg-amend1`): Q37a (trial-level pulse-response amplitude) and Q37b (pulses needed);
-  build plan `plans/QUESTIONS_BLUEPRINT.md` waiting for the user's answers.
+- Follow-ups done 2026-11-09 (pre-registered in `docs/QUESTIONS_PREREG.md`, tags `questions-prereg`,
+  `-amend1`, `-amend2`; Holm over seven primary tests, `results/questions_to_solve/prereg_family/`):
+  - Q38 hand caveat (idea 013): H1 with P(seen) residualized on a hand index from all lateral
+    channel pairs 0.537 [0.519, 0.555], 14/17, Holm p 0.005; all 54 lateral channels interpolated
+    0.525 (p 0.003). The hand signal does not carry H1; hand fixed to the label stays a bound, not a
+    removal (`prereg_q38/`).
+  - Q37a: H1 residualized on trial TEP amplitude 0.526 [0.510, 0.543], Holm p 0.010; TEP amplitude
+    alone separates the classes (0.541), so the phosphene also modulates the evoked response (`prereg_q37a/`).
+  - Q37b: O2 block AUC at 20 pulses 0.686 [0.580, 0.784], Holm p 0.009; k* not reached on O1
+    (`prereg_q37b/`).
 - Literature context and article framing: `docs/ARTICLE_NOTES.md` (Phase 3 sections).

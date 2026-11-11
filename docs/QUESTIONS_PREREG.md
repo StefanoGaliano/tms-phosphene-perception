@@ -179,6 +179,33 @@ named as the confirmation set.
   signal from the pulse-evoked response common to both classes, which shifts levels but not the
   phosphene-vs-none ranking (as for H1).
 
+## 11. Q40 Reverse transfer: TMS-trained decoder tested on natural vision (GIN -> ds006171) — amendment 4
+
+- Motivation: cross-decoding in both directions (Dijkstra et al. 2018, eLife 7:e33904). In the TMS
+  data the report is tied to the response hand (phosphene = right hand, Bonfanti et al. 2024); in
+  ds006171 the yes/no screen positions were randomized on every trial (Melcon et al. 2024), so the
+  hand cannot predict seen/unseen there. A TMS-trained decoder that reads natural seen/unseen
+  therefore cannot do so through the response hand.
+- Honesty: no decoder has been trained on TMS labels and tested on ds006171 before. Written
+  2026-11-11, before any run.
+- Method: the Phase 2 per-time-point recipe (`across.transfer`: label-free per-subject baseline and
+  prestimulus z-scoring, StandardScaler + L2 logistic regression, liblinear, C = 1, balanced),
+  `tms-robust` 64 channels harmonized across datasets, trained on all included TMS recordings of the
+  primary pipeline pooled (labels phosphene/none), tested on each of the 34 included ds006171
+  subjects (stimulus-present trials, seen/unseen). Unit = ds006171 subject. Paperlike pipeline as
+  secondary.
+- **[P]** Mean AUC over 0.15-0.60 s (the detector window) > 0.5, one-sided sign-flip over the 34
+  subjects (10 000), bootstrap 95 % CI, d_z. Own test at alpha 0.05, outside the closed Holm family.
+- Secondary (uncorrected, labelled): (a) one-sided cluster permutation over time (0-1.0 s);
+  (b) window means VAN 0.18-0.28 s and LP 0.35-0.55 s; (c) prestimulus -0.5-0 s (expected null);
+  (d) paperlike pipeline.
+- Interpretation rule: [P] significant = the phosphene-vs-none pattern carries information about
+  natural seeing that cannot come from the response hand; the shared signal is two-way. [P] null =
+  no evidence of reverse transfer (expected to be weaker: 17 training subjects, a small effect, and
+  pulse-evoked activity common to both classes); H1 and Q38 stand unchanged.
+- Stated limits: the TMS decoder may also learn report- and hand-related activity; such features
+  are uninformative in ds006171 and lower, not raise, the reverse AUC.
+
 ## 8. Deviations and changes
 - **Amendment 1 (2026-11-09, user):** Q37b (idea 009) added after the tag `questions-prereg`, before
   any analysis of this addendum was rerun; the Holm family grows from five to six primary tests.
@@ -199,3 +226,5 @@ named as the confirmation set.
 - **Amendment 3 (2026-11-11, user):** Q39 added (time-shifted transfer, §10) after reading Knight
   et al. 2024 and Dijkstra et al. 2018, before any off-diagonal cell was computed; its own primary
   test at alpha 0.05, outside the closed seven-test Holm family. Tag `questions-prereg-amend3`.
+- **Amendment 4 (2026-11-11, user):** Q40 added (reverse transfer, §11) before any TMS-trained
+  decoder was tested on ds006171; own primary test at alpha 0.05. Tag `questions-prereg-amend4`.

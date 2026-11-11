@@ -1,0 +1,127 @@
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-01: 610 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-02: 586 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-03: 952 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-04: 996 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-05: 899 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-06: 1074 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-07: 1006 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-08: 614 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-09: 871 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-10: 1026 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-11: 1048 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-12: 985 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-13: 707 trials
+Adding metadata with 15 columns
+train sub-14: 255 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-15: 595 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-16: 970 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-17: 1030 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-18: 1063 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-19: 528 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-22: 876 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-23: 1004 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-24: 787 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-25: 927 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-26: 1006 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-27: 445 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-28: 853 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-29: 969 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-30: 926 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-31: 956 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-32: 452 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-33: 1054 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-34: 792 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-35: 524 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-36: 680 trials
+primary {"n": 34, "mean": 0.5136122453246814, "t": 2.7416197942263927, "p": 0.0042, "d_z": 0.47018391570852247, "ci_low": 0.5041344911126882, "ci_high": 0.5232573234372172, "n_above": 23}
+paperlike {"n": 34, "mean": 0.5159653928266159, "t": 3.6292327840070735, "p": 0.0008, "d_z": 0.6224082876100214, "ci_low": 0.5074316226725814, "ci_high": 0.5244466202009737, "n_above": 25}

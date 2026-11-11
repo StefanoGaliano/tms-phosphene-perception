@@ -205,7 +205,7 @@ def p3_clean() -> None:
     p = argparse.ArgumentParser(prog="sv-p3-clean")
     p.add_argument("-s", "--subject", action="append", required=True, help="e.g. 03 (repeatable)")
     p.add_argument("--site", action="append", choices=["O1", "O2"], default=None)
-    p.add_argument("--pipeline", default="primary", choices=["primary", "paperlike"])
+    p.add_argument("--pipeline", default="primary", choices=["primary", "paperlike", "gonogo"])
     p.add_argument("--force", action="store_true")
     a = p.parse_args()
     root = Path.cwd()
@@ -224,7 +224,7 @@ def p3_score() -> None:
     from start_vision.phase3 import config, score
 
     p = argparse.ArgumentParser(prog="sv-p3-score")
-    p.add_argument("--pipeline", default="primary", choices=["primary", "paperlike"])
+    p.add_argument("--pipeline", default="primary", choices=["primary", "paperlike", "gonogo"])
     a = p.parse_args()
     root = Path.cwd()
     cfg = config.load(root / "configs" / "phase3.yaml")
@@ -246,7 +246,7 @@ def p3_analyze() -> None:
     from start_vision.phase3 import config, stages
 
     p = argparse.ArgumentParser(prog="sv-p3-analyze")
-    p.add_argument("--pipeline", default="primary", choices=["primary", "paperlike"])
+    p.add_argument("--pipeline", default="primary", choices=["primary", "paperlike", "gonogo"])
     a = p.parse_args()
     root = Path.cwd()
     cfg = config.load(root / "configs" / "phase3.yaml")
@@ -283,7 +283,7 @@ def p3_secondary() -> None:
     from start_vision.phase3 import config, secondary
 
     p = argparse.ArgumentParser(prog="sv-p3-secondary")
-    p.add_argument("--pipeline", default="primary", choices=["primary", "paperlike"])
+    p.add_argument("--pipeline", default="primary", choices=["primary", "paperlike", "gonogo"])
     a = p.parse_args()
     root = Path.cwd()
     cfg = config.load(root / "configs" / "phase3.yaml")

@@ -111,6 +111,8 @@ def clean(rec: Recording, cfg: Phase3Config, root: Path, pipeline: str = "primar
     set_positions(raw)
     if qa_cb:
         qa_cb("raw", raw, pulses)
+    if pl.rough:
+        return _rough(rec, raw, pulses, cfg, root, qa, tic)
     p = cfg.pulse
     # C1-C2
     end = tms.artifact_end_ms(raw, pulses, p.artifact_k, p.artifact_hold_ms)
@@ -179,7 +181,50 @@ def clean(rec: Recording, cfg: Phase3Config, root: Path, pipeline: str = "primar
               phase="zero", picks=["eeg", "eog"], verbose="error")
     factor = round(ep.info["sfreq"] / 128.0)
     ep.decimate(factor, verbose="error")
-    # C11: average reference over recorded channels (preprocess did it), then the 5 channels
+    # C11-C12
+    return _finish(rec, ep, idx, cfg, root, qa, tic)
+
+
+ROUGH_CUT_S = (-0.002, 0.015)   # gonogo.py: pulse linearly interpolated -2..15 ms
+ROUGH_BAND_HZ = (0.1, 40.0)     # gonogo.py: IIR Butterworth order 4, zero phase
+
+
+def _rough(rec: Recording, raw: mne.io.BaseRaw, pulses: np.ndarray, cfg: Phase3Config,
+           root: Path, qa: dict[str, Any], tic: float) -> tuple[mne.Epochs, dict[str, Any]]:
+    """S5 ``gonogo`` pipeline: the go/no-go recipe (``results/phase3/gonogo/gonogo.py``).
+    Linear interpolation over the pulse, 0.1-40 Hz IIR, 128 Hz, average reference, the 5
+    contract channels interpolated; no ICA and no trial rejection. Same output as ``clean``."""
+    sf = raw.info["sfreq"]
+    a, b = int(ROUGH_CUT_S[0] * sf), int(ROUGH_CUT_S[1] * sf)
+    d = raw._data
+    for s in pulses:
+        i0, i1 = s + a - 1, s + b + 1
+        if i0 < 0 or i1 >= d.shape[1]:
+            continue
+        w = np.linspace(0, 1, i1 - i0 + 1)[None, 1:-1]
+        d[:, i0 + 1:i1] = d[:, [i0]] * (1 - w) + d[:, [i1]] * w
+    raw.filter(*ROUGH_BAND_HZ, method="iir", iir_params={"order": 4, "ftype": "butter"},
+               picks=["eeg", "eog"], verbose="error")
+    raw, pulses = tms.resample_with_pulses(raw, pulses, 128.0)
+    for name, (an, ca) in cfg.eog_bipolar.items():
+        if an in raw.ch_names and ca in raw.ch_names:
+            raw = mne.set_bipolar_reference(raw, an, ca, ch_name=name, drop_refs=True,
+                                            copy=False, verbose="error")
+            raw.set_channel_types({name: "eog"}, verbose="error")
+    raw.set_eeg_reference("average", verbose="error")
+    ev = np.c_[pulses + raw.first_samp, np.zeros_like(pulses), np.arange(1, len(pulses) + 1)]
+    ep = mne.Epochs(raw, ev, tmin=cfg.epochs.window_s[0], tmax=cfg.epochs.window_s[1],
+                    baseline=None, preload=True, reject_by_annotation=False, verbose="error",
+                    event_repeated="drop")
+    idx = ep.events[:, 2] - 1
+    qa |= {"cut_ms": [ROUGH_CUT_S[0] * 1000, ROUGH_CUT_S[1] * 1000], "rough": True,
+           "rejection": {"ptp": 0, "heog_step": 0, "kept": len(idx), "total": len(idx)}}
+    return _finish(rec, ep, idx, cfg, root, qa, tic)
+
+
+def _finish(rec: Recording, ep: mne.Epochs, idx: np.ndarray, cfg: Phase3Config, root: Path,
+            qa: dict[str, Any], tic: float) -> tuple[mne.Epochs, dict[str, Any]]:
+    """C11-C12: contract channels, control copies as misc, label metadata."""
     contract = _contract_channels(root / cfg.detector)
     misc = ep.copy().pick(["C3", "C4"] + [c for c in ("VEOG", "HEOG") if c in ep.ch_names])
     misc.rename_channels({c: f"{c}_ctl" for c in misc.ch_names})

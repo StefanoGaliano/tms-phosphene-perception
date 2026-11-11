@@ -35,6 +35,7 @@ they are; the primary pipeline is the pre-registered one (training-like, Q5 opti
 |---|---|---|---|---|
 | **primary (pre-registered)** | **0.540 [0.521, 0.559]** | 0.97 | **0.0009** | 14/17 |
 | paperlike (S5) | 0.540 [0.523, 0.557] | 1.09 | 0.0002 | - |
+| gonogo (S5) | 0.536 [0.520, 0.554] | 0.96 | 0.0003 | 16/18 |
 
 **H1 is supported.** Among physically identical pulses, those reported as a phosphene get a higher
 P(seen) from a detector trained only on natural near-threshold vision. Per-recording AUC ranges
@@ -61,7 +62,13 @@ reports a Holm over S1/S3/S9 only (deviation 4).
   (about 0.42-0.52) while the training reliability curve tracks P(seen): on TMS the scores rank
   pulses slightly better than chance but their probabilities are not calibrated.
 - **S5 pipeline robustness:** every test and control is the same to the second decimal with the
-  paper's muscle-ICA round (F9). The `gonogo` pipeline was not run (deviation 3).
+  paper's muscle-ICA round (F9). With the rough go/no-go recipe (`gonogo`: pulse linearly
+  interpolated -2..15 ms, IIR 0.1-40 Hz, no ICA, no trial rejection; run 2026-11-11) H1 = 0.536
+  [0.520, 0.554], d_z 0.96, p 0.0003, 16/18 subjects; 34 recordings, 18 subjects (sub-18 O2 now
+  passes inclusion, since nothing is rejected; sub-19 O1 still fails the code check). S1 0.538,
+  S3 0.517/0.525, S9 0.538 (all Holm < 0.005); controls as primary (R1 0.532, R5 C3-C4 alone 0.489,
+  E1 HEOG alone 0.482 flagged below chance as in primary, E1 follow-up 0.541, A1 residualized 0.534).
+  The result does not depend on the cleaning (`results/phase3/*_gonogo.tsv`).
 - **S6 ERPs (F7):** a late positivity at Pz is larger after phosphene pulses (cluster from 227 ms);
   at the stimulated-side posterior channels, under the coil, the waves of the two classes nearly
   overlap and the VAN-window difference is small and not significant after correction.
@@ -143,7 +150,8 @@ reports a Holm over S1/S3/S9 only (deviation 4).
    applies (commit 88e2df7, regression test).
 2. The E1 follow-up measures the HEOG step on the stored 40 Hz / 128 Hz copy; steps are slightly
    smaller than at rejection, so the 16 µV cut is a little lenient (commit 77947d4).
-3. The `gonogo` pipeline (part of S5) was not run.
+3. The `gonogo` pipeline (part of S5) ran late (2026-11-11), after the report draft. sub-18 O1 has no
+   `.fdt` in the GIN download (the O1 folder holds the O2 file), so it is missing in all pipelines.
 4. Secondary Holm: reported over S1/S3/S9 (as coded) and over all secondary tests that ran (as the
    prereg text says); conclusions above use the full list.
 5. R3 (b) map window 0.3-1.0 s instead of 0.3-1.2 s (epochs end at 1.0 s).

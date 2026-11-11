@@ -1,0 +1,52 @@
+     recording  kept  seen_share  included                         reason
+sub-03_site-O1   359    0.704735      True                             ok
+sub-03_site-O2   345    0.568116      True                             ok
+sub-04_site-O1   360    0.580556      True                             ok
+sub-04_site-O2   355    0.563380      True                             ok
+sub-05_site-O1   355    0.611268      True                             ok
+sub-05_site-O2   358    0.483240      True                             ok
+sub-06_site-O1   356    0.241573      True                             ok
+sub-06_site-O2   340    0.297059      True                             ok
+sub-07_site-O1   322    0.391304      True                             ok
+sub-07_site-O2   352    0.605114      True                             ok
+sub-08_site-O1   348    0.333333      True                             ok
+sub-08_site-O2   334    0.494012      True                             ok
+sub-09_site-O1   360    0.633333      True                             ok
+sub-09_site-O2   360    0.563889      True                             ok
+sub-10_site-O1   358    0.491620      True                             ok
+sub-10_site-O2   354    0.627119      True                             ok
+sub-11_site-O1   358    0.407821      True                             ok
+sub-11_site-O2   337    0.454006      True                             ok
+sub-13_site-O1   351    0.267806      True                             ok
+sub-13_site-O2   357    0.467787      True                             ok
+sub-14_site-O1   327    0.397554      True                             ok
+sub-14_site-O2   354    0.511299      True                             ok
+sub-15_site-O1   360    0.363889      True                             ok
+sub-15_site-O2   360    0.436111      True                             ok
+sub-16_site-O1   346    0.424855      True                             ok
+sub-16_site-O2   342    0.479532      True                             ok
+sub-17_site-O1   357    0.478992      True                             ok
+sub-17_site-O2   360    0.425000      True                             ok
+sub-18_site-O2   360    0.647222      True                             ok
+sub-19_site-O1   352    0.602273     False code check opposite (p < 0.05)
+sub-19_site-O2   358    0.611732      True                             ok
+sub-21_site-O1   359    0.286908      True                             ok
+sub-21_site-O2   355    0.250704      True                             ok
+sub-22_site-O1   359    0.228412      True                             ok
+sub-22_site-O2   360    0.288889      True                             ok
+                         test  n     mean        t      p      d_z   ci_low  ci_high  p_two_sided  n_above  p_holm
+                   H1 primary 18 0.536482 4.065171 0.0003 0.958170 0.520359 0.554087       0.0006     16.0     NaN
+          S1 untouched subset 18 0.537910 3.395766 0.0023 0.800390 0.516991 0.559280       0.0035     14.0  0.0046
+ S3 balanced accuracy (theta) 18 0.516840 2.855480 0.0025 0.673043 0.506564 0.528706          NaN      NaN  0.0046
+S3 balanced accuracy (median) 18 0.525475 3.842182 0.0006 0.905611 0.513468 0.538359          NaN      NaN  0.0024
+        S9 seen share 30-70 % 15 0.538051 3.721112 0.0009 0.960787 0.519640 0.557948       0.0014     13.0  0.0027
+                                          control  n      mean        t      p      d_z   ci_low  ci_high  p_two_sided  n_above  flag required
+                        R1 motor channels removed 18  0.531694 3.506997 0.0006 0.826607 0.515704 0.549452       0.0011     14.0 False      NaN
+                 R2 P(seen) vs C3-C4 within class 18 -0.079777      NaN 1.0000      NaN      NaN      NaN          NaN      NaN False      NaN
+                   R4a early bins only (< 0.30 s) 18  0.522311 2.752066 0.0095 0.648668 0.506237 0.537240       0.0163     15.0  None      NaN
+                                   R5 C3-C4 alone 18  0.488811      NaN 0.5592      NaN      NaN      NaN          NaN      NaN  None      NaN
+                                    E1 HEOG alone 18  0.482298      NaN 0.0447      NaN      NaN      NaN          NaN      NaN  True      NaN
+                                    E1 VEOG alone 18  0.512707      NaN 0.1559      NaN      NaN      NaN          NaN      NaN False      NaN
+                           A1 prestim alpha alone 18  0.506533      NaN 0.6646      NaN      NaN      NaN          NaN      NaN  None      NaN
+E1 follow-up: H1 on trials with HEOG step < 16 uV 18  0.540692 3.942771 0.0003 0.929320 0.522150 0.561296       0.0005     16.0  None     True
+         A1 H1 with P(seen) residualized on alpha 18  0.533650 3.822537 0.0005 0.900981 0.517923 0.550735       0.0009     15.0  None      NaN

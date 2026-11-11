@@ -53,3 +53,20 @@ def test_tms_chain_label_blind(cleaned, cfg) -> None:  # type: ignore[no-untyped
     ep2, _ = clean.clean(_rec(shuffle=True), cfg, ROOT)
     assert np.array_equal(ep.get_data(), ep2.get_data())
     assert list(ep.metadata["pulse"]) == list(ep2.metadata["pulse"])
+
+
+def test_phosphenes_gonogo_pipeline(cfg) -> None:  # type: ignore[no-untyped-def]
+    """S5 rough pipeline: contract-ready, no trial rejected, label-blind, controls present."""
+    rec = _rec()
+    ep, qa = clean.clean(rec, cfg, ROOT, pipeline="gonogo")
+    det = Detector.load(ROOT / cfg.detector)
+    c = det.contract
+    eeg = ep.copy().pick("eeg")
+    assert eeg.ch_names == c["channels"] and ep.info["sfreq"] == c["sfreq"]
+    win = eeg.copy().crop(c["epoch_window_s"][0], c["epoch_window_s"][1])
+    assert np.isfinite(det.from_epochs(win)).all()
+    assert qa["rough"] and qa["rejection"]["kept"] == len(ep)
+    assert {"C3_ctl", "C4_ctl", "HEOG_ctl", "VEOG_ctl"} <= set(ep.ch_names)
+    assert "ocular_ica" not in qa and "decay_ica" not in qa
+    ep2, _ = clean.clean(_rec(shuffle=True), cfg, ROOT, pipeline="gonogo")
+    assert np.array_equal(ep.get_data(), ep2.get_data())

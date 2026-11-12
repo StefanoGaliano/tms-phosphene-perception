@@ -206,6 +206,60 @@ named as the confirmation set.
 - Stated limits: the TMS decoder may also learn report- and hand-related activity; such features
   are uninformative in ds006171 and lower, not raise, the reverse AUC.
 
+## 12. Q41 The frozen detector on parietal (IPS) phosphenes (GIN IPS_parietal_phosphenes) — amendment 5
+
+- Motivation: H1 was shown for occipital phosphenes, where TMS starts in early visual cortex, the
+  cortex the detector's training signal comes from. Bonfanti et al. 2025 (Clin Neurophysiol
+  174:131-147, doi 10.1016/j.clinph.2025.03.041, read in full 2026-11-12) report phosphenes from
+  left and right IPS stimulation with sources confined to parietal cortex. If the natural-vision
+  signature also separates IPS phosphene pulses, it appears whichever area the evoked percept
+  starts in (Dembski et al. 2021, p. 667). Bonus: response keys were counterbalanced across
+  participants (m right hand / z left hand, paper p. 133), so if the codes encode the answer, the
+  hand is no longer tied to the label at group level.
+- Data: GIN `DB_123/IPS_parietal_phosphenes`, CC0; 19 subjects x 2 sites (P3 = left IPS, P4 = right
+  IPS), 360 pulses per site at phosphene threshold (method of constant stimuli, intensity adjusted
+  during the run to keep ~50 % reports; per-pulse intensity is not known to be logged); same
+  64-channel montage, 5000 Hz, events S100/S200 as the occipital set. Raw data are processed one
+  recording at a time (download, clean, save epochs, delete the raw `.fdt`; 80 GB free vs ~168 GB).
+- Honesty: written 2026-11-12, before any IPS EEG data were cleaned, scored or plotted. Seen so far:
+  the paper; the event counts of one file (sub-01 P3: S100 111, S200 224); all 38 `.set` headers
+  downloaded but their event counts **not yet tabulated** when the label rule below was fixed.
+- Labels: S100 = phosphene, S200 = none (inferred: S100 share 0.33 in the one file seen vs the
+  paper's phosphene rates 37.5 % P3 / 32.8 % P4). Code count over all recordings
+  (`scripts/ips_code_count.py`, event counts only): if S100 is the minority in every recording,
+  the mapping is taken as answer-coded. A recording with S100 share > 0.5 is excluded as
+  label-uncertain (reported). If more than a third of recordings have S100 share > 0.5, the codes
+  are taken as key-coded, the analysis stops and the authors are asked (after their reply to the
+  pending email; no follow-up before).
+- Response-hand mapping per recording: the occipital code-direction check (C3-C4, 0.1-10 Hz,
+  baseline -0.2..0 s, mean 0.3-1.2 s, S100 minus S200, 5000 permutations) is run, but with
+  counterbalanced keys its sign is expected to vary across subjects, so it is **not** an exclusion
+  rule here. Its sign (p < 0.05) assigns each subject to a mapping group (phosphene = right hand:
+  negative; = left hand: positive; else unassigned), used only in secondary (c).
+- Pipeline: the occipital primary pipeline unchanged (`configs/phase3.yaml` at tag `phase3-v1.2`,
+  `start_vision.tms` C0-C12), same trial rejection and inclusion (>= 40 kept trials, >= 30 per class),
+  frozen `sv-perception-tms-robust-v1.0.0`, missing contract channels interpolated. The stimulated
+  electrode is P3 or P4 (not O1/O2); no other change.
+- **[P]** Per recording AUC(P(seen), S100 vs S200); subject AUC = mean of included sites;
+  one-sided sign-flip permutation of subject AUC - 0.5 (10 000, seed 20261109), bootstrap 95 % CI,
+  d_z, n > 0.5. Own test at alpha 0.05, outside the Holm family and separate from the occipital H1
+  (no pooling of the two datasets: whether participants overlap is unknown).
+- Secondary (uncorrected, labelled): (a) per site P3 and P4, and P3 vs P4 (Wilcoxon);
+  (b) `paperlike` and `gonogo` pipelines; (c) **hand split**: subject AUC in the two mapping groups,
+  Mann-Whitney two-sided; a hand-driven effect would reverse between groups; (d) the occipital
+  controls unchanged: R1 (18 central channels interpolated), R5 (C3-C4 alone), Q38 hand-index
+  residualization, E1 (EOG alone; HEOG step < 16 µV rerun), A1 (prestimulus alpha), Q37a
+  (TEP amplitude residualization); (e) R4a/R4b early-only detectors; (f) S9 phosphene share 30-70 %;
+  (g) channel lesion of the parietal channels around the coil (P1 P3 P5 CP1 CP3 CP5 PO3 PO7 and their
+  right homologues) interpolated, as the occipital exploratory lesion.
+- Interpretation rule: [P] significant = the natural-vision signature separates percepts evoked from
+  parietal cortex too; not limited to stimulation of early visual cortex. [P] null = no evidence;
+  either the overlap depends on where the percept starts, or the fainter parietal phosphenes
+  (paper p. 135, slower "yes") carry too little of it; the two cannot be told apart here. The
+  occipital H1 stands unchanged either way.
+- Stated limits: same lab and design as the occipital set (no sham, no catch pulses); intensity
+  drifted within a run; the stimulated electrode sits under a C-shaped annulus.
+
 ## 8. Deviations and changes
 - **Amendment 1 (2026-11-09, user):** Q37b (idea 009) added after the tag `questions-prereg`, before
   any analysis of this addendum was rerun; the Holm family grows from five to six primary tests.
@@ -228,3 +282,7 @@ named as the confirmation set.
   test at alpha 0.05, outside the closed seven-test Holm family. Tag `questions-prereg-amend3`.
 - **Amendment 4 (2026-11-11, user):** Q40 added (reverse transfer, §11) before any TMS-trained
   decoder was tested on ds006171; own primary test at alpha 0.05. Tag `questions-prereg-amend4`.
+- **Amendment 5 (2026-11-12, user):** Q41 added (IPS parietal phosphenes, §12) after reading
+  Bonfanti et al. 2025 and seeing one file's event counts, before any IPS EEG data were cleaned or
+  scored and before the code count over all recordings was tabulated; own primary test at alpha
+  0.05. Tag `questions-prereg-amend5`.

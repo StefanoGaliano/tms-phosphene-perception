@@ -244,3 +244,23 @@ Parvizi 2016 Neuron, Bosking et al. 2017) as a non-TMS alternative. No data link
 - [TBS-DLPFC TMS-EEG dataset, Sci Data 2022](https://link.springer.com/article/10.1038/s41597-022-01820-6)
 - [Zenodo 7891964](https://zenodo.org/record/7891964)
 - [UQ detection/discrimination EEG](https://researchdata.edu.au/neural-oscillations-eeg-detection-discrimination/4226327)
+
+## Search 2026-11-12: more open TMS-EEG phosphene data
+
+Goal: a second phosphene dataset (more pulses per person, several intensities, or a replication).
+
+- **GIN `DB_123/IPS_parietal_phosphenes`** (verified from its files 2026-11-12). README: raw data of
+  "Hemispheric asymmetries in the perceptual dynamics of IPS: a TMS-EEG study" (Bonfanti, Bertacco,
+  Parra, Mazzi, Savazzi; publication not checked). LICENSE: CC0 1.0. Folders `P3_left_stim/`,
+  `P4_right_stim/`, 19 EEGLAB `.set/.fdt` files each (subject numbers skip 06, 11-13). One file
+  checked (`01_AC_P3_SICL.set`): continuous, 64 channels (same montage as `Phosphenes_occipital`,
+  incl. HEOGL/HEOGR/VEOG, LM), 5000 Hz, events S100 x111, S200 x224 (335 pulses), so the same
+  undocumented S100/S200 coding as the occipital set. Stimulation is parietal (IPS), not occipital;
+  intensity per pulse not checked. Same lab as the current TMS data: a second site, not an
+  independent lab.
+- medRxiv 10.64898/2026.02.05.26344851 (visual-snow phosphenes): eye tracking and tablet input, no EEG
+  found in the text. Rejected.
+- OpenNeuro ds008037 (from a bioRxiv search result, not opened): TMS-EEG at motor-threshold
+  intensities, no phosphene reports described. Not checked further.
+- Not found: any open dataset with several phosphene intensities, sham pulses, or an independent
+  lab's occipital phosphene TMS-EEG.

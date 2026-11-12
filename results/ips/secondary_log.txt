@@ -1,0 +1,39 @@
+sub-01_site-P3 {'auc_seen': 0.597, 'auc_res': 0.607, 'auc_hand': 0.593, 'auc_wide': 0.552, 'auc_mean_sub': 0.597, 'auc_ssp3': 0.523, 'auc_lesion': 0.592, 'auc_r4b': 0.58}
+sub-01_site-P4 {'auc_seen': 0.604, 'auc_res': 0.603, 'auc_hand': 0.534, 'auc_wide': 0.571, 'auc_mean_sub': 0.604, 'auc_ssp3': 0.566, 'auc_lesion': 0.597, 'auc_r4b': 0.551}
+sub-02_site-P3 {'auc_seen': 0.489, 'auc_res': 0.481, 'auc_hand': 0.42, 'auc_wide': 0.505, 'auc_mean_sub': 0.488, 'auc_ssp3': 0.514, 'auc_lesion': 0.5, 'auc_r4b': 0.532}
+sub-02_site-P4 {'auc_seen': 0.473, 'auc_res': 0.47, 'auc_hand': 0.438, 'auc_wide': 0.422, 'auc_mean_sub': 0.473, 'auc_ssp3': 0.47, 'auc_lesion': 0.478, 'auc_r4b': 0.493}
+sub-03_site-P4 {'auc_seen': 0.529, 'auc_res': 0.529, 'auc_hand': 0.559, 'auc_wide': 0.536, 'auc_mean_sub': 0.528, 'auc_ssp3': 0.517, 'auc_lesion': 0.52, 'auc_r4b': 0.538}
+sub-04_site-P3 {'auc_seen': 0.549, 'auc_res': 0.53, 'auc_hand': 0.385, 'auc_wide': 0.561, 'auc_mean_sub': 0.55, 'auc_ssp3': 0.552, 'auc_lesion': 0.549, 'auc_r4b': 0.527}
+sub-04_site-P4 {'auc_seen': 0.538, 'auc_res': 0.536, 'auc_hand': 0.479, 'auc_wide': 0.525, 'auc_mean_sub': 0.538, 'auc_ssp3': 0.527, 'auc_lesion': 0.543, 'auc_r4b': 0.544}
+sub-07_site-P3 {'auc_seen': 0.494, 'auc_res': 0.497, 'auc_hand': 0.572, 'auc_wide': 0.521, 'auc_mean_sub': 0.493, 'auc_ssp3': 0.519, 'auc_lesion': 0.491, 'auc_r4b': 0.478}
+sub-07_site-P4 {'auc_seen': 0.505, 'auc_res': 0.508, 'auc_hand': 0.541, 'auc_wide': 0.499, 'auc_mean_sub': 0.505, 'auc_ssp3': 0.492, 'auc_lesion': 0.497, 'auc_r4b': 0.502}
+sub-08_site-P4 {'auc_seen': 0.601, 'auc_res': 0.597, 'auc_hand': 0.54, 'auc_wide': 0.589, 'auc_mean_sub': 0.601, 'auc_ssp3': 0.531, 'auc_lesion': 0.573, 'auc_r4b': 0.534}
+sub-09_site-P3 {'auc_seen': 0.525, 'auc_res': 0.526, 'auc_hand': 0.529, 'auc_wide': 0.531, 'auc_mean_sub': 0.525, 'auc_ssp3': 0.52, 'auc_lesion': 0.528, 'auc_r4b': 0.48}
+sub-09_site-P4 {'auc_seen': 0.6, 'auc_res': 0.599, 'auc_hand': 0.469, 'auc_wide': 0.557, 'auc_mean_sub': 0.6, 'auc_ssp3': 0.564, 'auc_lesion': 0.597, 'auc_r4b': 0.556}
+sub-10_site-P3 {'auc_seen': 0.48, 'auc_res': 0.479, 'auc_hand': 0.489, 'auc_wide': 0.47, 'auc_mean_sub': 0.48, 'auc_ssp3': 0.534, 'auc_lesion': 0.481, 'auc_r4b': 0.424}
+sub-10_site-P4 {'auc_seen': 0.5, 'auc_res': 0.501, 'auc_hand': 0.48, 'auc_wide': 0.486, 'auc_mean_sub': 0.5, 'auc_ssp3': 0.566, 'auc_lesion': 0.499, 'auc_r4b': 0.531}
+sub-14_site-P3 {'auc_seen': 0.438, 'auc_res': 0.45, 'auc_hand': 0.567, 'auc_wide': 0.488, 'auc_mean_sub': 0.438, 'auc_ssp3': 0.414, 'auc_lesion': 0.424, 'auc_r4b': 0.505}
+sub-14_site-P4 {'auc_seen': 0.595, 'auc_res': 0.596, 'auc_hand': 0.494, 'auc_wide': 0.56, 'auc_mean_sub': 0.595, 'auc_ssp3': 0.581, 'auc_lesion': 0.597, 'auc_r4b': 0.51}
+sub-15_site-P3 {'auc_seen': 0.577, 'auc_res': 0.585, 'auc_hand': 0.572, 'auc_wide': 0.595, 'auc_mean_sub': 0.577, 'auc_ssp3': 0.554, 'auc_lesion': 0.578, 'auc_r4b': 0.526}
+sub-17_site-P3 {'auc_seen': 0.469, 'auc_res': 0.468, 'auc_hand': 0.437, 'auc_wide': 0.505, 'auc_mean_sub': 0.469, 'auc_ssp3': 0.409, 'auc_lesion': 0.471, 'auc_r4b': 0.54}
+sub-17_site-P4 {'auc_seen': 0.57, 'auc_res': 0.573, 'auc_hand': 0.54, 'auc_wide': 0.623, 'auc_mean_sub': 0.57, 'auc_ssp3': 0.474, 'auc_lesion': 0.574, 'auc_r4b': 0.563}
+sub-18_site-P3 {'auc_seen': 0.537, 'auc_res': 0.541, 'auc_hand': 0.526, 'auc_wide': 0.539, 'auc_mean_sub': 0.537, 'auc_ssp3': 0.555, 'auc_lesion': 0.538, 'auc_r4b': 0.505}
+sub-18_site-P4 {'auc_seen': 0.532, 'auc_res': 0.531, 'auc_hand': 0.507, 'auc_wide': 0.583, 'auc_mean_sub': 0.533, 'auc_ssp3': 0.436, 'auc_lesion': 0.544, 'auc_r4b': 0.491}
+sub-19_site-P3 {'auc_seen': 0.452, 'auc_res': 0.451, 'auc_hand': 0.578, 'auc_wide': 0.553, 'auc_mean_sub': 0.452, 'auc_ssp3': 0.473, 'auc_lesion': 0.476, 'auc_r4b': 0.44}
+sub-19_site-P4 {'auc_seen': 0.476, 'auc_res': 0.475, 'auc_hand': 0.443, 'auc_wide': 0.533, 'auc_mean_sub': 0.476, 'auc_ssp3': 0.501, 'auc_lesion': 0.487, 'auc_r4b': 0.48}
+sub-20_site-P3 {'auc_seen': 0.574, 'auc_res': 0.572, 'auc_hand': 0.461, 'auc_wide': 0.578, 'auc_mean_sub': 0.574, 'auc_ssp3': 0.577, 'auc_lesion': 0.573, 'auc_r4b': 0.558}
+sub-20_site-P4 {'auc_seen': 0.575, 'auc_res': 0.575, 'auc_hand': 0.529, 'auc_wide': 0.615, 'auc_mean_sub': 0.575, 'auc_ssp3': 0.552, 'auc_lesion': 0.574, 'auc_r4b': 0.532}
+sub-21_site-P3 {'auc_seen': 0.608, 'auc_res': 0.61, 'auc_hand': 0.529, 'auc_wide': 0.576, 'auc_mean_sub': 0.608, 'auc_ssp3': 0.517, 'auc_lesion': 0.613, 'auc_r4b': 0.542}
+sub-21_site-P4 {'auc_seen': 0.559, 'auc_res': 0.551, 'auc_hand': 0.585, 'auc_wide': 0.615, 'auc_mean_sub': 0.559, 'auc_ssp3': 0.5, 'auc_lesion': 0.564, 'auc_r4b': 0.539}
+sub-22_site-P3 {'auc_seen': 0.504, 'auc_res': 0.502, 'auc_hand': 0.546, 'auc_wide': 0.515, 'auc_mean_sub': 0.503, 'auc_ssp3': 0.49, 'auc_lesion': 0.502, 'auc_r4b': 0.432}
+sub-22_site-P4 {'auc_seen': 0.508, 'auc_res': 0.507, 'auc_hand': 0.453, 'auc_wide': 0.464, 'auc_mean_sub': 0.508, 'auc_ssp3': 0.513, 'auc_lesion': 0.51, 'auc_r4b': 0.48}
+sub-23_site-P3 {'auc_seen': 0.586, 'auc_res': 0.588, 'auc_hand': 0.525, 'auc_wide': 0.614, 'auc_mean_sub': 0.586, 'auc_ssp3': 0.524, 'auc_lesion': 0.585, 'auc_r4b': 0.557}
+                                        test  n     mean      p  p_two_sided  n_above
+             H1 frozen (check = q41 primary) 17 0.539258 0.0014       0.0029       13
+              Q38 residualized on hand index 17 0.539347 0.0017       0.0034       14
+Q38 (a) all 54 lateral channels interpolated 17 0.547498 0.0004       0.0007       14
+                    Q38 (b) hand index alone 17 0.515140 0.0723       0.1539       10
+                               Q37a mean_sub 17 0.539172 0.0014       0.0029       13
+                                   Q37a ssp3 17 0.517364 0.0188       0.0367       12
+       R4b early-only detector (0.15-0.30 s) 17 0.518318 0.0172       0.0359       12
+     (g) parietal coil channels interpolated 17 0.538633 0.0008       0.0015       13

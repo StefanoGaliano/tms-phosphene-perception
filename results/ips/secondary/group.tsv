@@ -1,0 +1,9 @@
+test	n	mean	t	p	d_z	ci_low	ci_high	p_two_sided	n_above
+H1 frozen (check = q41 primary)	17	0.5393	3.7264	0.0014	0.9038	0.5190	0.5588	0.0029	13
+Q38 residualized on hand index	17	0.5393	3.6780	0.0017	0.8920	0.5189	0.5592	0.0034	14
+Q38 (a) all 54 lateral channels interpolated	17	0.5475	4.4380	0.0004	1.0764	0.5267	0.5671	0.0007	14
+Q38 (b) hand index alone	17	0.5151	1.4744	0.0723	0.3576	0.4950	0.5342	0.1539	10
+Q37a mean_sub	17	0.5392	3.7206	0.0014	0.9024	0.5190	0.5586	0.0029	13
+Q37a ssp3	17	0.5174	2.3117	0.0188	0.5607	0.5026	0.5309	0.0367	12
+R4b early-only detector (0.15-0.30 s)	17	0.5183	2.2953	0.0172	0.5567	0.5026	0.5328	0.0359	12
+(g) parietal coil channels interpolated	17	0.5386	4.0445	0.0008	0.9809	0.5203	0.5567	0.0015	13

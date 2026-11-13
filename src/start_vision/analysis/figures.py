@@ -3,7 +3,7 @@
 Colours: dataviz reference palette, categorical slots 1-2 (seen blue, unseen orange),
 validated with the skill's validator (light surface: all checks pass, CVD ΔE 24.7). The
 difference wave is drawn in text ink with its 95 % CI band; identity is never colour alone
-(legend + direct labels). Topographies use MNE's diverging map (two hues, neutral midpoint).
+(legend). Topographies use MNE's diverging map (two hues, neutral midpoint).
 """
 
 from __future__ import annotations
@@ -22,7 +22,7 @@ from scipy import stats
 
 SEEN, UNSEEN = "#2a78d6", "#eb6834"
 INK, MUTED, GRID = "#0b0b0b", "#52514e", "#dcdbd6"
-SURFACE = "#fcfcfb"
+SURFACE = "#ffffff"  # pure white: matches the page in the paper
 WINDOW = "#6250d6"  # palette slot 7 (violet), used only as a pale tint for the component window
 LOWPASS_HZ = 30.0  # PHASE1_REFERENCES §2: plots low-passed at 30 Hz
 
@@ -103,29 +103,28 @@ def waves(per_subject: dict[str, dict[str, mne.Evoked]], scope: str, out: Path) 
             transform=top.get_xaxis_transform(), ha="center", va="top",
             fontsize=8, color=INK, fontweight="bold",
         )
-        top.plot(t, s.mean(0), color=SEEN, lw=2, label="seen")
-        top.plot(t, u.mean(0), color=UNSEEN, lw=2, label="unseen")
-        k = int(np.argmin(np.abs(t - 700)))
-        top.text(t[k] + 8, s.mean(0)[k], "seen", color=INK, fontsize=8, va="center")
-        top.text(t[k] + 8, u.mean(0)[k], "unseen", color=INK, fontsize=8, va="center")
+        top.plot(t, s.mean(0), color=SEEN, lw=2.5, label="Seen")
+        top.plot(t, u.mean(0), color=UNSEEN, lw=2.5, label="Unseen")
         top.set_title(f"{title}\nN = {n}", fontsize=9, color=INK, loc="left")
-        top.legend(fontsize=8, frameon=False, loc="upper left")
         bot.fill_between(t, d.mean(0) - half, d.mean(0) + half, color=GRID, lw=0)
         bot.plot(t, d.mean(0), color=INK, lw=2)
-        bot.set_xlabel("ms from Gabor onset (photodiode)", fontsize=8, color=MUTED)
+        bot.set_xlabel("Time from Gabor onset (ms, photodiode)", fontsize=8, color=MUTED)
         bot.set_xlim(-100, 800)
         if j == 0:
-            top.set_ylabel("µV", fontsize=8, color=MUTED)
-            bot.set_ylabel("seen - unseen, µV\n(95 % CI)", fontsize=8, color=MUTED)
+            top.set_ylabel("Amplitude (µV)", fontsize=8, color=MUTED)
+            bot.set_ylabel("Seen - unseen (µV)\n(95 % CI)", fontsize=8, color=MUTED)
     fig.suptitle(
         f"Phase 1 grand averages, scope: {scope} (violet band: component window; "
         f"plots low-passed {LOWPASS_HZ:g} Hz)",
         fontsize=10,
         color=INK,
     )
-    fig.tight_layout()
+    handles, labels = axes[0, 0].get_legend_handles_labels()
+    fig.tight_layout(rect=(0, 0, 1, 0.95))
+    fig.legend(handles, labels, loc="upper right", ncol=2, fontsize=11, frameon=False,
+               handlelength=2.5, bbox_to_anchor=(0.995, 0.995))
     path = out / f"waves_{scope}.png"
-    fig.savefig(path, dpi=120, facecolor=SURFACE)
+    fig.savefig(path, dpi=300, facecolor=SURFACE)
     plt.close(fig)
     return path
 
@@ -169,7 +168,7 @@ def dots(per_subject_tsv: pd.DataFrame, group: pd.DataFrame, scope: str, out: Pa
         ax.text(i + 0.38, m, f"{m:+.2f} µV\nd_z {dz:+.2f}", fontsize=7, color=INK, va="center")
         labels.append((i, f"{comp.upper()}\n{form.replace('_', ' ')}"))
     ax.set_xticks([i for i, _ in labels], [lab for _, lab in labels], fontsize=8, color=INK)
-    ax.set_ylabel("seen - unseen, µV", fontsize=8, color=MUTED)
+    ax.set_ylabel("Seen - unseen (µV)", fontsize=8, color=MUTED)
     ax.set_title(
         f"Per-subject effects, scope: {scope} (grey: subjects; black: mean ± 95 % CI)",
         fontsize=9,
@@ -178,7 +177,7 @@ def dots(per_subject_tsv: pd.DataFrame, group: pd.DataFrame, scope: str, out: Pa
     )
     fig.tight_layout()
     path = out / f"subjects_{scope}.png"
-    fig.savefig(path, dpi=120, facecolor=SURFACE)
+    fig.savefig(path, dpi=300, facecolor=SURFACE)
     plt.close(fig)
     return path
 
@@ -200,9 +199,9 @@ def topomaps(per_subject: dict[str, dict[str, mne.Evoked]], scope: str, out: Pat
             data, ga.info, axes=ax, show=False, cmap="RdBu_r", vlim=(-lim, lim), contours=0
         )
         ax.set_title(name, fontsize=9, color=INK)
-        fig.colorbar(im, ax=ax, shrink=0.7, label="µV")
-    fig.suptitle(f"seen - unseen (matched), scope: {scope}, N = {len(evs)}", fontsize=10, color=INK)
+        fig.colorbar(im, ax=ax, shrink=0.7, label="Amplitude (µV)")
+    fig.suptitle(f"Seen - unseen (matched), scope: {scope}, N = {len(evs)}", fontsize=10, color=INK)
     path = out / f"topo_{scope}.png"
-    fig.savefig(path, dpi=120, facecolor=SURFACE)
+    fig.savefig(path, dpi=300, facecolor=SURFACE)
     plt.close(fig)
     return path

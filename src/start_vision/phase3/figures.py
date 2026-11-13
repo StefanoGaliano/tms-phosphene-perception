@@ -20,8 +20,8 @@ from start_vision.decoding.figures import BAND, ENTITY, GRID, INK, MUTED, SLOTS,
 
 SITE = {"O1": SLOTS[2], "O2": SLOTS[3]}
 PHOS, NONE = ENTITY["seen"], ENTITY["unseen"]
-STAGES = (("raw", "raw"), ("cut", "pulse cut"), ("decay_ica", "decay ICA"),
-          ("ocular_ica", "ocular ICA"))
+STAGES = (("raw", "Raw"), ("cut", "Pulse cut"), ("decay_ica", "Decay ICA"),
+          ("ocular_ica", "Ocular ICA"))
 
 
 def f1_cleaning(qa_dir: Path, recordings: list[str], out: Path) -> Path:
@@ -42,7 +42,7 @@ def f1_cleaning(qa_dir: Path, recordings: list[str], out: Path) -> Path:
         ax.set_title(rid.replace("_site-", " "), fontsize=7, color=INK)
         _style(ax)
     axs.ravel()[0].legend(fontsize=6, frameon=False, loc="upper right")
-    fig.supxlabel("ms after pulse", fontsize=8, color=MUTED)
+    fig.supxlabel("Time after pulse (ms)", fontsize=8, color=MUTED)
     fig.supylabel("GMFP (µV, log)", fontsize=8, color=MUTED)
     fig.tight_layout()
     return _save(fig, out, "F1_cleaning_gmfp")
@@ -75,17 +75,17 @@ def f3_auc(per_rec: pd.DataFrame, h1: pd.Series, out: Path) -> Path:
     for site, off in (("O1", -0.12), ("O2", 0.12)):
         g = per_rec[per_rec["site"] == site]
         ax.scatter([xs[s] + off for s in g["subject"]], g["auc"], color=SITE[site], s=22,
-                   label=f"site {site}", zorder=3)
+                   label=f"Site {site}", zorder=3)
     sm = per_rec.groupby("subject")["auc"].mean()
     ax.scatter([xs[s] for s in sm.index], sm, marker="_", s=160, color=INK, lw=2,
-               label="subject mean", zorder=4)
+               label="Subject mean", zorder=4)
     ax.axhspan(h1["ci_low"], h1["ci_high"], color=BAND, zorder=0)
     ax.axhline(h1["mean"], color=INK, lw=1)
-    ax.text(-0.6, h1["ci_high"] + 0.002, f"group mean {h1['mean']:.3f} (95 % CI band)",
+    ax.text(-0.6, h1["ci_high"] + 0.002, f"Group mean {h1['mean']:.3f} (95 % CI band)",
             fontsize=7, color=INK, ha="left")
     ax.set_xticks(range(len(subs)), subs, fontsize=7)
-    ax.set_xlabel("subject", fontsize=8, color=MUTED)
-    ax.set_ylabel("AUC phosphene vs none", fontsize=8, color=MUTED)
+    ax.set_xlabel("Subject", fontsize=8, color=MUTED)
+    ax.set_ylabel("AUC, phosphene vs none", fontsize=8, color=MUTED)
     ax.legend(fontsize=7, frameon=False, ncol=3, loc="lower left")
     _style(ax)
     fig.tight_layout()
@@ -167,11 +167,11 @@ def f7_erps(curves: dict[str, np.ndarray], s6c: pd.DataFrame, out: Path) -> Path
     t = curves["erp_times"] * 1e3
     m = (t >= -100) & (t <= 800)
     fig, axs = plt.subplots(1, 2, figsize=(9, 3.2), sharex=True)
-    for ax, roi, title, win in ((axs[0], "contra", "contralateral to phosphene (O1/PO7 or O2/PO8)",
+    for ax, roi, title, win in ((axs[0], "contra", "Contralateral to phosphene (O1/PO7 or O2/PO8)",
                                  (180, 280)),
                                 (axs[1], "lp", "Pz", (350, 550))):
         ax.axvspan(*win, color=BAND, zorder=0)
-        for k, c, lab in (("seen", PHOS, "phosphene"), ("unseen", NONE, "no phosphene")):
+        for k, c, lab in (("seen", PHOS, "Phosphene"), ("unseen", NONE, "No phosphene")):
             mu, h = _ci(curves[f"{roi}_{k}"])
             ax.fill_between(t[m], (mu - h)[m], (mu + h)[m], color=c, alpha=0.15, lw=0)
             ax.plot(t[m], mu[m], color=c, lw=2, label=lab)
@@ -181,9 +181,9 @@ def f7_erps(curves: dict[str, np.ndarray], s6c: pd.DataFrame, out: Path) -> Path
             ax.axvspan(t0 * 1e3, t1 * 1e3, ymin=0, ymax=0.03, color=INK)
         ax.axvline(0, color=GRID, lw=1)
         ax.set_title(title, fontsize=8, color=INK)
-        ax.set_xlabel("ms after pulse", fontsize=8, color=MUTED)
+        ax.set_xlabel("Time after pulse (ms)", fontsize=8, color=MUTED)
         _style(ax)
-    axs[0].set_ylabel("µV (baseline -100..0 ms)", fontsize=8, color=MUTED)
+    axs[0].set_ylabel("Amplitude (µV, baseline -100 to 0 ms)", fontsize=8, color=MUTED)
     axs[0].legend(fontsize=7, frameon=False)
     fig.tight_layout()
     return _save(fig, out, "F7_s6_erps")
@@ -218,8 +218,8 @@ def f9_pipelines(per_a: pd.DataFrame, per_b: pd.DataFrame, out: Path) -> Path:
     ax.axhline(0.5, color=GRID, lw=1, ls=":")
     ax.axvline(0.5, color=GRID, lw=1, ls=":")
     ax.scatter(a, b, color=SLOTS[0], s=26, zorder=3)
-    ax.set_xlabel("subject AUC, primary", fontsize=8, color=MUTED)
-    ax.set_ylabel("subject AUC, paperlike", fontsize=8, color=MUTED)
+    ax.set_xlabel("Subject AUC, primary pipeline", fontsize=8, color=MUTED)
+    ax.set_ylabel("Subject AUC, paperlike pipeline", fontsize=8, color=MUTED)
     _style(ax)
     fig.tight_layout()
     return _save(fig, out, "F9_pipeline_robustness")

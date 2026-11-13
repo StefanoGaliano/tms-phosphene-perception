@@ -4,8 +4,8 @@ Every function takes arrays/tables (never files) and writes ``<out>/<name>.png``
 
 Colours: dataviz reference palette, categorical slots 1-4 in fixed order (blue, orange, aqua,
 yellow), validated with the skill's validator on the light surface: all checks pass; aqua and
-yellow are below 3:1 contrast, so every series carries a direct label next to its line as well
-as the legend (relief rule). Series colour follows the entity (a task keeps its colour in every
+yellow are below 3:1 contrast, so every series is named in a legend (the user asked 2026-11-13 not
+to repeat legend names on the lines). Series colour follows the entity (a task keeps its colour in every
 figure). Matrices use a diverging map centred on chance (AUC 0.5). Text is ink, never series
 colour; grids and axes are recessive.
 """
@@ -32,7 +32,7 @@ from start_vision.decoding import stats
 
 SLOTS = ("#2a78d6", "#eb6834", "#1baf7a", "#eda100")
 INK, MUTED, GRID, BAND = "#0b0b0b", "#52514e", "#dcdbd6", "#efeeea"
-SURFACE = "#fcfcfb"
+SURFACE = "#ffffff"  # pure white: matches the page in the paper
 ENTITY = {  # fixed colour per entity across figures
     "pooled": INK, "nocue": SLOTS[0], "noninformative": SLOTS[1], "informative": SLOTS[2],
     "seen": SLOTS[0], "unseen": SLOTS[1], "catch FA": SLOTS[2], "catch CR": SLOTS[3],
@@ -60,7 +60,7 @@ def _cbar(cb: Any, label: str = "AUC") -> None:
 
 def _save(fig: Figure, out: Path, name: str) -> Path:
     out.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out / f"{name}.png", dpi=130, facecolor=SURFACE)
+    fig.savefig(out / f"{name}.png", dpi=300, facecolor=SURFACE)
     fig.savefig(out / f"{name}.svg", facecolor=SURFACE)
     plt.close(fig)
     return out / f"{name}.png"
@@ -87,31 +87,26 @@ def series_panel(ax: Axes, times: np.ndarray, curves: Mapping[str, np.ndarray],
                  masks: Mapping[str, np.ndarray] | None = None, ylabel: str = "AUC",
                  chance: float = 0.5) -> None:
     """Group mean ± 95 % CI per series (rows = subjects), significant samples as a bar under
-    the curves, chance line, direct labels at the right end."""
+    the curves, chance line, legend (no direct labels)."""
     _style(ax)
     t = times * 1000
     ax.axhline(chance, color=GRID, lw=1, zorder=0)
     ax.axvline(0, color=GRID, lw=1, zorder=0)
     lo_all: list[float] = []
-    ends: list[tuple[str, float]] = []
     for i, (name, a) in enumerate(curves.items()):
         a = np.atleast_2d(a)
         m, h = _ci(a)
         c = _color(name, i)
         ax.fill_between(t, m - h, m + h, color=c, alpha=0.15, lw=0)
-        ax.plot(t, m, color=c, lw=2, label=f"{name} (N = {len(a)})")
-        ends.append((name, float(m[-1])))
+        ax.plot(t, m, color=c, lw=2, label=f"{name[:1].upper() + name[1:]} (N = {len(a)})")
         lo_all.append((m - h).min())
-    span = np.subtract(*ax.get_ylim()[::-1])
-    for (name, _), y in zip(ends, _dodge([e[1] for e in ends], 0.045 * span), strict=True):
-        ax.text(t[-1] + 10, y, name, fontsize=7, color=INK, va="center")
     if masks:
         y0 = min(min(lo_all), chance) - 0.01
         for i, (name, mk) in enumerate(masks.items()):
             yy = y0 - 0.006 * i
             ax.plot(np.where(mk, t, np.nan), np.full_like(t, yy), color=_color(name, i),
                     lw=3, solid_capstyle="butt")
-    ax.set_xlabel("ms from onset", fontsize=8, color=MUTED)
+    ax.set_xlabel("Time from onset (ms)", fontsize=8, color=MUTED)
     ax.set_ylabel(ylabel, fontsize=8, color=MUTED)
     ax.legend(fontsize=7, frameon=False, loc="upper left")
 
@@ -140,8 +135,8 @@ def f2_generalization(times: np.ndarray, auc: np.ndarray, mask: np.ndarray | Non
         ax.contour(t, t, mask.astype(float), levels=[0.5], colors=INK, linewidths=1)
     ax.axhline(0, color=MUTED, lw=0.6)
     ax.axvline(0, color=MUTED, lw=0.6)
-    ax.set_xlabel("test time, ms", fontsize=8, color=MUTED)
-    ax.set_ylabel("train time, ms", fontsize=8, color=MUTED)
+    ax.set_xlabel("Test time (ms)", fontsize=8, color=MUTED)
+    ax.set_ylabel("Train time (ms)", fontsize=8, color=MUTED)
     ax.tick_params(colors=MUTED, labelsize=8)
     _cbar(fig.colorbar(im, ax=ax, shrink=0.8))
     ax.set_title("F2  Temporal generalization (contour: cluster)", fontsize=9, color=INK,
@@ -193,7 +188,7 @@ def f7_paired(table: pd.DataFrame, columns: Sequence[str], out: Path) -> Path:
         ax.errorbar(i + 0.15, m[0], yerr=h[0], fmt="o", color=INK, capsize=3, zorder=3)
         ax.text(i + 0.22, m[0], f"{m[0]:.3f}", fontsize=7, color=INK, va="center")
     ax.set_xticks(x, [c.replace("_", " ") for c in columns], fontsize=8, color=INK)
-    ax.set_ylabel("window AUC (per subject)", fontsize=8, color=MUTED)
+    ax.set_ylabel("Window AUC (per subject)", fontsize=8, color=MUTED)
     ax.set_title(f"F7  Prestimulus alpha vs post-stimulus (N = {len(v)})", fontsize=9,
                  color=INK, loc="left")
     fig.tight_layout()
@@ -214,11 +209,11 @@ def f8_loso(times: np.ndarray, auc: np.ndarray, mask: np.ndarray, window_auc: pd
     r = stats.window_test(w["auc"].to_numpy())
     a2.axhspan(r["ci_low"], r["ci_high"], color=BAND, zorder=0)
     a2.axhline(r["mean"], color=INK, lw=1.5)
-    a2.text(len(w) - 0.5, r["mean"], f" mean {r['mean']:.3f}\n [{r['ci_low']:.3f}, "
-            f"{r['ci_high']:.3f}]", fontsize=7, color=INK, va="center")
+    a2.text(0, r["ci_high"] + 0.006, f"Mean {r['mean']:.3f} [{r['ci_low']:.3f}, "
+            f"{r['ci_high']:.3f}]", fontsize=7, color=INK, va="bottom", ha="left")
     a2.set_xticks([])
-    a2.set_xlabel("subjects (sorted)", fontsize=8, color=MUTED)
-    a2.set_ylabel("held-out window AUC", fontsize=8, color=MUTED)
+    a2.set_xlabel("Subjects (sorted)", fontsize=8, color=MUTED)
+    a2.set_ylabel("Held-out window AUC", fontsize=8, color=MUTED)
     fig.tight_layout()
     return _save(fig, out, "F8_loso")
 
@@ -235,10 +230,11 @@ def f9_cross(matrix: np.ndarray, tasks: Sequence[str], cross: Mapping[str, np.nd
             strong = abs(m[i, j] - 0.5) > 0.6 * lim  # dark cell: light text
             a1.text(j, i, f"{m[i, j]:.3f}", ha="center", va="center", fontsize=8,
                     color=SURFACE if strong else INK)
-    a1.set_xticks(range(len(tasks)), tasks, fontsize=8)
-    a1.set_yticks(range(len(tasks)), tasks, fontsize=8)
-    a1.set_xlabel("test task", fontsize=8, color=MUTED)
-    a1.set_ylabel("train task", fontsize=8, color=MUTED)
+    names = [t[:1].upper() + t[1:] for t in tasks]
+    a1.set_xticks(range(len(tasks)), names, fontsize=8)
+    a1.set_yticks(range(len(tasks)), names, fontsize=8)
+    a1.set_xlabel("Test task", fontsize=8, color=MUTED)
+    a1.set_ylabel("Train task", fontsize=8, color=MUTED)
     _cbar(fig.colorbar(im, ax=a1, shrink=0.8))
     a1.set_title("F9  Cross-task", fontsize=9, color=INK, loc="left")
     _style(a2)
@@ -250,8 +246,8 @@ def f9_cross(matrix: np.ndarray, tasks: Sequence[str], cross: Mapping[str, np.nd
         mm, h = _ci(v[:, None])
         a2.errorbar(i + 0.25, mm[0], yerr=h[0], fmt="o", color=INK, capsize=3, zorder=3)
         a2.text(i + 0.32, mm[0], f"{mm[0]:.3f}", fontsize=7, color=INK, va="center")
-    a2.set_xticks(range(len(cross)), list(cross), fontsize=8)
-    a2.set_ylabel("window AUC", fontsize=8, color=MUTED)
+    a2.set_xticks(range(len(cross)), [k[:1].upper() + k[1:] for k in cross], fontsize=8)
+    a2.set_ylabel("Window AUC", fontsize=8, color=MUTED)
     a2.set_title("Cross-hemifield / orientation", fontsize=9, color=INK, loc="left")
     fig.tight_layout()
     return _save(fig, out, "F9_cross")
@@ -266,10 +262,12 @@ def f10_calibration(calib: pd.DataFrame, scores: Mapping[str, np.ndarray], out: 
     a1.plot([0, 1], [0, 1], color=GRID, lw=1)
     a1.plot(c["mean_p"], c["observed"], "o-", color=INK, lw=1.5, ms=5)
     for _, r in c.iterrows():
-        a1.text(r["mean_p"] + 0.02, r["observed"], f"n={int(r['n'])}", fontsize=6,
-                color=MUTED)
-    a1.set_xlabel("calibrated P(seen)", fontsize=8, color=MUTED)
-    a1.set_ylabel("observed rate seen", fontsize=8, color=MUTED)
+        a1.annotate(f"n={int(r['n'])}", (r["mean_p"], r["observed"]), xytext=(0, -9),
+                    textcoords="offset points", fontsize=6, color=MUTED, ha="center")
+    a1.set_xlim(-0.02, 1.02)
+    a1.set_ylim(-0.08, 1.02)
+    a1.set_xlabel("Calibrated P(seen)", fontsize=8, color=MUTED)
+    a1.set_ylabel("Observed seen rate", fontsize=8, color=MUTED)
     a1.set_title(f"F10  Reliability (LOSO held-out){title}", fontsize=9, color=INK, loc="left")
     _style(a2)
     bins = np.linspace(0, 1, 26)
@@ -278,11 +276,9 @@ def f10_calibration(calib: pd.DataFrame, scores: Mapping[str, np.ndarray], out: 
         h, e = np.histogram(s, bins=bins, density=True)
         mid = (e[1:] + e[:-1]) / 2
         a2.plot(mid, h, color=_color(label, i), lw=2, ls=styles[i % 4],
-                label=f"{label} (n = {len(s)})")
-        k = int(np.argmax(h))
-        a2.text(mid[k], h[k], f" {label}", fontsize=7, color=INK, va="bottom")
-    a2.set_xlabel("calibrated P(seen)", fontsize=8, color=MUTED)
-    a2.set_ylabel("density", fontsize=8, color=MUTED)
+                label=f"{label[:1].upper() + label[1:].replace('_', ' ')} (n = {len(s)})")
+    a2.set_xlabel("Calibrated P(seen)", fontsize=8, color=MUTED)
+    a2.set_ylabel("Density", fontsize=8, color=MUTED)
     a2.legend(fontsize=7, frameon=False)
     a2.set_title("Score distributions", fontsize=9, color=INK, loc="left")
     fig.tight_layout()

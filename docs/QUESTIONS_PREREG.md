@@ -260,6 +260,38 @@ named as the confirmation set.
 - Stated limits: same lab and design as the occipital set (no sham, no catch pulses); intensity
   drifted within a run; the stimulated electrode sits under a C-shaped annulus.
 
+## 13. Q42 Latency-tolerant features for the natural-to-TMS transfer (GIN) — idea 37e, amendment 6
+
+- Motivation: Q39 (exploratory follow-up) put the TMS transfer peak near 0.48 s against ~0.27 s in
+  natural vision. The frozen detector reads 50 ms bins at fixed latencies (0.15-0.60 s, 9 bins x 64
+  channels), so a latency shift moves signal into the wrong weights. If weak transfer is partly a
+  timing problem, features that ignore latency inside the window should transfer better.
+- Honesty: written 2026-11-15, before any run. Seen: H1, S7, Q39 (diagonal, off-diagonal, peak
+  ~0.48 s). No model below has been fitted or scored on the TMS data.
+- Training: all 34 included ds006171 subjects, stimulus-present trials, `tms-robust` 64 channels,
+  label-free per-subject normalization as Phase 2 (`across.normalize`); StandardScaler + L2 logistic
+  regression (liblinear, balanced) with **C = 0.01, the frozen detector's C**; no C search, no TMS
+  labels. Testing: included GIN recordings, primary pipeline (paperlike secondary); per recording
+  AUC(score, seen); subject = mean of included sites.
+- Models (all identical except the features):
+  - **M0 matched baseline**: 0.15-0.60 s, 50 ms bin means (the frozen detector's features, refitted
+    here so that only the features differ).
+  - **M1 broad mean**: 0.15-0.60 s, one bin (the mean over the whole window per channel).
+  - M2 shifted: M0 trained on 0.15-0.60 s, applied to the TMS data at 0.35-0.80 s (+0.20 s, the
+    rounded Q39 peak difference; the shift comes from an exploratory look at the same TMS data, so
+    M2 is descriptive only).
+  - M3 covariance: per-trial 64 x 64 covariance over 0.15-0.60 s (shrinkage 0.1 toward the scaled
+    identity), log-Euclidean tangent vector (upper triangle of the matrix log, off-diagonals x sqrt 2).
+- **[P]** Per subject AUC(M1) - AUC(M0) > 0, one-sided sign-flip (10 000, seed 20261109), bootstrap
+  95 % CI, d_z, n positive. Own test at alpha 0.05, outside the closed Holm family.
+- Secondary (uncorrected, labelled): (a) M1, M2, M3 and M0 each vs 0.5 (one-sided); (b) M2 - M0 and
+  M3 - M0 (two-sided); (c) paperlike pipeline for all; (d) natural LOSO AUC of M0, M1, M3 on
+  ds006171 (does latency tolerance cost accuracy in the training domain).
+- Interpretation rule: [P] significant = part of the transfer loss is latency; [P] null = timing
+  inside the window does not limit transfer (consistent with Q39 "broad"), so the gap is in what
+  is coded (content, domain), pointing to 37g/37h. M2 cannot confirm a lag (circular).
+- Stated limits: one fixed window; covariance mixes evoked and induced activity; same TMS data as Q39.
+
 ## 8. Deviations and changes
 - **Amendment 1 (2026-11-09, user):** Q37b (idea 009) added after the tag `questions-prereg`, before
   any analysis of this addendum was rerun; the Holm family grows from five to six primary tests.

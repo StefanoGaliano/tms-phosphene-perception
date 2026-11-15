@@ -292,6 +292,32 @@ named as the confirmation set.
   is coded (content, domain), pointing to 37g/37h. M2 cannot confirm a lag (circular).
 - Stated limits: one fixed window; covariance mixes evoked and induced activity; same TMS data as Q39.
 
+## 14. Q43 Label-free domain alignment of the TMS data to the training data (GIN) — idea 37h, amendment 7
+
+- Motivation: Q42 left most of the transfer gap unexplained by timing. Cap, amplifier, lab, the
+  pulse and the stimulus all differ between ds006171 and GIN; a shift of the feature distribution
+  between domains moves trials across a linear boundary even when the seen/unseen direction is
+  shared. Aligning each subject's feature distribution to a common reference without labels tests
+  whether the gap is a domain shift.
+- Honesty: written 2026-11-15, after Q42 (seen: M0, M1, M3 TMS and natural AUCs). No aligned model
+  has been fitted or scored.
+- Base models and training exactly as Q42 (34 ds006171 subjects, tms-robust 64 ch, Phase 2
+  normalization, StandardScaler + L2 LR, liblinear, balanced, C = 0.01).
+- Alignment (label-free, per unit: each training subject and each TMS recording separately, all its
+  trials): features centred on the unit mean and whitened with the unit's Ledoit-Wolf covariance
+  (CORAL-style alignment of every unit to zero mean and identity covariance). For M3 (covariance)
+  the equivalent is re-centring: subtract the unit's mean log-Euclidean tangent vector.
+- **[P]** M0 (50 ms bins 0.15-0.60 s): per subject AUC(aligned M0) - AUC(M0) > 0, one-sided
+  sign-flip (10 000, seed 20261109), bootstrap 95 % CI, d_z, n positive. Own test at alpha 0.05.
+- Secondary (uncorrected, labelled): (a) aligned M1 - M1 and re-centred M3 - M3 (two-sided);
+  (b) each aligned model vs 0.5; (c) paperlike pipeline; (d) natural LOSO AUC with alignment (does
+  per-subject alignment help across natural subjects too).
+- Interpretation rule: [P] significant = part of the gap is a label-free domain shift that can be
+  corrected per recording without labels (useful for a future stimulation study). Null = the shared
+  seen/unseen direction, not the distribution, limits transfer (content, 37g).
+- Stated limits: alignment uses all of a recording's trials, so the seen share of the recording
+  enters the unit mean (label-free but class-balance dependent; reported share 30-70 %).
+
 ## 8. Deviations and changes
 - **Amendment 1 (2026-11-09, user):** Q37b (idea 009) added after the tag `questions-prereg`, before
   any analysis of this addendum was rerun; the Holm family grows from five to six primary tests.

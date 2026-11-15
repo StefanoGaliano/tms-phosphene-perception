@@ -318,6 +318,34 @@ named as the confirmation set.
 - Stated limits: alignment uses all of a recording's trials, so the seen share of the recording
   enters the unit mean (label-free but class-balance dependent; reported share 30-70 %).
 
+## 15. Q44 Stimulus-general training: ds006171 + Eklund 2018 (GIN) — idea 37g, amendment 8
+
+- Motivation: the detector learned seen/unseen on one stimulus (lateralized Gabors, ds006171).
+  Phosphenes are diffuse, self-generated, not tied to a retinal location. Training on two datasets
+  with different stimuli, labs and tasks (Eklund & Wiens 2018: Gabors of two sizes, ratings, other
+  lab) should favour the part of the signature common to seeing, and less the stimulus-specific part.
+- Honesty: written 2026-11-15 while the Eklund epochs were being rebuilt; Q42 seen, Q43 running
+  (not seen). Eklund has been used before only to test the frozen detector (Q01-Q03), never for
+  training; no pooled model has been fitted.
+- Training data: ds006171, the 34 included subjects (as Q42); Eklund, all authors-included sessions
+  with epochs (adapter `Eklund2018Adapter`: aware-correct = seen, unaware-correct = unseen; large and
+  small Gabors). Channels: intersection after `channels.harmonize` with the TMS data (tms-robust set).
+  Normalization: Phase 2 per-unit label-free normalization. Each dataset gets equal total sample
+  weight (weights 1/n_trials of its dataset), plus class balance. Classifier and C as Q42 (0.01).
+- **[P]** M0 features (50 ms bins 0.15-0.60 s): TMS subject AUC(trained on ds006171 + Eklund) -
+  AUC(trained on ds006171 only) > 0, one-sided sign-flip (10 000, seed 20261109), bootstrap 95 % CI,
+  d_z, n positive; GIN primary pipeline. Own test at alpha 0.05.
+- Secondary (uncorrected, labelled): (a) same contrast with M1 (window mean); (b) hemifield-symmetric
+  features: each homologous pair (odd/even 10-20 suffix, e.g. O1/O2, PO7/PO8) replaced by its mean,
+  midline kept, pooled training, vs pooled non-symmetric (two-sided); (c) leave-one-dataset-out:
+  ds006171 -> Eklund and Eklund -> ds006171, mean unit AUC; (d) Eklund-only training -> TMS;
+  (e) paperlike pipeline.
+- Interpretation rule: [P] significant = a stimulus-general signature transfers better, so part of
+  the gap is stimulus-specific content. Null = adding a second Gabor dataset does not help; both are
+  Gabors, so a null does not rule out content (diffuse flashes or evoked percepts would be needed, 37k).
+- Stated limits: both datasets use Gabors (a narrow stimulus range); Eklund sessions of the same
+  participant (large, small) are separate units in training.
+
 ## 8. Deviations and changes
 - **Amendment 1 (2026-11-09, user):** Q37b (idea 009) added after the tag `questions-prereg`, before
   any analysis of this addendum was rerun; the Holm family grows from five to six primary tests.

@@ -346,6 +346,42 @@ named as the confirmation set.
 - Stated limits: both datasets use Gabors (a narrow stimulus range); Eklund sessions of the same
   participant (large, small) are separate units in training.
 
+## 16. Q45 Prestimulus alpha phase and TMS phosphenes (GIN) — Q09, amendment 9
+
+- Motivation: real-time phase-targeted TMS is technically feasible over occipital cortex
+  (Shirinpour et al. 2020, J Neural Eng 17:046002, read in full 2026-11-15: alpha-peak accuracy 0.71
+  occipital in real time). Samaha et al. 2017 (read in full) report that prestimulus phase predicts
+  occipital phosphenes; Melcón et al. 2024 (read in full) find no phase effect for natural
+  near-threshold Gabors (in our training dataset). If phase predicts phosphene reports here, phase-
+  locked stimulation is a concrete design choice for the later stimulation study, and the read-out
+  can be checked across phases.
+- Honesty: written 2026-11-15. Seen on these data: prestimulus alpha **power** (A1: alone 0.519,
+  p 0.14; H1 residualized on it 0.538). No phase has been computed on the GIN data.
+- Data: GIN occipital, primary pipeline, included recordings, cleaned epochs (-1.0..1.0 s, 128 Hz,
+  `derivatives/sv_p3_clean/primary/*_desc-detector_epo.fif`); labels S100/S200 as H1.
+- Phase: posterior ROI as A1 (O1 Oz O2 PO7 PO3 POz PO4 PO8; phase per channel, then the circular mean
+  of the 8 unit vectors). Segment -0.60..-0.02 s cut **before**
+  filtering (no post-pulse samples), mirror-padded by its own length on both sides, zero-phase FIR
+  band-pass 8-13 Hz (Phase 2 fixed band, as A1), Hilbert; phase at -0.02 s and at every sample from
+  -0.40 to -0.05 s.
+- **[P]** Phase opposition sum (POS = ITC_phosphene + ITC_none - 2 ITC_all; VanRullen 2016) at -0.02 s,
+  per recording z-scored against 1000 label permutations within the recording; subject = mean z of
+  included sites; one-sided sign-flip of subject z > 0 (10 000, seed 20261109), bootstrap 95 % CI,
+  d_z, n > 0. Own test at alpha 0.05.
+- Secondary (uncorrected, labelled): (a) time-resolved POS z, -0.40..-0.05 s, cluster test over
+  time; (b) phosphene rate in 6 phase bins at -0.02 s, group curve on raw phase,
+  modulation depth (max - min) descriptive, as Samaha's peak-to-trough; (c) does the read-out depend on phase:
+  H1 AUC of the frozen detector in trials split by phase half (peak half |phase| < pi/2 vs trough
+  half), paired two-sided; (d) the same POS on P(seen) median split (does the detector score itself
+  follow phase); (e) paperlike pipeline.
+- Interpretation rule: [P] significant = prestimulus alpha phase predicts phosphene report;
+  phase-locked stimulation is worth testing causally (Shirinpour-type closed loop). Null = no
+  evidence at this sample; Samaha's effect not reproduced with this pipeline (cleaning, 128 Hz,
+  fixed band), not proof of absence.
+- Stated limits: phase at -0.02 s from a cut, padded segment is an estimate (edge effects; the same
+  problem real-time systems face); intensity near threshold and fixed; reports, not causal
+  manipulation of phase.
+
 ## 8. Deviations and changes
 - **Amendment 1 (2026-11-09, user):** Q37b (idea 009) added after the tag `questions-prereg`, before
   any analysis of this addendum was rerun; the Holm family grows from five to six primary tests.

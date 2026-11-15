@@ -407,6 +407,35 @@ named as the confirmation set.
   different stimulation site; v2 is the better read-out. Null = the gains may be specific to the
   occipital data they were found on; the frozen detector remains the reference.
 
+## 18. Q47 Within-recording decodability: parietal vs occipital phosphenes (GIN) — amendment 11
+
+- Motivation: Q46 (v2 = frozen on IPS) has two readings: the occipital gains were partly selection,
+  or parietal pulses carry only ~0.54 of the natural signature into the scalp EEG (a ceiling). A
+  decoder retrained within each recording shows how separable phosphene vs none is in the EEG at all;
+  if parietal recordings are clearly less separable than occipital ones, that supports a ceiling.
+- Honesty: written 2026-11-15. Seen: occipital S8 (`results/phase3/secondary_curves_primary.npz`;
+  cluster 70-984 ms, mean AUC in the cluster 0.617). No within-recording decoding has been run on IPS.
+- Method: Phase 3 S8 unchanged (`start_vision.phase3.secondary.s8_sliding`: frozen detector's
+  contract channels, baseline -0.2..-0.01 s, StandardScaler + L2 LR C = 1 balanced, sliding over
+  time, stratified 5-fold CV, seed 20261109) on each included IPS recording (primary pipeline);
+  subject = mean of included sites. Occipital values from the saved S8 curves (same code).
+- Summary per subject (fixed now, not the data-driven cluster): mean within-recording AUC over
+  0.15-0.60 s (the detector's feature window).
+- **[P]** IPS subject mean < occipital subject mean, one-sided permutation test of the difference of
+  group means (10 000 relabelings of subjects between datasets; the two sets are treated as
+  independent samples because participant overlap is unknown), bootstrap 95 % CI of the difference.
+- Secondary (uncorrected, labelled): (a) IPS within-recording AUC vs 0.5 over time, cluster test;
+  (b) the same comparison over 0.07-0.98 s; (c) the "share carried": (frozen transfer AUC - 0.5) /
+  (within AUC - 0.5) per dataset, descriptive; (d) per site P3 / P4.
+- Interpretation rule: [P] significant = parietal phosphene pulses are less separable in the EEG,
+  consistent with the ceiling reading of Q46 (not proof: within-recording decoding also uses report-
+  and hand-related activity, present in both datasets within a recording). Null = similar
+  separability; the ceiling reading loses support, and the Q46 null leans toward selection on the
+  occipital data.
+- Stated limits: within-recording AUC is an upper bound on all label information, not on the natural
+  signature; between-dataset comparison (same lab and montage, different sessions and possibly
+  different participants).
+
 ## 8. Deviations and changes
 - **Amendment 1 (2026-11-09, user):** Q37b (idea 009) added after the tag `questions-prereg`, before
   any analysis of this addendum was rerun; the Holm family grows from five to six primary tests.

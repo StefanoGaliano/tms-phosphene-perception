@@ -382,6 +382,31 @@ named as the confirmation set.
   problem real-time systems face); intensity near threshold and fixed; reports, not causal
   manipulation of phase.
 
+## 17. Q46 The improved recipe (v2) tested once on parietal phosphenes (GIN IPS) — amendment 10
+
+- Motivation: on the occipital TMS data, Q42 (window mean), Q43 (alignment) and Q44 (two-dataset
+  training) each raised transfer; the best pre-registered combination, pooled training + window mean,
+  gave 0.575 vs 0.540. That choice was made on the occipital data, so its size there is optimistic.
+  The IPS phosphene data (Q41) were not used by Q42-Q45 and serve as a held-out test.
+- Honesty: written 2026-11-15. Seen on IPS: only Q41 and its secondaries with the frozen detector
+  (H1 0.539 [0.519, 0.559], 13/17) and R4a/R4b. No Q42-Q44 model has been applied to IPS.
+- Recipe v2 (fixed now, not changed after this): training on ds006171 (34 subjects) + Eklund 2018
+  (38 sessions), equal total weight per dataset plus class balance; Phase 2 per-unit label-free
+  normalization; features = per-channel mean over 0.15-0.60 s (one bin); StandardScaler + L2 logistic
+  regression, liblinear, C = 0.01; channels = intersection after harmonization with the test data.
+  No alignment (Q43: no gain for window mean). Pooled rather than Eklund-only because Eklund-only was
+  exploratory. Not exported to `detectors/` (an analysis model; a future export is a new major version).
+- Test data: IPS primary pipeline, `results/ips/inclusion_primary.tsv` included recordings,
+  `derivatives/sv_ips_clean/primary/`; labels as Q41 (S100 = phosphene).
+- **[P]** IPS subject AUC(v2) - AUC(frozen detector, Q41 per-recording values) > 0, one-sided
+  sign-flip (10 000, seed 20261109), bootstrap 95 % CI, d_z, n positive. Own test at alpha 0.05.
+- Secondary (uncorrected, labelled): (a) v2 AUC vs 0.5; (b) per site P3 / P4; (c) paperlike
+  pipeline; (d) Eklund-only window mean on IPS (the exploratory best); (e) Q38-style hand check: v2
+  AUC in the Q41 mapping groups (`results/ips/hand_groups.tsv`), Mann-Whitney.
+- Interpretation rule: [P] significant = the improvements generalize to a held-out dataset and a
+  different stimulation site; v2 is the better read-out. Null = the gains may be specific to the
+  occipital data they were found on; the frozen detector remains the reference.
+
 ## 8. Deviations and changes
 - **Amendment 1 (2026-11-09, user):** Q37b (idea 009) added after the tag `questions-prereg`, before
   any analysis of this addendum was rerun; the Holm family grows from five to six primary tests.

@@ -6,7 +6,7 @@ No analysis is rerun: inputs are the saved Phase 1 evokeds (runs/), Phase 2 grou
 (results/questions_to_solve/prereg_q40/). Cluster masks are recomputed with the same seed and
 permutation count as the group run, so they match it.
 
-Usage: ~/miniconda3/envs/eegunify/bin/python scripts/paper_figures.py [p1 p2 p3 q40 q42_46]
+Usage: ~/miniconda3/envs/eegunify/bin/python scripts/paper_figures.py [p1 p2 p3 q40 q42_46 q47]
 """
 
 from __future__ import annotations
@@ -196,7 +196,33 @@ def q42_46() -> None:
     print("wrote", OUT / "q42_46_transfer.png")
 
 
+def q47() -> None:
+    """Within-recording decodability over time: parietal vs occipital phosphene pulses."""
+    z = np.load(ROOT / "results" / "phase3" / "secondary_curves_primary.npz", allow_pickle=True)
+    q = np.load(ROOT / "results" / "questions_to_solve" / "prereg_q47" / "q47_ips_curves.npz")
+    fig, ax = plt.subplots(figsize=(6.4, 3.2))
+    ax.axvspan(0.15, 0.6, color="#f2f2f2", lw=0, zorder=0)
+    ax.text(0.375, 0.665, "Detector window", fontsize=7, color="#52514e", ha="center")
+    ax.axhline(0.5, color="grey", ls="--", lw=1)
+    ax.axvline(0, color="grey", lw=1)
+    for a, t, c, lab in ((z["s8_auc"], z["s8_times"], "#2a78d6", "Occipital pulses"),
+                         (q["sub_auc"], q["times"], "#eb6834", "Parietal pulses")):
+        ci = np.array([stats.bootstrap_ci(a[:, i], 10_000, 0) for i in range(a.shape[1])])
+        ax.fill_between(t, ci[:, 0], ci[:, 1], color=c, alpha=0.18, lw=0)
+        ax.plot(t, a.mean(0), color=c, lw=2, label=lab)
+    ax.set_xlim(t[0], t[-1])
+    ax.grid(axis="y", color="#dddddd", lw=0.7)
+    for sp in ("top", "right"):
+        ax.spines[sp].set_visible(False)
+    ax.set_xlabel("Time after the pulse (s)")
+    ax.set_ylabel("Within-recording AUC")
+    ax.legend(frameon=False, fontsize=8, loc="upper left")
+    fig.tight_layout()
+    fig.savefig(OUT / "q47_within_recording.png", dpi=300, facecolor="white")
+    print("wrote", OUT / "q47_within_recording.png")
+
+
 if __name__ == "__main__":
-    jobs = {"p1": phase1, "p2": phase2, "p3": phase3, "q40": q40, "q42_46": q42_46}
+    jobs = {"p1": phase1, "p2": phase2, "p3": phase3, "q40": q40, "q42_46": q42_46, "q47": q47}
     for k in sys.argv[1:] or list(jobs):
         jobs[k]()

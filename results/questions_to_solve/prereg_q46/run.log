@@ -1,0 +1,188 @@
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-01: 610 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-02: 586 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-03: 952 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-04: 996 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-05: 899 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-06: 1074 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-07: 1006 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-08: 614 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-09: 871 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-10: 1026 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-11: 1048 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-12: 985 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-13: 707 trials
+Adding metadata with 15 columns
+train sub-14: 255 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-15: 595 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-16: 970 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-17: 1030 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-18: 1063 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-19: 528 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-22: 876 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-23: 1004 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-24: 787 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-25: 927 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-26: 1006 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-27: 445 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-28: 853 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-29: 969 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-30: 926 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-31: 956 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-32: 452 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-33: 1054 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-34: 792 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-35: 524 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-36: 680 trials
+primary sub-01_site-P3 {'frozen': 0.597, 'v2': 0.555, 'eklund_only': 0.544}
+primary sub-01_site-P4 {'frozen': 0.604, 'v2': 0.498, 'eklund_only': 0.504}
+primary sub-02_site-P3 {'frozen': 0.489, 'v2': 0.599, 'eklund_only': 0.623}
+primary sub-02_site-P4 {'frozen': 0.473, 'v2': 0.608, 'eklund_only': 0.632}
+primary sub-03_site-P4 {'frozen': 0.529, 'v2': 0.423, 'eklund_only': 0.424}
+primary sub-04_site-P3 {'frozen': 0.549, 'v2': 0.545, 'eklund_only': 0.555}
+primary sub-04_site-P4 {'frozen': 0.538, 'v2': 0.532, 'eklund_only': 0.528}
+primary sub-07_site-P3 {'frozen': 0.494, 'v2': 0.58, 'eklund_only': 0.545}
+primary sub-07_site-P4 {'frozen': 0.505, 'v2': 0.479, 'eklund_only': 0.507}
+primary sub-08_site-P4 {'frozen': 0.601, 'v2': 0.518, 'eklund_only': 0.504}
+primary sub-09_site-P3 {'frozen': 0.525, 'v2': 0.523, 'eklund_only': 0.486}
+primary sub-09_site-P4 {'frozen': 0.6, 'v2': 0.532, 'eklund_only': 0.496}
+primary sub-10_site-P3 {'frozen': 0.48, 'v2': 0.484, 'eklund_only': 0.483}
+primary sub-10_site-P4 {'frozen': 0.5, 'v2': 0.553, 'eklund_only': 0.578}
+primary sub-14_site-P3 {'frozen': 0.438, 'v2': 0.484, 'eklund_only': 0.509}
+primary sub-14_site-P4 {'frozen': 0.595, 'v2': 0.555, 'eklund_only': 0.536}
+primary sub-15_site-P3 {'frozen': 0.577, 'v2': 0.542, 'eklund_only': 0.518}
+primary sub-17_site-P3 {'frozen': 0.469, 'v2': 0.598, 'eklund_only': 0.604}
+primary sub-17_site-P4 {'frozen': 0.57, 'v2': 0.636, 'eklund_only': 0.657}
+primary sub-18_site-P3 {'frozen': 0.537, 'v2': 0.534, 'eklund_only': 0.531}
+primary sub-18_site-P4 {'frozen': 0.532, 'v2': 0.545, 'eklund_only': 0.55}
+primary sub-19_site-P3 {'frozen': 0.452, 'v2': 0.534, 'eklund_only': 0.514}
+primary sub-19_site-P4 {'frozen': 0.476, 'v2': 0.537, 'eklund_only': 0.564}
+primary sub-20_site-P3 {'frozen': 0.574, 'v2': 0.574, 'eklund_only': 0.559}
+primary sub-20_site-P4 {'frozen': 0.575, 'v2': 0.615, 'eklund_only': 0.624}
+primary sub-21_site-P3 {'frozen': 0.608, 'v2': 0.597, 'eklund_only': 0.583}
+primary sub-21_site-P4 {'frozen': 0.559, 'v2': 0.648, 'eklund_only': 0.642}
+primary sub-22_site-P3 {'frozen': 0.504, 'v2': 0.554, 'eklund_only': 0.535}
+primary sub-22_site-P4 {'frozen': 0.508, 'v2': 0.482, 'eklund_only': 0.501}
+primary sub-23_site-P3 {'frozen': 0.586, 'v2': 0.558, 'eklund_only': 0.542}
+primary P {"mean": 0.0038251116889316196, "ci95": [-0.024257366900252413, 0.03227583645398051], "p": 0.39506049395060494, "tail": "one", "d_z": 0.06242270896956486, "n_positive": 10, "n": 17}
+paperlike sub-01_site-P3 {'frozen': 0.593, 'v2': 0.556, 'eklund_only': 0.547}
+paperlike sub-01_site-P4 {'frozen': 0.612, 'v2': 0.49, 'eklund_only': 0.496}
+paperlike sub-02_site-P3 {'frozen': 0.492, 'v2': 0.603, 'eklund_only': 0.624}
+paperlike sub-02_site-P4 {'frozen': 0.469, 'v2': 0.604, 'eklund_only': 0.632}
+paperlike sub-03_site-P4 {'frozen': 0.525, 'v2': 0.424, 'eklund_only': 0.42}
+paperlike sub-04_site-P3 {'frozen': 0.546, 'v2': 0.558, 'eklund_only': 0.566}
+paperlike sub-04_site-P4 {'frozen': 0.539, 'v2': 0.539, 'eklund_only': 0.533}
+paperlike sub-07_site-P3 {'frozen': 0.495, 'v2': 0.581, 'eklund_only': 0.552}
+paperlike sub-07_site-P4 {'frozen': 0.505, 'v2': 0.478, 'eklund_only': 0.506}
+paperlike sub-08_site-P3 {'frozen': 0.547, 'v2': 0.346, 'eklund_only': 0.331}
+paperlike sub-08_site-P4 {'frozen': 0.561, 'v2': 0.448, 'eklund_only': 0.427}
+paperlike sub-09_site-P3 {'frozen': 0.531, 'v2': 0.523, 'eklund_only': 0.483}
+paperlike sub-09_site-P4 {'frozen': 0.605, 'v2': 0.532, 'eklund_only': 0.493}
+paperlike sub-10_site-P3 {'frozen': 0.477, 'v2': 0.487, 'eklund_only': 0.485}
+paperlike sub-10_site-P4 {'frozen': 0.501, 'v2': 0.55, 'eklund_only': 0.568}
+paperlike sub-14_site-P3 {'frozen': 0.438, 'v2': 0.484, 'eklund_only': 0.509}
+paperlike sub-14_site-P4 {'frozen': 0.592, 'v2': 0.549, 'eklund_only': 0.534}
+paperlike sub-15_site-P3 {'frozen': 0.554, 'v2': 0.519, 'eklund_only': 0.5}
+paperlike sub-17_site-P3 {'frozen': 0.475, 'v2': 0.598, 'eklund_only': 0.603}
+paperlike sub-17_site-P4 {'frozen': 0.568, 'v2': 0.636, 'eklund_only': 0.656}
+paperlike sub-18_site-P3 {'frozen': 0.541, 'v2': 0.545, 'eklund_only': 0.543}
+paperlike sub-18_site-P4 {'frozen': 0.541, 'v2': 0.552, 'eklund_only': 0.556}
+paperlike sub-19_site-P3 {'frozen': 0.5, 'v2': 0.534, 'eklund_only': 0.532}
+paperlike sub-19_site-P4 {'frozen': 0.476, 'v2': 0.538, 'eklund_only': 0.563}
+paperlike sub-20_site-P3 {'frozen': 0.574, 'v2': 0.574, 'eklund_only': 0.559}
+paperlike sub-20_site-P4 {'frozen': 0.575, 'v2': 0.615, 'eklund_only': 0.624}
+paperlike sub-21_site-P3 {'frozen': 0.598, 'v2': 0.619, 'eklund_only': 0.61}
+paperlike sub-21_site-P4 {'frozen': 0.546, 'v2': 0.652, 'eklund_only': 0.641}
+paperlike sub-22_site-P3 {'frozen': 0.459, 'v2': 0.544, 'eklund_only': 0.526}
+paperlike sub-22_site-P4 {'frozen': 0.506, 'v2': 0.46, 'eklund_only': 0.476}
+paperlike sub-23_site-P3 {'frozen': 0.584, 'v2': 0.557, 'eklund_only': 0.54}
+paperlike P {"mean": 0.0003115076397415327, "ci95": [-0.03401708196549284, 0.031673100091768214], "p": 0.49005099490050996, "tail": "one", "d_z": 0.004452616399647893, "n_positive": 11, "n": 17}

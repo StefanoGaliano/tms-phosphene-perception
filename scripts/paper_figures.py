@@ -6,7 +6,7 @@ No analysis is rerun: inputs are the saved Phase 1 evokeds (runs/), Phase 2 grou
 (results/questions_to_solve/prereg_q40/). Cluster masks are recomputed with the same seed and
 permutation count as the group run, so they match it.
 
-Usage: ~/miniconda3/envs/eegunify/bin/python scripts/paper_figures.py [p1 p2 p3 q40]
+Usage: ~/miniconda3/envs/eegunify/bin/python scripts/paper_figures.py [p1 p2 p3 q40 q42_46]
 """
 
 from __future__ import annotations
@@ -150,7 +150,53 @@ def q40() -> None:
     print("wrote", OUT / "q40_reverse_transfer.png")
 
 
+def q42_46() -> None:
+    """Transfer of each detector recipe: occipital (recipes chosen here) vs held-out parietal."""
+    import json
+    q = ROOT / "results" / "questions_to_solve"
+    j = {k: json.loads((q / f"prereg_{k}" / f"{k}.json").read_text())["primary"]
+         for k in ("q42", "q43", "q44", "q46")}
+    h1 = pd.read_csv(ROOT / "results" / "phase3" / "per_recording_primary.tsv", sep="\t",
+                     dtype={"subject": str}).groupby("subject")["auc"].mean().to_numpy()
+    lo, hi = stats.bootstrap_ci(h1, 10_000, 0)
+
+    def ci(d: dict) -> tuple[float, float, float]:
+        return d["mean"] + 0.5, d["ci95"][0] + 0.5, d["ci95"][1] + 0.5
+
+    occ = [("Frozen detector", (h1.mean(), lo, hi)),
+           ("Window mean", ci(j["q42"]["M1_vs_chance"])),
+           ("Label-free alignment", ci(j["q43"]["M0_aligned_vs_chance"])),
+           ("Two datasets", ci(j["q44"]["M0_pooled_vs_chance"])),
+           ("Two datasets + window mean (v2)", ci(j["q44"]["M1_pooled_vs_chance"])),
+           ("Eklund only + window mean", ci(j["q44"]["M1_eklund_only_vs_chance"]))]
+    fz = j["q46"]["P_v2_minus_frozen"]
+    ips_sub = pd.DataFrame(j["q46"]["subject_auc"])
+    fl, fh = stats.bootstrap_ci(ips_sub["frozen"].to_numpy(), 10_000, 0)
+    ips = [("Frozen detector", (ips_sub["frozen"].mean(), fl, fh)),
+           ("Two datasets + window mean (v2)", ci(j["q46"]["a_v2_vs_chance"])),
+           ("Eklund only + window mean", ci(j["q46"]["d_eklund_only_vs_chance"]))]
+    del fz
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.2), sharey=True,
+                             gridspec_kw={"width_ratios": [6, 3]})
+    for ax, rows, title, c in ((axes[0], occ, "Occipital phosphenes (recipes chosen here)", "#2a78d6"),
+                               (axes[1], ips, "Parietal phosphenes (held out)", "#eb6834")):
+        x = np.arange(len(rows))
+        m = np.array([r[1][0] for r in rows])
+        e = np.array([[r[1][0] - r[1][1], r[1][2] - r[1][0]] for r in rows]).T
+        ax.axhline(0.5, color="grey", ls="--", lw=1)
+        ax.errorbar(x, m, yerr=e, fmt="o", color=c, ms=5, capsize=3, lw=1.2)
+        ax.set_xticks(x, [r[0] for r in rows], rotation=35, ha="right", fontsize=7)
+        ax.set_title(title, fontsize=8)
+        ax.grid(axis="y", color="#dddddd", lw=0.7)
+        for sp in ("top", "right"):
+            ax.spines[sp].set_visible(False)
+    axes[0].set_ylabel("AUC (phosphene vs none)")
+    fig.tight_layout()
+    fig.savefig(OUT / "q42_46_transfer.png", dpi=300, facecolor="white")
+    print("wrote", OUT / "q42_46_transfer.png")
+
+
 if __name__ == "__main__":
-    jobs = {"p1": phase1, "p2": phase2, "p3": phase3, "q40": q40}
+    jobs = {"p1": phase1, "p2": phase2, "p3": phase3, "q40": q40, "q42_46": q42_46}
     for k in sys.argv[1:] or list(jobs):
         jobs[k]()

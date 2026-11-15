@@ -1,7 +1,7 @@
 """Eklund & Wiens 2018 preprocessing (A12 issue #1): eegunify convert + erp per session
 (4 in parallel), then the group stage per Gabor size.
 
-Run from the repo root: python scripts/eklund2018_preprocess.py
+Run from the repo root: python scripts/eklund2018_preprocess.py [--delete-rawdata] [--no-group]
 """
 import subprocess
 import sys
@@ -23,6 +23,9 @@ def one(gabor: str, sub: str) -> str:
     with open(d / f"erp_{sub}.log", "w") as f:
         subprocess.run([B / "eegunify", "erp", "run", cfg, "-s", sub, "--to", "erp",
                         "--root", "."], cwd=d, stdout=f, stderr=subprocess.STDOUT)
+    if "--delete-rawdata" in sys.argv:  # disk: keep only epochs (2026-11-15 rebuild)
+        import shutil
+        shutil.rmtree(d / "rawdata" / f"sub-{sub}", ignore_errors=True)
     stages = [ln.split() for ln in (d / f"erp_{sub}.log").read_text().splitlines()
               if ln.split()[:2][1:] == [sub]]
     msg = f"{gabor} {sub}: " + " ".join(f"{s[0]}={s[2]}" for s in stages)
@@ -37,7 +40,7 @@ for g in ("large", "small"):
     jobs += [(g, s) for s in cfg["recordings"]["subjects"]]
 with ThreadPoolExecutor(4) as ex:
     list(ex.map(lambda j: one(*j), jobs))
-for g in ("large", "small"):
+for g in (() if "--no-group" in sys.argv else ("large", "small")):
     d = ROOT / "runs" / "eklund2018" / g
     with open(d / "group.log", "w") as f:
         cfg = str(ROOT / "configs" / "generated" / f"eklund2018_{g}.yaml")

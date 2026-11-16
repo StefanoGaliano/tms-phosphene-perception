@@ -166,8 +166,14 @@ reports a Holm over S1/S3/S9 only (deviation 4).
 
 - S100/S200 confirmed by the authors 2026-11-16 (closed).
 - RTs: `sourcedata/phosphenes_occipital/beh_eprime_18ss.xlsx` (12,929 trials, subjects 03-22; RT column `vresp.RT`).
-  Before use: map Session 1/2 to O1/O2; RT = 0 marks no response (233 trials, the only ones with
-  `vresp.ACC` = 1); sub-07 Session 1 has 269 trials plus 60 logged as Session 11 (329, not 360).
+  Session-to-site map done 2026-11-16 (`scripts/phase3_match_beh_sessions.py`,
+  `results/phase3/beh_session_match.tsv`): EEG S100/S200 sequence (as m/z) vs E-Prime responses.
+  Every recording but sub-07 O1 matches exactly one session (similarity 0.95-1.00 vs 0.19-0.59);
+  session order is counterbalanced, so the map is per subject. The S100 = 'm' match also confirms the
+  labels in every recording, sub-19 O1 included (its code-check failure is in the EEG, not the labels).
+  Sub-07 O1 = Session 1 (blocks 1-4 and 6; no block 5) then Session 11 (60 trials): 322 responses
+  as in the EEG, similarity 0.98, not exact. RT = 0 marks no response (233 trials, the only ones
+  with `vresp.ACC` = 1). RTs not used in any analysis yet.
 - Read the extra paper on phosphene electrophysiology the authors recommended (same dataset) before citing it.
 - Follow-ups done 2026-11-09, **before sub-18 O1 was added (17 subjects); not re-run** (pre-registered in `docs/QUESTIONS_PREREG.md`, tags `questions-prereg`,
   `-amend1`, `-amend2`; Holm over seven primary tests, `results/questions_to_solve/prereg_family/`):

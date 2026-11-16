@@ -27,6 +27,7 @@ sub-16_site-O1   337    0.421365      True                             ok
 sub-16_site-O2   243    0.465021      True                             ok
 sub-17_site-O1   355    0.481690      True                             ok
 sub-17_site-O2   354    0.426554      True                             ok
+sub-18_site-O1    93    0.591398      True                             ok
 sub-18_site-O2    26    0.730769     False          kept < 40; class < 30
 sub-19_site-O1   352    0.602273     False code check opposite (p < 0.05)
 sub-19_site-O2   304    0.605263      True                             ok
@@ -35,18 +36,18 @@ sub-21_site-O2   350    0.248571      True                             ok
 sub-22_site-O1   292    0.232877      True                             ok
 sub-22_site-O2   352    0.289773      True                             ok
                          test  n     mean        t      p      d_z   ci_low  ci_high  p_two_sided  n_above  p_holm
-                   H1 primary 17 0.539690 4.479336 0.0002 1.086399 0.523310 0.556926       0.0004     15.0     NaN
-          S1 untouched subset 17 0.538703 3.613743 0.0010 0.876461 0.519089 0.559620       0.0020     13.0  0.0016
- S3 balanced accuracy (theta) 17 0.522375 3.861957 0.0004 0.936662 0.511405 0.533393          NaN      NaN  0.0016
-S3 balanced accuracy (median) 17 0.527669 4.073005 0.0004 0.987849 0.515155 0.540926          NaN      NaN  0.0016
-        S9 seen share 30-70 % 14 0.539136 3.901098 0.0007 1.042612 0.521075 0.558888       0.0012     12.0  0.0016
+                   H1 primary 18 0.538309 4.524346 0.0002 1.066399 0.522922 0.554801       0.0003     16.0     NaN
+          S1 untouched subset 18 0.537377 3.670101 0.0006 0.865051 0.518648 0.556931       0.0014     14.0  0.0006
+ S3 balanced accuracy (theta) 18 0.524375 4.190331 0.0002 0.987670 0.513504 0.535703          NaN      NaN  0.0006
+S3 balanced accuracy (median) 18 0.527621 4.312362 0.0003 1.016433 0.515783 0.539936          NaN      NaN  0.0006
+        S9 seen share 30-70 % 15 0.537516 3.957847 0.0001 1.021912 0.520285 0.556157       0.0002     13.0  0.0004
                                           control  n      mean        t      p      d_z   ci_low  ci_high  p_two_sided  n_above  flag required
-                        R1 motor channels removed 17  0.535614 3.920485 0.0006 0.950857 0.518984 0.553237       0.0008     14.0 False      NaN
-                 R2 P(seen) vs C3-C4 within class 17 -0.073630      NaN 0.9999      NaN      NaN      NaN          NaN      NaN False      NaN
-                   R4a early bins only (< 0.30 s) 17  0.518690 2.473522 0.0135 0.599917 0.503975 0.532764       0.0264     14.0  None      NaN
-                                   R5 C3-C4 alone 17  0.474584      NaN 0.2310      NaN      NaN      NaN          NaN      NaN  None      NaN
-                                    E1 HEOG alone 17  0.480587      NaN 0.0237      NaN      NaN      NaN          NaN      NaN  True      NaN
-                                    E1 VEOG alone 17  0.514249      NaN 0.1762      NaN      NaN      NaN          NaN      NaN False      NaN
-                           A1 prestim alpha alone 17  0.518761      NaN 0.1143      NaN      NaN      NaN          NaN      NaN  None      NaN
-E1 follow-up: H1 on trials with HEOG step < 16 uV 17  0.542554 4.885707 0.0002 1.184958 0.526316 0.559249       0.0003     14.0  None     True
-         A1 H1 with P(seen) residualized on alpha 17  0.538127 4.278040 0.0002 1.037577 0.521674 0.555381       0.0004     15.0  None      NaN
+                        R1 motor channels removed 18  0.533503 3.798048 0.0006 0.895208 0.517258 0.550756       0.0010     14.0 False      NaN
+                 R2 P(seen) vs C3-C4 within class 18 -0.080684      NaN 1.0000      NaN      NaN      NaN          NaN      NaN False      NaN
+                   R4a early bins only (< 0.30 s) 18  0.515552 1.997779 0.0334 0.470881 0.500607 0.530154       0.0664     14.0  None      NaN
+                                   R5 C3-C4 alone 18  0.475012      NaN 0.2105      NaN      NaN      NaN          NaN      NaN  None      NaN
+                                    E1 HEOG alone 18  0.482808      NaN 0.0353      NaN      NaN      NaN          NaN      NaN  True      NaN
+                                    E1 VEOG alone 18  0.511065      NaN 0.2851      NaN      NaN      NaN          NaN      NaN False      NaN
+                           A1 prestim alpha alone 18  0.512588      NaN 0.3191      NaN      NaN      NaN          NaN      NaN  None      NaN
+E1 follow-up: H1 on trials with HEOG step < 16 uV 18  0.537034 3.742636 0.0007 0.882148 0.518019 0.555686       0.0014     14.0  None     True
+         A1 H1 with P(seen) residualized on alpha 18  0.536115 4.179971 0.0003 0.985229 0.520261 0.552930       0.0005     16.0  None      NaN

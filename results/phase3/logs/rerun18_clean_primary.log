@@ -1,0 +1,120 @@
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 792, using nperseg = 792
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 822, using nperseg = 822
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 887, using nperseg = 887
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 712, using nperseg = 712
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 773, using nperseg = 773
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 717, using nperseg = 717
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 715, using nperseg = 715
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 716, using nperseg = 716
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 739, using nperseg = 739
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 764, using nperseg = 764
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 763, using nperseg = 763
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 707, using nperseg = 707
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 843, using nperseg = 843
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 678, using nperseg = 678
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 777, using nperseg = 777
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 744, using nperseg = 744
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 737, using nperseg = 737
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 937, using nperseg = 937
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 698, using nperseg = 698
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 794, using nperseg = 794
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 778, using nperseg = 778
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 814, using nperseg = 814
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 819, using nperseg = 819
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 786, using nperseg = 786
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 782, using nperseg = 782
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 771, using nperseg = 771
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 802, using nperseg = 802
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 779, using nperseg = 779
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 775, using nperseg = 775
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 847, using nperseg = 847
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 887, using nperseg = 887
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 815, using nperseg = 815
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 805, using nperseg = 805
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 900, using nperseg = 900
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 844, using nperseg = 844
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 802, using nperseg = 802
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 733, using nperseg = 733
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 822, using nperseg = 822
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 828, using nperseg = 828
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 729, using nperseg = 729
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 786, using nperseg = 786
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 803, using nperseg = 803
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 702, using nperseg = 702
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 797, using nperseg = 797
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 736, using nperseg = 736
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 690, using nperseg = 690
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 762, using nperseg = 762
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 720, using nperseg = 720
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 719, using nperseg = 719
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 785, using nperseg = 785
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 776, using nperseg = 776
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 757, using nperseg = 757
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 740, using nperseg = 740
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 758, using nperseg = 758
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 777, using nperseg = 777
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 730, using nperseg = 730
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 786, using nperseg = 786
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 742, using nperseg = 742
+  return _func(*args, **kwargs)
+/home/stefanogaliano/miniconda3/envs/eegunify/lib/python3.12/site-packages/mne/time_frequency/psd.py:292: UserWarning: nperseg = 1024 is greater than input length  = 843, using nperseg = 843
+  return _func(*args, **kwargs)
+Adding metadata with 3 columns
+cleaned /home/stefanogaliano/Documents/Projects/Neurosciences/Start_Vision/derivatives/sv_p3_clean/primary/sub-18_site-O1_desc-detector_epo.fif

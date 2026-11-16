@@ -125,7 +125,7 @@ Adding metadata with 15 columns
 train sub-36: 680 trials
 selection: 3 configs x 34 subjects = 1785 fits (torch)
 selection: done
-R4b primary: {'n': 17, 'mean': 0.5387295508363229, 't': 4.423942177781925, 'p': 0.0004, 'd_z': 1.0729635812129352, 'ci_low': 0.5217793396816715, 'ci_high': 0.5550546575079668, 'p_two_sided': 0.0006, 'n_above': 13, 'n_subjects': 17, 'n_recordings': 33, 'subjects_above_chance': 13}
-R4b paperlike: {'n': 17, 'mean': 0.5333476894408569, 't': 3.9985408540318965, 'p': 0.0009, 'd_z': 0.9697886052659387, 'ci_low': 0.5172884726813298, 'ci_high': 0.5490034281445364, 'p_two_sided': 0.0013, 'n_above': 13, 'n_subjects': 17, 'n_recordings': 33, 'subjects_above_chance': 13}
-S7 primary: peak 0.575 at 0.922 s; sig clusters 1
-S7 paperlike: peak 0.574 at 0.992 s; sig clusters 1
+R4b primary: {'n': 18, 'mean': 0.5361246586699433, 't': 4.173777836580308, 'p': 0.0006, 'd_z': 0.9837688704706847, 'ci_low': 0.5197434787157376, 'ci_high': 0.5520719543789622, 'p_two_sided': 0.0012, 'n_above': 13, 'n_subjects': 18, 'n_recordings': 34, 'subjects_above_chance': 13}
+R4b paperlike: {'n': 18, 'mean': 0.531468458421947, 't': 3.892471804409068, 'p': 0.0013, 'd_z': 0.9174644028250297, 'ci_low': 0.5162490347382319, 'ci_high': 0.5464751672336029, 'p_two_sided': 0.002, 'n_above': 13, 'n_subjects': 18, 'n_recordings': 34, 'subjects_above_chance': 13}
+S7 primary: peak 0.579 at 0.992 s; sig clusters 1
+S7 paperlike: peak 0.577 at 0.992 s; sig clusters 1

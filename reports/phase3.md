@@ -120,7 +120,7 @@ reports a Holm over S1/S3/S9 only (deviation 4).
   the 18 central channels removed holds (R1, 0.533), but the hand signal is present this early and
   outside R1's channel set, so a hand contribution to H1 through lateral-posterior channels is not
   excluded. At the O1 site central channels are flat and the posterior negativity (O1 -0.60 µV) is
-  bilateral, the better VAN candidate. Uncorrected per-channel tests; not pre-registered.
+  bilateral (O1 -0.63 µV after adding sub-18 O1, 2026-11-16), the better VAN candidate. Uncorrected per-channel tests; not pre-registered.
 - **Eyes:** the HEOG effect runs opposite to H1, and H1 is unchanged on trials with small HEOG steps.
 - **Alpha:** prestimulus alpha does not separate the classes here (unlike Romei 2008 and Samaha 2017),
   and H1 survives regressing it out.
@@ -174,15 +174,19 @@ reports a Holm over S1/S3/S9 only (deviation 4).
   Sub-07 O1 = Session 1 (blocks 1-4 and 6; no block 5) then Session 11 (60 trials): 322 responses
   as in the EEG, similarity 0.98, not exact. RT = 0 marks no response (233 trials, the only ones
   with `vresp.ACC` = 1). RTs not used in any analysis yet.
+- Q39-Q47 re-run 2026-11-16 with sub-18 O1 (`results/questions_to_solve/prereg_q*/`). Changes in
+  conclusion: Q47 (parietal less separable than occipital within recording) p 0.023 -> 0.056, no longer
+  significant; Q39 [P] (VAN classifiers tested 100 ms earlier) p 0.0073 -> 0.047 primary, paperlike
+  0.029 -> 0.13. Q42 window-mean gain is now stronger (+0.018, p 0.016). Others unchanged in direction.
 - Read the extra paper on phosphene electrophysiology the authors recommended (same dataset) before citing it.
-- Follow-ups done 2026-11-09, **before sub-18 O1 was added (17 subjects); not re-run** (pre-registered in `docs/QUESTIONS_PREREG.md`, tags `questions-prereg`,
+- Follow-ups done 2026-11-09, re-run 2026-11-16 with sub-18 O1 (18 subjects) (pre-registered in `docs/QUESTIONS_PREREG.md`, tags `questions-prereg`,
   `-amend1`, `-amend2`; Holm over seven primary tests, `results/questions_to_solve/prereg_family/`):
   - Q38 hand caveat (idea 013): H1 with P(seen) residualized on a hand index from all lateral
-    channel pairs 0.537 [0.519, 0.555], 14/17, Holm p 0.005; all 54 lateral channels interpolated
-    0.525 (p 0.003). The hand signal does not carry H1; hand fixed to the label stays a bound, not a
+    channel pairs 0.535 [0.518, 0.553], 15/18, Holm p 0.002; all 54 lateral channels interpolated
+    0.523 (p 0.003). The hand signal does not carry H1; hand fixed to the label stays a bound, not a
     removal (`prereg_q38/`).
-  - Q37a: H1 residualized on trial TEP amplitude 0.526 [0.510, 0.543], Holm p 0.010; TEP amplitude
-    alone separates the classes (0.541), so the phosphene also modulates the evoked response (`prereg_q37a/`).
-  - Q37b: O2 block AUC at 20 pulses 0.686 [0.580, 0.784], Holm p 0.009; k* not reached on O1
+  - Q37a: H1 residualized on trial TEP amplitude 0.522 [0.506, 0.539], Holm p 0.022; TEP amplitude
+    alone separates the classes (0.545), so the phosphene also modulates the evoked response (`prereg_q37a/`).
+  - Q37b: O2 block AUC at 20 pulses 0.687 [0.581, 0.784], Holm p 0.008; k* not reached on O1
     (`prereg_q37b/`).
 - Literature context and article framing: `docs/ARTICLE_NOTES.md` (Phase 3 sections).

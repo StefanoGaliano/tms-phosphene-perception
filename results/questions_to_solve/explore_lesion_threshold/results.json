@@ -1,24 +1,24 @@
 {
   "A": {
     "theta": 0.521148143854642,
-    "n_subjects": 17,
+    "n_subjects": 18,
     "fixed_theta_both_correct": 4,
     "phos_avg_above_theta": 12,
-    "none_avg_below_theta": 9,
-    "relative_correct": 14,
-    "mean_phos": 0.5555121759744742,
-    "mean_none": 0.529954633296101
+    "none_avg_below_theta": 10,
+    "relative_correct": 15,
+    "mean_phos": 0.548139148793156,
+    "mean_none": 0.5231577460116971
   },
   "medial_occipital": {
-    "n": 17,
-    "mean": 0.5386682036024029,
-    "t": 3.662425878808241,
-    "p": 0.0017,
-    "d_z": 0.8882687496659979,
-    "ci_low": 0.5184612591656562,
-    "ci_high": 0.5585652537786118,
-    "p_two_sided": 0.0025,
-    "n_above": 13,
+    "n": 18,
+    "mean": 0.5373358208847868,
+    "t": 3.71758451214297,
+    "p": 0.0009,
+    "d_z": 0.876243072723459,
+    "ci_low": 0.5184391122345305,
+    "ci_high": 0.5561701915736195,
+    "p_two_sided": 0.0017,
+    "n_above": 14,
     "channels": [
       "O1",
       "Oz",
@@ -27,18 +27,18 @@
       "PO3",
       "PO4"
     ],
-    "subjects_above_chance": 13
+    "subjects_above_chance": 14
   },
   "lateral_occipitotemporal": {
-    "n": 17,
-    "mean": 0.5396754316609619,
-    "t": 4.036562872514785,
-    "p": 0.0009,
-    "d_z": 0.979010299283829,
-    "ci_low": 0.521255866126867,
-    "ci_high": 0.5585397330757779,
-    "p_two_sided": 0.0011,
-    "n_above": 14,
+    "n": 18,
+    "mean": 0.5375359910778807,
+    "t": 3.946735463317713,
+    "p": 0.0007,
+    "d_z": 0.9302544698871285,
+    "ci_low": 0.5201754880042577,
+    "ci_high": 0.5559040238384544,
+    "p_two_sided": 0.0013,
+    "n_above": 15,
     "channels": [
       "P7",
       "P8",
@@ -49,18 +49,18 @@
       "T7",
       "T8"
     ],
-    "subjects_above_chance": 14
+    "subjects_above_chance": 15
   },
   "frontal_control": {
-    "n": 17,
-    "mean": 0.5408880107308937,
-    "t": 4.084441224707964,
-    "p": 0.0008,
-    "d_z": 0.9906225053587114,
-    "ci_low": 0.5218772952129789,
-    "ci_high": 0.5598519350135507,
-    "p_two_sided": 0.001,
-    "n_above": 14,
+    "n": 18,
+    "mean": 0.5395359054986283,
+    "t": 4.146609719454879,
+    "p": 0.0007,
+    "d_z": 0.9773652838535309,
+    "ci_low": 0.5219123038907936,
+    "ci_high": 0.5577876898032139,
+    "p_two_sided": 0.0012,
+    "n_above": 15,
     "channels": [
       "Fp1",
       "Fp2",
@@ -71,6 +71,6 @@
       "F7",
       "F8"
     ],
-    "subjects_above_chance": 14
+    "subjects_above_chance": 15
   }
 }

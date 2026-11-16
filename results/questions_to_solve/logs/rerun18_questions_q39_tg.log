@@ -1,0 +1,195 @@
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-01: 610 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-02: 586 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-03: 952 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-04: 996 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-05: 899 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-06: 1074 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-07: 1006 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-08: 614 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-09: 871 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-10: 1026 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-11: 1048 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-12: 985 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-13: 707 trials
+Adding metadata with 15 columns
+train sub-14: 255 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-15: 595 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-16: 970 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-17: 1030 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-18: 1063 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-19: 528 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-22: 876 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-23: 1004 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-24: 787 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-25: 927 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-26: 1006 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-27: 445 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-28: 853 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-29: 969 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-30: 926 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-31: 956 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-32: 452 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-33: 1054 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-34: 792 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-35: 524 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-36: 680 trials
+primary sub-03_site-O1: diag mean 0.475
+primary sub-03_site-O2: diag mean 0.534
+primary sub-04_site-O1: diag mean 0.546
+primary sub-04_site-O2: diag mean 0.577
+primary sub-05_site-O1: diag mean 0.509
+primary sub-05_site-O2: diag mean 0.522
+primary sub-06_site-O1: diag mean 0.527
+primary sub-06_site-O2: diag mean 0.557
+primary sub-07_site-O1: diag mean 0.570
+primary sub-07_site-O2: diag mean 0.502
+primary sub-08_site-O1: diag mean 0.548
+primary sub-08_site-O2: diag mean 0.508
+primary sub-09_site-O1: diag mean 0.505
+primary sub-09_site-O2: diag mean 0.493
+primary sub-10_site-O1: diag mean 0.520
+primary sub-10_site-O2: diag mean 0.522
+primary sub-11_site-O1: diag mean 0.542
+primary sub-11_site-O2: diag mean 0.557
+primary sub-13_site-O1: diag mean 0.542
+primary sub-13_site-O2: diag mean 0.553
+primary sub-14_site-O1: diag mean 0.562
+primary sub-14_site-O2: diag mean 0.580
+primary sub-15_site-O1: diag mean 0.615
+primary sub-15_site-O2: diag mean 0.593
+primary sub-16_site-O1: diag mean 0.547
+primary sub-16_site-O2: diag mean 0.556
+primary sub-17_site-O1: diag mean 0.515
+primary sub-17_site-O2: diag mean 0.494
+primary sub-18_site-O1: diag mean 0.527
+primary sub-19_site-O2: diag mean 0.526
+primary sub-21_site-O1: diag mean 0.531
+primary sub-21_site-O2: diag mean 0.597
+primary sub-22_site-O1: diag mean 0.539
+primary sub-22_site-O2: diag mean 0.566
+{"n": 18, "mean": 0.5112226594357822, "t": 1.7897336114878943, "p": 0.047, "d_z": 0.4218442577335267, "ci_low": 0.49944801745182027, "ci_high": 0.5232612806855338, "one_sided_p": 0.046995300469953004, "n_above": 12}
+paperlike sub-03_site-O1: diag mean 0.475
+paperlike sub-03_site-O2: diag mean 0.534
+paperlike sub-04_site-O1: diag mean 0.525
+paperlike sub-04_site-O2: diag mean 0.549
+paperlike sub-05_site-O1: diag mean 0.510
+paperlike sub-05_site-O2: diag mean 0.522
+paperlike sub-06_site-O1: diag mean 0.528
+paperlike sub-06_site-O2: diag mean 0.557
+paperlike sub-07_site-O1: diag mean 0.567
+paperlike sub-07_site-O2: diag mean 0.502
+paperlike sub-08_site-O1: diag mean 0.545
+paperlike sub-08_site-O2: diag mean 0.506
+paperlike sub-09_site-O1: diag mean 0.505
+paperlike sub-09_site-O2: diag mean 0.493
+paperlike sub-10_site-O1: diag mean 0.521
+paperlike sub-10_site-O2: diag mean 0.526
+paperlike sub-11_site-O1: diag mean 0.535
+paperlike sub-11_site-O2: diag mean 0.561
+paperlike sub-13_site-O1: diag mean 0.537
+paperlike sub-13_site-O2: diag mean 0.548
+paperlike sub-14_site-O1: diag mean 0.562
+paperlike sub-14_site-O2: diag mean 0.562
+paperlike sub-15_site-O1: diag mean 0.576
+paperlike sub-15_site-O2: diag mean 0.586
+paperlike sub-16_site-O1: diag mean 0.550
+paperlike sub-16_site-O2: diag mean 0.545
+paperlike sub-17_site-O1: diag mean 0.519
+paperlike sub-17_site-O2: diag mean 0.495
+paperlike sub-18_site-O1: diag mean 0.522
+paperlike sub-19_site-O2: diag mean 0.532
+paperlike sub-21_site-O1: diag mean 0.531
+paperlike sub-21_site-O2: diag mean 0.590
+paperlike sub-22_site-O1: diag mean 0.541
+paperlike sub-22_site-O2: diag mean 0.572
+{"n": 18, "mean": 0.5060757149857095, "t": 1.1482096170921616, "p": 0.1343, "d_z": 0.27063560215649224, "ci_low": 0.4956340761068283, "ci_high": 0.5160404632375591, "one_sided_p": 0.1342865713428657, "n_above": 11}

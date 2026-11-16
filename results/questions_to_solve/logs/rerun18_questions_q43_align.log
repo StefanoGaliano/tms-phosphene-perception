@@ -1,0 +1,139 @@
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-01: 610 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-02: 586 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-03: 952 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-04: 996 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-05: 899 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-06: 1074 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-07: 1006 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-08: 614 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-09: 871 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-10: 1026 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-11: 1048 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-12: 985 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-13: 707 trials
+Adding metadata with 15 columns
+train sub-14: 255 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-15: 595 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-16: 970 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-17: 1030 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-18: 1063 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-19: 528 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-22: 876 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-23: 1004 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-24: 787 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-25: 927 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-26: 1006 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-27: 445 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-28: 853 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-29: 969 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-30: 926 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-31: 956 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-32: 452 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-33: 1054 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-34: 792 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-35: 524 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-36: 680 trials
+primary M0_raw {"mean": 0.038328479606738214, "ci95": [0.020612039928275462, 0.056339525893847255], "p": 0.00029997000299970003, "tail": "one", "d_z": 0.9486154055918395, "n_positive": 15, "n": 18, "auc_mean": 0.5383284796067381}
+primary M0_aligned {"mean": 0.048676419016273266, "ci95": [0.030593531460092912, 0.0666814647740913], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.2007840915920434, "n_positive": 15, "n": 18, "auc_mean": 0.5486764190162734}
+primary M1_raw {"mean": 0.0563705972313525, "ci95": [0.03798870722747975, 0.07493826154865772], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.3641135122839834, "n_positive": 16, "n": 18, "auc_mean": 0.5563705972313525}
+primary M1_aligned {"mean": 0.058063831819346406, "ci95": [0.04093861573406399, 0.0750748620782173], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.5185603771566443, "n_positive": 17, "n": 18, "auc_mean": 0.5580638318193464}
+primary M3_raw {"mean": 0.04549976207899862, "ci95": [0.033594210179140466, 0.05773921621287902], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.6832224082421958, "n_positive": 18, "n": 18, "auc_mean": 0.5454997620789986}
+primary M3_aligned {"mean": 0.04441245116325765, "ci95": [0.03260843627078405, 0.057245518426938286], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.6098459477374232, "n_positive": 18, "n": 18, "auc_mean": 0.5444124511632575}
+primary P {"mean": 0.010347939409535054, "ci95": [0.005222485366322505, 0.015884640869322227], "p": 0.00019998000199980003, "tail": "one", "d_z": 0.860534186356692, "n_positive": 16, "n": 18}
+paperlike M0_raw {"mean": 0.03846325910152469, "ci95": [0.02308418150087496, 0.0548899893351895], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.0648977919336111, "n_positive": 16, "n": 18, "auc_mean": 0.5384632591015247}
+paperlike M0_aligned {"mean": 0.04829214881870208, "ci95": [0.03210667701467019, 0.06475507385794929], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.3070457306190193, "n_positive": 16, "n": 18, "auc_mean": 0.5482921488187021}
+paperlike M1_raw {"mean": 0.05344261819514555, "ci95": [0.03542967027018315, 0.07084702080509425], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.350548695882351, "n_positive": 16, "n": 18, "auc_mean": 0.5534426181951456}
+paperlike M1_aligned {"mean": 0.05649759383574931, "ci95": [0.0392699024559959, 0.07328274029368531], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.4872227478528612, "n_positive": 17, "n": 18, "auc_mean": 0.5564975938357493}
+paperlike M3_raw {"mean": 0.04279775490389495, "ci95": [0.03111769194791154, 0.055323617317168415], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.5809911271302939, "n_positive": 17, "n": 18, "auc_mean": 0.5427977549038949}
+paperlike M3_aligned {"mean": 0.04214923141304406, "ci95": [0.029901376952667178, 0.0553705758997818], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.4795796547209408, "n_positive": 17, "n": 18, "auc_mean": 0.542149231413044}
+paperlike P {"mean": 0.009828889717177389, "ci95": [0.003485431564304531, 0.016661783388510838], "p": 0.004899510048995101, "tail": "one", "d_z": 0.6730219956279119, "n_positive": 13, "n": 18}

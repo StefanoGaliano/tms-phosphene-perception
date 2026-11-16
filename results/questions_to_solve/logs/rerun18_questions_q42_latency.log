@@ -1,0 +1,135 @@
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-01: 610 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-02: 586 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-03: 952 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-04: 996 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-05: 899 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-06: 1074 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-07: 1006 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-08: 614 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-09: 871 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-10: 1026 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-11: 1048 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-12: 985 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-13: 707 trials
+Adding metadata with 15 columns
+train sub-14: 255 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-15: 595 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-16: 970 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-17: 1030 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-18: 1063 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-19: 528 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-22: 876 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-23: 1004 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-24: 787 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-25: 927 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-26: 1006 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-27: 445 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-28: 853 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-29: 969 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-30: 926 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-31: 956 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-32: 452 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-33: 1054 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-34: 792 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-35: 524 trials
+Adding metadata with 15 columns
+Adding metadata with 15 columns
+train sub-36: 680 trials
+primary M0 {"mean": 0.038328479606738214, "ci95": [0.020612039928275462, 0.056339525893847255], "p": 0.00029997000299970003, "tail": "one", "d_z": 0.9486154055918395, "n_positive": 15, "n": 18, "auc_mean": 0.5383284796067381}
+primary M1 {"mean": 0.0563705972313525, "ci95": [0.03798870722747975, 0.07493826154865772], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.3641135122839834, "n_positive": 16, "n": 18, "auc_mean": 0.5563705972313525}
+primary M2 {"mean": 0.051877652901341643, "ci95": [0.03303444468340283, 0.07169573087510976], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.1822407154882624, "n_positive": 16, "n": 18, "auc_mean": 0.5518776529013416}
+primary M3 {"mean": 0.04549976207899862, "ci95": [0.033594210179140466, 0.05773921621287902], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.6832224082421958, "n_positive": 18, "n": 18, "auc_mean": 0.5454997620789986}
+primary P {"mean": 0.018042117624614284, "ci95": [0.0037452524876065174, 0.03337003054352762], "p": 0.0156984301569843, "tail": "one", "d_z": 0.5450658881360879, "n_positive": 12, "n": 18}
+paperlike M0 {"mean": 0.03846325910152469, "ci95": [0.02308418150087496, 0.0548899893351895], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.0648977919336111, "n_positive": 16, "n": 18, "auc_mean": 0.5384632591015247}
+paperlike M1 {"mean": 0.05344261819514555, "ci95": [0.03542967027018315, 0.07084702080509425], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.350548695882351, "n_positive": 16, "n": 18, "auc_mean": 0.5534426181951456}
+paperlike M2 {"mean": 0.0535983775101864, "ci95": [0.03438447827063829, 0.07309615211593483], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.2329682006062799, "n_positive": 16, "n": 18, "auc_mean": 0.5535983775101865}
+paperlike M3 {"mean": 0.04279775490389495, "ci95": [0.03111769194791154, 0.055323617317168415], "p": 9.999000099990002e-05, "tail": "one", "d_z": 1.5809911271302939, "n_positive": 17, "n": 18, "auc_mean": 0.5427977549038949}
+paperlike P {"mean": 0.014979359093620862, "ci95": [-0.0008821003346255313, 0.03295532324778427], "p": 0.053094690530946904, "tail": "one", "d_z": 0.39805309236811487, "n_positive": 10, "n": 18}

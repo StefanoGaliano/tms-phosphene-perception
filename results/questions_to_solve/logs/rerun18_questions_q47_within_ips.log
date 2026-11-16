@@ -1,0 +1,82 @@
+sub-01_site-P3 0.543
+sub-01_site-P4 0.513
+sub-02_site-P3 0.600
+sub-02_site-P4 0.592
+sub-03_site-P4 0.611
+sub-04_site-P3 0.614
+sub-04_site-P4 0.487
+sub-07_site-P3 0.538
+sub-07_site-P4 0.605
+sub-08_site-P4 0.488
+sub-09_site-P3 0.618
+sub-09_site-P4 0.626
+sub-10_site-P3 0.553
+sub-10_site-P4 0.547
+sub-14_site-P3 0.573
+sub-14_site-P4 0.546
+sub-15_site-P3 0.560
+sub-17_site-P3 0.571
+sub-17_site-P4 0.558
+sub-18_site-P3 0.522
+sub-18_site-P4 0.523
+sub-19_site-P3 0.494
+sub-19_site-P4 0.536
+sub-20_site-P3 0.564
+sub-20_site-P4 0.546
+sub-21_site-P3 0.598
+sub-21_site-P4 0.614
+sub-22_site-P3 0.565
+sub-22_site-P4 0.527
+sub-23_site-P3 0.517
+{
+ "prereg": "docs/QUESTIONS_PREREG.md \u00a718, tag questions-prereg-amend11",
+ "n_ips_subjects": 17,
+ "n_ips_recordings": 30,
+ "n_occ_subjects": 18,
+ "P_0.15-0.60": {
+  "ips_mean": 0.5565529379658818,
+  "occ_mean": 0.5841842575626137,
+  "diff": -0.02763131959673193,
+  "ci95": [
+   -0.05965554880314024,
+   0.003453614441716637
+  ],
+  "p_one_sided_ips_lower": 0.0560943905609439
+ },
+ "b_0.07-0.98": {
+  "ips_mean": 0.5909504247859675,
+  "occ_mean": 0.6116969008869193,
+  "diff": -0.020746476100951816,
+  "ci95": [
+   -0.049847810050193404,
+   0.00790496654529738
+  ],
+  "p_one_sided_ips_lower": 0.09469053094690531
+ },
+ "a_ips_clusters": [
+  {
+   "p": 0.0001,
+   "mass": 686.0678505056687,
+   "extent": 94.0,
+   "mean_auc": 0.6076975609287647,
+   "t_start": 0.2578125,
+   "t_end": 0.984375
+  }
+ ],
+ "c_share_carried": {
+  "ips": 0.6949241085177497,
+  "occ": 0.47396034787529756,
+  "frozen_transfer": {
+   "ips": 0.5393,
+   "occ": 0.5399
+  }
+ },
+ "d_P3": {
+  "mean": 0.5618958870368013,
+  "n": 15
+ },
+ "d_P4": {
+  "mean": 0.5546081824341095,
+  "n": 15
+ }
+}

@@ -1,6 +1,6 @@
 # Q37a trial-level TMS-evoked-response amplitude (GIN)
 
-Pre-registered run (§6 of docs/QUESTIONS_PREREG.md (tags questions-prereg, -amend1, -amend2)); 2026-11-09; code commit `19521eb`. Holm p (family of seven) for the [P] test: 0.01 (`../prereg_family/`).
+Pre-registered run (§6 of docs/QUESTIONS_PREREG.md (tags questions-prereg, -amend1, -amend2)); 2026-11-16; code commit `de5260e`. Holm p (family of seven) for the [P] test: 0.0218 (`../prereg_family/`).
 
 Inputs: derivatives/sv_p3_clean/primary (33 included recordings); results/phase3/scores_primary.tsv
 
@@ -8,9 +8,9 @@ Inputs: derivatives/sv_p3_clean/primary (33 included recordings); results/phase3
 
 | test | role | n | mean | ci_low | ci_high | d_z | p | tail | n_positive |
 |---|---|---|---|---|---|---|---|---|---|
-| H1 with P(seen) residualized on TEP amplitude > 0.5 | [P] | 17 | 0.5259 | 0.5096 | 0.5426 | 0.7216 | 0.005 | 1 | 12 |
-| H1 frozen (reproduces Phase 3) | check | 17 | 0.5398 | nan | nan | nan | 0.0008 | 1 | nan |
-| TEP amplitude alone, AUC vs 0.5 | secondary | 17 | 0.5413 | 0.5185 | 0.5622 | 0.8829 | 0.0035 | 2 | 16 |
+| H1 with P(seen) residualized on TEP amplitude > 0.5 | [P] | 18 | 0.5224 | 0.5056 | 0.5392 | 0.5906 | 0.0109 | 1 | 12 |
+| H1 frozen (reproduces Phase 3) | check | 18 | 0.5382 | nan | nan | nan | 0.0003 | 1 | nan |
+| TEP amplitude alone, AUC vs 0.5 | secondary | 18 | 0.5449 | 0.5228 | 0.5661 | 0.9374 | 0.0021 | 2 | 17 |
 | SSP-3 (first look, copied as context) | context | 17 | 0.5254 | nan | nan | nan | 0.0184 | 1 | nan |
 
 ## Interpretation (rule fixed in the prereg)

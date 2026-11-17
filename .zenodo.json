@@ -1,0 +1,16 @@
+{
+  "title": "tms-phosphene-perception: code, pre-registration and frozen detectors for 'TMS-evoked phosphenes carry the EEG signature of natural visual awareness'",
+  "upload_type": "software",
+  "creators": [
+    {"name": "Galiano, Stefano", "orcid": "0009-0005-0305-4914"}
+  ],
+  "description": "Code, pre-registration documents (with git tags dated before each analysis), frozen EEG detectors and result tables for the paper. A detector of natural near-threshold seeing is trained on OpenNeuro ds006171, frozen, checked on an independent natural-vision dataset and applied without retraining to TMS-evoked phosphenes over occipital and parietal cortex (GIN DB_123). Code under MIT; documentation, results and detectors under CC BY 4.0.",
+  "license": "MIT",
+  "keywords": ["EEG", "TMS", "phosphenes", "visual awareness", "decoding", "pre-registration"],
+  "related_identifiers": [
+    {"identifier": "10.18112/openneuro.ds006171.v1.0.0", "relation": "requires", "scheme": "doi"},
+    {"identifier": "10.17045/sthlmuni.5418967", "relation": "requires", "scheme": "doi"},
+    {"identifier": "https://gin.g-node.org/DB_123/Phosphenes_occipital", "relation": "requires", "scheme": "url"},
+    {"identifier": "https://gin.g-node.org/DB_123/IPS_parietal_phosphenes", "relation": "requires", "scheme": "url"}
+  ]
+}

@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "tms-phosphene-perception: code, pre-registration and frozen detectors for 'TMS-evoked phosphenes carry the EEG signature of natural visual awareness'"
+authors:
+  - family-names: Galiano
+    given-names: Stefano
+    orcid: "https://orcid.org/0009-0005-0305-4914"
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/StefanoGaliano/tms-phosphene-perception"
+keywords:
+  - EEG
+  - TMS
+  - phosphenes
+  - visual awareness
+  - decoding
+  - pre-registration

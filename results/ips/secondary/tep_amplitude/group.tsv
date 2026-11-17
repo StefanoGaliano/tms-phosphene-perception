@@ -1,0 +1,4 @@
+test	n	mean	t	p	d_z	ci_low	ci_high	p_two_sided	n_above	tail	n_positive
+H1 residualized on TEP amplitude (one-sided)	17.00000	0.53205	3.19791	0.00330	0.77561	0.51325	0.55127	0.00740	13.00000		
+H1 frozen (check = q41 primary)	17.00000	0.53926	3.72644	0.00140	0.90380	0.51904	0.55876	0.00290	13.00000		
+TEP amplitude alone, AUC vs 0.5 (two-sided)	17.00000	0.52138		0.07860	0.45446	0.49986	0.54300			2.00000	10.00000

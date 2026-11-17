@@ -78,8 +78,14 @@ def main() -> None:
     res["a_ips_clusters"] = [{k: float(v) for k, v in r.items()} for r in
                              cl[cl["p"] < 0.05].to_dict("records")]
     a, b = wmean(ips, t, W).mean(), wmean(occ, t, W).mean()
-    res["c_share_carried"] = {"ips": (0.5393 - 0.5) / (a - 0.5), "occ": (0.5399 - 0.5) / (b - 0.5),
-                              "frozen_transfer": {"ips": 0.5393, "occ": 0.5399}}
+    # Frozen-detector transfer read from the current H1 results (was hard-coded; the occipital
+    # value 0.5399 was the 17-subject run, stale after the sub-18 O1 re-run of 2026-11-16).
+    f_ips = float(json.loads((ROOT / "results" / "ips" / "summary.json").read_text())
+                  ["primary"]["mean"])
+    t2 = pd.read_csv(ROOT / "results" / "phase3" / "t2_tests_primary.tsv", sep="\t")
+    f_occ = float(t2.loc[t2["test"] == "H1 primary", "mean"].iloc[0])
+    res["c_share_carried"] = {"ips": (f_ips - 0.5) / (a - 0.5), "occ": (f_occ - 0.5) / (b - 0.5),
+                              "frozen_transfer": {"ips": f_ips, "occ": f_occ}}
     for site in ("P3", "P4"):
         v = [wmean(curves[r], t, W) for r in curves if rec_site[r] == site]
         res[f"d_{site}"] = {"mean": float(np.mean(v)), "n": len(v)}
